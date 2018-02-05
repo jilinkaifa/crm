@@ -1,0 +1,87 @@
+.title{
+	margin-top: 0%;
+	text-align: center;
+	color: #fff;
+	margin-bottom: 20px;
+}
+
+.login-bg{
+	background: url(/img/backgroundimg.jpg) no-repeat top right;
+	height: 265px;
+	/*margin-right:-49px;*/
+	padding-right: 0px;
+	margin-right: 0px; 
+}
+.page{
+	padding-top: 10%;
+	background: url(/img/backgroundPicture.jpg) no-repeat ;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	background-size:100%; 
+}
+.login-box .form-group{
+	margin-bottom: 0;
+}
+.input-group {
+	padding-top: 33px;
+    height: 68px;
+}
+.input-group input.form-control{
+    height: 40px;
+    float: left;
+	width: 313px;
+}
+.entry{
+	padding-top: 48px;
+	margin-left: 70px;
+}
+.glyphicon-remove{
+	top: 36px !important;
+	/*position: fixed !important;*/
+}
+.glyphicon-ok{
+	top: 36px !important;
+}
+.input-group .input-group-addon{
+	float:left;
+	padding-top: 12px;
+	padding-bottom: 14px;
+	width: 43px;
+	height: 40px;
+}
+.input-group-addon,
+.btn{
+	border-radius: 0 !important;
+	height: 30px;
+	line-height: 2px;
+	width: 100px;
+}
+.login-body{
+	background: #FFFFFF;
+	width: 400px;
+	height: 265px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 20px;
+	/*padding: 20px;*/
+	border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+.help-block {
+    margin-top: -20px;
+    margin-left: 50px;
+}
+div.validate-error {
+	color: #f00;
+	font-size: 12px;
+	font-weight: bold;
+}
+label.error {
+	color: #f00;
+}
+input.error, select.error, textarea.error {
+	border: 1px solid red;
+	background-color: #fff6f6;
+}

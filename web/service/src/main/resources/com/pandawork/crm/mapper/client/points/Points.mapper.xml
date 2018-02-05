@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.client.points.PointsMapper">
+    <select id="listByPointsSearchDto" resultMap="pw.Points">
+        SELECT
+        points.`id` AS id,
+        points.`client_id` AS clientId,
+        points.`last_visit_date` AS lastVisitDate,
+        points.`current_points` AS currentPoints,
+        points.`current_sumpoints` AS currentSumpoints,
+        client.`name` AS clientName,
+        client.`idcard_num` AS clientIdcardNum,
+        client.`tel` AS clientTel,
+        client.`all_cost` AS allCost,
+        visit.times AS times
+        FROM `t_member_points` points,`t_client` client,(SELECT client_id,count(*) times FROM `t_visit` WHERE deleted = 0 GROUP BY client_id) visit
+        <where>
+            points.`client_id` = client.`id`
+            AND points.`deleted` = 0
+            AND client.`deleted` = 0
+            AND points.`created_time` = (SELECT MAX(created_time) FROM `t_member_points` WHERE client_id = points.`client_id` AND deleted = 0)
+            AND points.`client_id` = visit.`client_id`
+            <if test="searchDto != null">
+                <if test="searchDto.memberGroupId != null and searchDto.memberGroupId != ''">
+                    AND client.`member_group_id` = #{searchDto.memberGroupId}
+                </if>
+                <if test="searchDto.clientName != null and searchDto.clientName != ''">
+                    AND client.`name` LIKE "%"#{searchDto.clientName}"%"
+                </if>
+                <if test="searchDto.clientIdcardNum != null and searchDto.clientIdcardNum != ''" >
+                    AND client.`idcard_num` LIKE "%"#{searchDto.clientIdcardNum}"%"
+                </if>
+                <if test="searchDto.clientTel != null and searchDto.clientTel != ''">
+                    AND client.`tel` LIKE "%"#{searchDto.clientTel}"%"
+                </if>
+                <if test="searchDto.startDate != null and searchDto.startDate != ''">
+                    AND points.`last_visit_date` >= #{searchDto.startDate}
+                </if>
+                <if test="searchDto.endDate != null and searchDto.endDate != ''">
+                    AND points.`last_visit_date` &lt;= #{searchDto.endDate}
+                </if>
+            </if>
+        </where>
+        GROUP BY points.`client_id`
+        ORDER BY points.`created_time` DESC
+        <if test="searchDto != null and searchDto.offset >= 0 and searchDto.pageSize > 0 ">
+            LIMIT #{searchDto.offset}, #{searchDto.pageSize}
+        </if>
+    </select>
+
+    <select id="getLastPointsByClientId" resultMap="pw.Points">
+        SELECT *
+        FROM `t_member_points` points
+        <where>
+            points.`client_id`= #{clientId}
+            AND points.`created_time` = (SELECT MAX(points.`created_time`) FROM `t_member_points`points WHERE points.`client_id` = #{clientId}  AND points.`deleted` = 0
+            GROUP BY points.`client_id`)
+        </where>
+    </select>
+
+    <select id="listVisitByClientId" resultMap="pw.Points">
+        SELECT
+        points.`id` AS id,
+        points.`last_visit_date` AS lastVisitDate,
+        points.`points_date` AS pointsDate,
+        points.`points_from` AS pointsFrom,
+        points.`points_size` AS pointsSize,
+        points.`current_points` AS currentPoints,
+        points.`current_sumpoints` AS currentSumpoints
+        FROM `t_member_points` points
+        <where>
+            points.`deleted` = 0 AND points.`points_from` = 0
+            <if test="searchDto != null">
+                <if test="searchDto.clientId != null and searchDto.clientId >= 0">
+                    AND points.`client_id` = #{searchDto.clientId}
+                </if>
+                <if test="searchDto.startDate != null and searchDto.startDate !=''">
+                    AND points.`last_visit_date` >= #{searchDto.startDate}
+                </if>
+                <if test="searchDto.endDate != null and searchDto.endDate !=''">
+                    AND points.`last_visit_date` &lt;= #{searchDto.endDate}
+                </if>
+                <if test="searchDto.pointsSize != null">
+                    AND points.`points_size` = #{searchDto.pointsSize}
+                </if>
+            </if>
+        </where>
+        ORDER BY points.`created_time` DESC
+        <if test="searchDto != null and searchDto.offset >= 0 and searchDto.pageSize > 0">
+            LIMIT #{searchDto.offset}, #{searchDto.pageSize}
+        </if>
+    </select>
+
+    <select id="listByClientId" resultMap="pw.Points">
+        SELECT
+        points.`id` AS id,
+        points.`last_visit_date` AS lastVisitDate,
+        points.`visit_id` AS visitId,
+        points.`event_id` AS eventId,
+        points.`points_date` AS pointsDate,
+        points.`points_from` AS pointsFrom,
+        points.`points_size` AS pointsSize,
+        points.`current_points` AS currentPoints,
+        points.`current_sumpoints` AS currentSumpoints,
+        event.`name` AS eventName
+        FROM `t_member_points` points
+        LEFT JOIN `t_event` event ON(points.`event_id` = event.`id`)
+        <where>
+            points.`deleted` = 0
+            <if test="searchDto != null">
+                <if test="searchDto.pointsFrom != null and searchDto.pointsFrom >= 0">
+                    AND points.`points_from` = #{searchDto.pointsFrom}
+                </if>
+                <if test="searchDto.clientId != null and searchDto.clientId >= 0">
+                    AND points.`client_id` = #{searchDto.clientId}
+                </if>
+                <if test="searchDto.eventName != null and searchDto.eventName !=''">
+                    AND event.`name` = #{searchDto.eventName}
+                </if>
+                <if test="searchDto.startDate != null and searchDto.startDate !=''">
+                    AND points.`last_visit_date` >= #{searchDto.startDate}
+                </if>
+                <if test="searchDto.endDate != null and searchDto.endDate !=''">
+                    AND points.`last_visit_date` &lt;= #{searchDto.endDate}
+                </if>
+                <if test="searchDto.pointsSize != null">
+                    AND points.`points_size` = #{searchDto.pointsSize}
+                </if>
+            </if>
+        </where>
+        ORDER BY points.`created_time` DESC
+        <if test="searchDto != null and searchDto.offset >= 0 and searchDto.pageSize > 0">
+            LIMIT #{searchDto.offset}, #{searchDto.pageSize}
+        </if>
+    </select>
+
+    <update id="delPoints">
+        UPDATE t_member_points
+        SET t_member_points.`deleted` = 1
+        <where>
+            <if test="points != null">
+                <if test="points.visitId != null and points.visitId >= 0">
+                    AND t_member_points.`visit_id` = #{points.visitId}
+                </if>
+                <if test="points.eventId != null and points.eventId >= 0">
+                    AND t_member_points.`event_id` = #{points.eventId}
+                </if>
+                <if test="points.pointsItemId != null and points.pointsItemId >= 0">
+                    AND t_member_points.`points_item_id` = #{points.pointsItemId}
+                </if>
+            </if>
+        </where>
+    </update>
+
+    <select id="queryByVisit" resultMap="pw.Points">
+        SELECT
+        points. id AS id,
+        points.`client_id` AS clientId,
+        points.`last_visit_date` AS lastVisitDate,
+        points.`points_size` AS pointsSize,
+        points.`current_points` AS currentPoints,
+        points.`current_sumpoints` AS currentSumpoints,
+        points.`created_time` AS createdTime
+        FROM `t_member_points` points
+        <where>
+            points.`deleted` != 1
+            <if test="visitId != null and visitId >= 0">
+                AND points.`visit_id` = #{visitId}
+            </if>
+        </where>
+    </select>
+
+    <select id="listAfterUpdate" resultMap="pw.Points">
+        SELECT *
+        FROM `t_member_points` points
+        WHERE
+            points.`deleted` != 1  AND points.`client_id` = #{clientId}   AND points.`created_time` > #{date}
+    </select>
+
+    <update id="decreaseByVisit">
+        UPDATE t_member_points
+        SET t_member_points.`current_points` = t_member_points.`current_points` - #{points.pointsSize},
+        t_member_points.`current_sumpoints` = t_member_points.`current_sumpoints` - #{points.pointsSize}
+        <where>
+            1=1
+            <if test="points != null">
+                <if test="points.clientId != null and points.clientId >= 0">
+                    AND t_member_points.`client_id` = #{points.clientId}
+                </if>
+                <if test="points.lastVisitDate != null and points.lastVisitDate != ''">
+                    AND t_member_points.`last_visit_date` >= #{points.lastVisitDate}
+                </if>
+            </if>
+        </where>
+    </update>
+
+    <update id="updatePoints">
+        UPDATE t_member_points
+        SET t_member_points.`last_visit_date` = #{points.lastVisitDate},
+        t_member_points.`points_size` = #{points.pointsSize},
+        t_member_points.`current_points` = #{points.currentPoints},
+        t_member_points.`current_sumpoints` = #{points.currentSumpoints}
+        <where>
+            <if test="points != null and points.id != null and points.id >= 0">
+                t_member_points.`id` = #{points.id}
+            </if>
+        </where>
+    </update>
+
+    <update id="increaseByVisit">
+        UPDATE t_member_points
+        SET t_member_points.`current_points` = t_member_points.`current_points` + #{points.pointsSize},
+        t_member_points.`current_sumpoints` = t_member_points.`current_sumpoints` + #{points.pointsSize}
+        <where>
+            1=1
+            <if test="points != null">
+                <if test="points.clientId != null and points.clientId >= 0">
+                    AND t_member_points.`client_id` = #{points.clientId}
+                </if>
+                <if test="points.lastVisitDate != null and points.lastVisitDate != ''">
+                    AND t_member_points.`last_visit_date` >= #{points.lastVisitDate}
+                </if>
+            </if>
+        </where>
+    </update>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+        FROM `t_client` client,(SELECT client_id,MAX(last_visit_date) last_visit_date FROM `t_member_points` GROUP BY client_id) points
+        <where>
+            points.`client_id` = client.`id`
+            <if test="searchDto != null">
+                <if test="searchDto.clientName != null and searchDto.clientName != ''">
+                    AND client.`name` LIKE "%"#{searchDto.clientName}"%"
+                </if>
+                <if test="searchDto.clientIdcardNum != null and searchDto.clientIdcardNum != ''" >
+                    AND client.`idcard_num` LIKE "%"#{searchDto.clientIdcardNum}"%"
+                </if>
+                <if test="searchDto.clientTel != null and searchDto.clientTel != ''">
+                    AND client.`tel` = #{searchDto.clientTel}
+                </if>
+                <if test="searchDto.startDate != null and searchDto.startDate != ''">
+                    AND points.`last_visit_date` >= #{searchDto.startDate}
+                </if>
+                <if test="searchDto.endDate != null and searchDto.endDate != ''">
+                    AND points.`last_visit_date` &lt;= #{searchDto.endDate}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="countDetail" resultType="int">
+        SELECT COUNT(*)
+        FROM `t_member_points` points
+        LEFT JOIN `t_event` event ON points.`event_id` = event.`id`
+        <where>
+            points.`deleted` = 0
+            <if test="searchDto != null">
+                <if test="searchDto.pointsFrom != null and searchDto.pointsFrom >= 0">
+                    AND points.`points_from` = #{searchDto.pointsFrom}
+                </if>
+                <if test="searchDto.clientId != null and searchDto.clientId >= 0">
+                    AND points.`client_id` = #{searchDto.clientId}
+                </if>
+                <if test="searchDto.eventName != null and searchDto.eventName !=''">
+                    AND event.`name` = #{searchDto.eventName}
+                </if>
+                <if test="searchDto.startDate != null and searchDto.startDate !=''">
+                    AND points.`last_visit_date` >= #{searchDto.startDate}
+                </if>
+                <if test="searchDto.endDate != null and searchDto.endDate !=''">
+                    AND points.`last_visit_date` &lt;= #{searchDto.endDate}
+                </if>
+                <if test="searchDto.pointsSize != null">
+                    AND points.`points_size` = #{searchDto.pointsSize}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据searchDto查询积分总条数 -->
+    <select id="countByPointsSearchDto" resultType="int">
+        SELECT COUNT(1) FROM (
+        SELECT points.`id` AS id
+         FROM `t_member_points` points,`t_client` client,(SELECT client_id,count(*) times FROM `t_visit` WHERE deleted = 0 GROUP BY client_id) visit
+        <where>
+            points.`client_id` = client.`id`
+            AND points.`deleted` = 0
+            AND client.`deleted` = 0
+            AND points.`created_time` = (SELECT MAX(created_time) FROM `t_member_points` WHERE client_id = points.`client_id` AND deleted = 0)
+            AND points.`client_id` = visit.`client_id`
+            <if test="searchDto != null">
+                <if test="searchDto.memberGroupId != null and searchDto.memberGroupId != ''">
+                    AND client.`member_group_id` = #{searchDto.memberGroupId}
+                </if>
+                <if test="searchDto.clientName != null and searchDto.clientName != ''">
+                    AND client.`name` LIKE "%"#{searchDto.clientName}"%"
+                </if>
+                <if test="searchDto.clientIdcardNum != null and searchDto.clientIdcardNum != ''" >
+                    AND client.`idcard_num` LIKE "%"#{searchDto.clientIdcardNum}"%"
+                </if>
+                <if test="searchDto.clientTel != null and searchDto.clientTel != ''">
+                    AND client.`tel` LIKE "%"#{searchDto.clientTel}"%"
+                </if>
+                <if test="searchDto.startDate != null and searchDto.startDate != ''">
+                    AND points.`last_visit_date` >= #{searchDto.startDate}
+                </if>
+                <if test="searchDto.endDate != null and searchDto.endDate != ''">
+                    AND points.`last_visit_date` &lt;= #{searchDto.endDate}
+                </if>
+            </if>
+        </where>
+        GROUP BY points.`client_id`) t
+    </select>
+</mapper>

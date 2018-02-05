@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.event.CheckItemResultMapper">
+
+    <select id="listAll" resultMap="pw.CheckItemResult">
+        SELECT *
+        FROM `t_check_item_result`
+        ORDER BY id DESC
+    </select>
+
+    <select id="listByEventRecordNoticeId" resultMap="pw.CheckItemResult">
+        SELECT *
+        FROM `t_check_item_result`
+        WHERE event_record_notice_id = #{eventRecordNoticeId}
+        ORDER BY id DESC
+    </select>
+
+    <update id="updateCheckItemResult">
+        UPDATE `t_check_item_result`
+        SET t_check_item_result.`event_record_notice_id`  = #{checkItemResult.eventRecordNoticeId},
+        t_check_item_result.`check_item_id`  = #{checkItemResult.checkItemId},
+        t_check_item_result.`check_result`  = #{checkItemResult.checkResult},
+        t_check_item_result.`check_time`  = #{checkItemResult.checkTime},
+        t_check_item_result.`created_party_id`  = #{checkItemResult.createdPartyId}
+        <where>
+            t_check_item_result.`id` = #{checkItemResult.id}
+        </where>
+</update>
+
+</mapper>

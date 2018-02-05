@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.pandawork:wechat:2.1.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://F:/apache-maven-3.5.0/mvn_repo/com/pandawork/wechat/2.1.0-SNAPSHOT/wechat-2.1.0-20151021.120509-2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://F:/apache-maven-3.5.0/mvn_repo/com/pandawork/wechat/2.1.0-SNAPSHOT/wechat-2.1.0-20151021.120509-2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://F:/apache-maven-3.5.0/mvn_repo/com/pandawork/wechat/2.1.0-SNAPSHOT/wechat-2.1.0-20151021.120509-2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

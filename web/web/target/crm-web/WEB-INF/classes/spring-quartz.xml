@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+       default-autowire="byName" default-lazy-init="false">
+
+    <!-- 定时任务 start -->
+
+    <!--<bean id="countTimeTask" class="com.rest.call.timetask.CountTimeTaskService"/>-->
+    <!--<bean id="statisticsTask" class="com.rest.call.timetask.StatisticsTaskService"/>-->
+
+    <!--注销会员  第一步-->
+    <bean id="deadLineLockTask" class="com.pandawork.crm.service.client.member.impl.MemberServiceImpl"/>
+
+    <!-- 定时结算统计 第二步：配置作业类-->
+    <bean id="deadLineLock" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!--targetObject指定任务类-->
+        <property name="targetObject" ref="deadLineLockTask"/>
+        <!--targetMethod指定运行的方法 test newSettlement-->
+        <property name="targetMethod" value="deadlineLock"/>
+        <!-- 作业不并发调度 -->
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!--第三步：配置作业调度触发方式（触发器）-->
+    <bean id="cronTriggerDeadLineLock" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="deadLineLock"/>
+        <!--每天晚上00:00判断会员截止期-->
+        <property name="cronExpression" value="59 59 23 * * ?"/>
+    </bean>
+
+    <!-- 自动注销活动 -->
+    <bean id="logoutEventTask" class="com.pandawork.crm.service.event.prepare.impl.EventServiceImpl"/>
+
+    <bean id="autoLogoutEvent" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="logoutEventTask"/>
+        <property name="targetMethod" value="autoLogoutEvent"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="cronTriggerLogoutEvent" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="autoLogoutEvent"/>
+        <!-- 每天凌晨2点注销-->
+        <property name="cronExpression" value="0 0 2 * * ?"/>
+    </bean>
+
+    <!-- 自动创建活动记录通知 -->
+    <bean id="createdEventNoticeTask" class="com.pandawork.crm.service.event.prepare.impl.EventServiceImpl"/>
+
+    <bean id="createdEventNotice" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="createdEventNoticeTask"/>
+        <property name="targetMethod" value="autoCreateEventRecordNoticeAndEventTerm"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="cronTriggerCreatedEventNotice" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="createdEventNotice"/>
+        <!-- 每天凌晨2点检查预警-->
+        <property name="cronExpression" value="0 0 2 * * ?"/>
+    </bean>
+
+    <!-- 自动修改本期活动的状态为执行期或者归档每期活动 -->
+    <bean id="autoUpdateEventTermStatusTask" class="com.pandawork.crm.service.event.impl.EventTermServiceImpl"/>
+
+    <bean id="autoUpdateEventTerm" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="autoUpdateEventTermStatusTask"/>
+        <property name="targetMethod" value="autoUpdateEventTermStatus"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="cronAutoUpdateEventTermStatus" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="autoUpdateEventTerm"/>
+        <!-- 每天凌晨2点检查预警-->
+        <property name="cronExpression" value="0 0 2 * * ?"/>
+    </bean>
+
+
+
+
+    <!-- 第四步：配置调度工厂，定时器队列 -->
+    <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" autowire="no">
+        <property name="triggers">
+            <list>
+                <!-- 定时任务触发时间 ref注入的是前面配置好的触发器-->
+                <ref bean="cronTriggerDeadLineLock"/>
+                <ref bean="cronTriggerLogoutEvent"/>
+                <ref bean="cronTriggerCreatedEventNotice"/>
+                <ref bean="cronAutoUpdateEventTermStatus"/>
+                <!--<ref bean="cronTriggerUpdateDay"/>-->
+                <!--<ref bean="cronTriggerUpdateYesterDayFinanceList" />-->
+            </list>
+        </property>
+    </bean>
+    <!-- 定时任务 end -->
+</beans>

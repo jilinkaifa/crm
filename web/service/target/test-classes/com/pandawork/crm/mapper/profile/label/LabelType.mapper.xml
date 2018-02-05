@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.profile.label.LabelTypeMapper">
+
+    <select id="listAll" resultMap="pw.LabelType">
+        SELECT
+          labelType.`id` AS id,
+          labelType.`name` AS name,
+          labelType.`is_multiple` AS isMultiple,
+          labelType.`label_count` AS labelCount,
+          labelType.`label_text` AS labelText,
+          labelType.`label_comment` AS labelComment,
+          labelType.`created_party_id` AS createdPartyId,
+          labelType.`created_time` AS createdTime,
+          labelType.`last_modified_time` AS lastModifiedTime,
+          labelType.`deleted` AS deleted,
+          partyEmployee.`name` AS createdPartyName
+
+        FROM `t_label_type`labelType
+        LEFT JOIN `t_party_employee`partyEmployee ON labelType.`created_party_id` = partyEmployee.`party_id`
+
+        WHERE `deleted` = 0
+        ORDER BY `id` ASC
+    </select>
+
+    <select id="listAllAsc" resultMap="pw.LabelType">
+        SELECT
+        labelType.`id` AS id,
+        labelType.`name` AS name,
+        labelType.`is_multiple` AS isMultiple,
+        labelType.`label_count` AS labelCount,
+        labelType.`label_text` AS labelText,
+        labelType.`label_comment` AS labelComment,
+        labelType.`created_party_id` AS createdPartyId,
+        labelType.`created_time` AS createdTime,
+        labelType.`last_modified_time` AS lastModifiedTime,
+        labelType.`deleted` AS deleted,
+        partyEmployee.`name` AS createdPartyName
+
+        FROM `t_label_type`labelType
+        LEFT JOIN `t_party_employee`partyEmployee ON labelType.`created_party_id` = partyEmployee.`party_id`
+
+        WHERE `deleted` = 0
+        ORDER BY `id` ASC
+    </select>
+
+    <select id="countByLabelTypeName" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_label_type`
+        WHERE `name` = #{name}
+    </select>
+    
+    <select id="queryByKeyWord" resultMap="pw.LabelType">
+        SELECT
+          labelType.`id` AS id,
+          labelType.`name` AS name,
+          labelType.`is_multiple` AS isMultiple,
+          labelType.`label_count` AS labelCount,
+          labelType.`label_text` AS labelText,
+          labelType.`label_comment` AS labelComment,
+          labelType.`created_party_id` AS createdPartyId,
+          labelType.`created_time` AS createdTime,
+          labelType.`last_modified_time` AS lastModifiedTime,
+          labelType.`deleted` AS deleted,
+          partyEmployee.`name` AS createdPartyName
+        FROM `t_label_type`labelType
+        LEFT JOIN `t_party_employee`partyEmployee ON labelType.`created_party_id` = partyEmployee.`party_id`
+        <where>
+            <!--<if test="#{key}!=null and #{key}!=''">
+              AND labelType.`name` LIKE "%"#{key}"%"
+            </if>-->
+            <if test="key!=null and key!=''">
+                AND labelType.`name` LIKE "%"#{key}"%"
+            </if>
+              AND
+              labelType.`deleted` = 0
+        </where>
+        ORDER BY labelType.`id` ASC
+        LIMIT #{offset},#{pageSize}
+    </select>
+
+    <select id="labelTypeUsed" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_profile`
+        WHERE `label_type_id` = #{id}
+    </select>
+
+    <select id="listByPage" resultMap="pw.LabelType">
+        SELECT
+        labelType.`id` AS id,
+        labelType.`name` AS name,
+        labelType.`is_multiple` AS isMultiple,
+        labelType.`label_count` AS labelCount,
+        labelType.`label_text` AS labelText,
+        labelType.`label_comment` AS labelComment,
+        labelType.`created_party_id` AS createdPartyId,
+        labelType.`created_time` AS createdTime,
+        labelType.`last_modified_time` AS lastModifiedTime,
+        labelType.`deleted` AS deleted,
+        partyEmployee.`name` AS createdPartyName
+
+        FROM `t_label_type`labelType
+        LEFT JOIN `t_party_employee`partyEmployee ON labelType.`created_party_id` = partyEmployee.`party_id`
+        <where>
+                AND
+                labelType.`deleted`=0
+        </where>
+        ORDER BY labelType.`id` ASC
+        LIMIT #{offset},#{pageSize}
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+        FROM `t_label_type`
+        <where>
+            <if test="#{key}!=null">
+                AND
+                `t_label_type`.`name` LIKE "%"#{key}"%"
+                AND
+                `t_label_type`.deleted=0
+            </if>
+
+        </where>
+    </select>
+
+    <update id="delLabelType">
+        DELETE FROM `t_label_type`
+        WHERE `id` = #{id}
+    </update>
+
+    <select id="queryByName" resultMap="pw.LabelType">
+        SELECT *
+        FROM `t_label_type`
+        WHERE `name` = #{name}
+    </select>
+
+    <!-- 根据输入的关键字查询所有相关的标签类型 总条数 -->
+    <select id="countByKeyWord" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_label_type`labelType
+        LEFT JOIN `t_party_employee`partyEmployee ON labelType.`created_party_id` = partyEmployee.`party_id`
+        <where>
+            <!--<if test="#{key}!=null and #{key}!=''">
+              AND labelType.`name` LIKE "%"#{key}"%"
+            </if>-->
+            <if test="key!=null and key!=''">
+                AND labelType.`name` LIKE "%"#{key}"%"
+            </if>
+            AND
+            labelType.`deleted` = 0
+        </where>
+    </select>
+
+    <!-- 查询存在标签项的标签类型 -->
+    <select id="listExistLabelItem" resultMap="pw.LabelType">
+        SELECT
+        labelType.`id` AS id,
+        labelType.`name` AS name
+        FROM `t_label_type`labelType
+        LEFT JOIN `t_party_employee`partyEmployee ON labelType.`created_party_id` = partyEmployee.`party_id`
+        WHERE `deleted` = 0
+        AND  labelType.`label_count` != 0
+        ORDER BY `id` ASC
+    </select>
+
+</mapper>

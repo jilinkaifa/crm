@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.pandawork.net/web/schema/mvc"
+    xsi:schemaLocation="http://www.pandawork.net/web/schema/mvc	http://www.pandawork.net/web/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+    default-autowire="byName" default-lazy-init="false" >
+
+    <mvc:annotation-driven />
+    <!-- 解决/无法访问的问题 -->
+    <mvc:view-controller path="/" view-name="/admin" />
+
+    <mvc:interceptors>
+        <!-- Module拦截器 -->
+        <bean class="com.pandawork.crm.web.interceptor.ModuleInterceptor" />
+        <bean class="com.pandawork.crm.web.interceptor.LoginInterceptor" />
+        <bean class="com.pandawork.crm.web.interceptor.AuthorInterceptor" />
+        <bean class="com.pandawork.crm.web.interceptor.ErrorInterceptor" />
+    </mvc:interceptors>
+    <bean id="exceptionHandler" class="com.pandawork.crm.web.interceptor.ExceptionHandler" />
+
+    <mvc:pandaworkDefault/>
+    <mvc:default-servlet-handler />
+
+    <bean id="handlerAdapter" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" />
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id = "viewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+        <property name="order" value="1"></property>
+    </bean>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+    <!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->
+    <bean id="multipartResolver" class="com.pandawork.core.framework.web.spring.fileupload.PandaworkCommonsMultipartResolver">
+        <!-- 指定所上传文件的总大小不能超过200KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+        <!-- <property name="maxUploadSize" value="200000"/> -->
+        <property name="maxInMemorySize" value="4096" />
+    </bean>
+    <!-- SpringMVC在超出上传文件限制时，会抛出org.springframework.web.multipart.MaxUploadSizeExceededException -->
+    <!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中 -->
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/views/error_fileupload.jsp页面 -->
+                <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">500</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 避免IE出现下载JSON文件的情况 -->
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/html;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+    
+<!--    	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+        <property name="flowExecutor" ref="flowExecutor"/>
+    </bean> -->
+
+    <!--静态资源路径-->
+    <mvc:resources mapping="/js/**" location="resources/js/" />
+    <mvc:resources mapping="/css/**" location="resources/css/" />
+    <mvc:resources mapping="/img/**" location="resources/img/" />
+    <mvc:resources mapping="/fonts/**" location="resources/fonts/" />
+
+</beans>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pandawork.crm.mapper.party.security.SecurityGroupMapper">
+
+    <select id="listByPage" resultMap="pw.SecurityGroup">
+        SELECT *
+        FROM `t_party_security_group`
+        ORDER BY `id` DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_party_security_group`
+    </select>
+
+    <select id="listAll" resultMap="pw.SecurityGroup">
+        SELECT *
+        FROM `t_party_security_group`
+        ORDER BY `id` DESC
+    </select>
+
+    <select id="listAllGroupId" resultMap="pw.SecurityGroup">
+        SELECT `id`
+        FROM `t_party_security_group`
+        ORDER BY `id` DESC
+    </select>
+
+    <select id="listByIdList" resultMap="pw.SecurityGroup">
+        SELECT *
+        FROM `t_party_security_group`
+        <where>
+            <if test="idList != null and idList.size != 0">
+                <if test="isInList == true">
+                    IN
+                </if>
+                <if test="isInList == false">
+                    NOT IN
+                </if>
+                <foreach collection="idList" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="countByGroupName" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_party_security_group`
+        WHERE `name` = #{groupName}
+    </select>
+
+</mapper>

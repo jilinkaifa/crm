@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.client.quest.QuestItemMapper">
+
+    <!--根据searchDto查询问卷项列表-->
+    <select id="listQuestItemBySearchDto" resultMap="pw.QuestItem">
+        SELECT
+        questItem.`id` AS id,
+        questItem.`quest_id` AS questId,
+        questItem.`dic_quest_item` AS dicQuestItem,
+        dictionary1.`name` AS dicQuestItemName,
+        questItem.`quest_content` AS questContent,
+        questItem.`start_date` AS startDate,
+        questItem.`end_date` AS endDate,
+        questItem.`dosage_name` AS dosageName,
+        questItem.`dosage_quantity` AS dosageQuantity,
+        questItem.`dic_dosage_unit` AS dicDosageUnit,
+        dictionary2.`name` AS dicDosageUnitName,
+        questItem.`dosage_num` AS dosageNum,
+        questItem.`created_party_id` AS createdPartyId,
+        questItem.`created_time` AS createdTime,
+        questItem.`last_modified_time` AS lastModifiedTime
+        FROM `t_quest_item`questItem
+        LEFT JOIN `t_dictionary`dictionary1 ON  dictionary1.`id` = questItem.`dic_quest_item`
+        LEFT JOIN `t_quest`quest ON  quest.`id` = questItem.`quest_id`
+        LEFT JOIN `t_dictionary`dictionary2 ON  dictionary2.`id` = questItem.`dic_dosage_unit`
+        <where>
+            quest.`client_id` = #{searchDto.clientId}
+            <if test="searchDto != null">
+                <if test="searchDto.questItemId != null and searchDto.questItemId != ''">
+                    AND questItem.`dic_quest_item` = #{searchDto.questItemId}
+                </if>
+               <if test="searchDto.startDate != null">
+                AND questItem.`created_time` &gt;= #{searchDto.startDate}
+               </if>
+               <if test="searchDto.endDate != null">
+                AND questItem.`created_time` &lt;= #{searchDto.endDate}
+                </if>
+            </if>
+        </where>
+        ORDER BY questItem.`created_time` ASC ,questItem.`id` ASC
+        <if test="searchDto != null and searchDto.offset >= 0 and searchDto.pageSize > 0 ">
+            LIMIT #{searchDto.offset}, #{searchDto.pageSize}
+        </if>
+    </select>
+
+    <!--根据患者数量统计问卷项数量-->
+    <select id="count" resultType="Integer">
+        SELECT COUNT(1)
+        FROM `t_quest_item`questItem,`t_quest`quest
+        <where>
+            AND  quest.`client_id` = #{searchDto.clientId}   AND  quest.`id` = questItem.`quest_id`
+            <if test="searchDto != null">
+                <if test="searchDto.questItemId != null and searchDto.questItemId != ''">
+                    AND
+                    questItem.`dic_quest_item` = #{searchDto.questItemId}
+                </if>
+                <if test="searchDto.startDate != null">
+                    AND questItem.`created_time` &gt;= #{searchDto.startDate}
+                </if>
+                <if test="searchDto.endDate != null">
+                    AND questItem.`created_time` &lt;= #{searchDto.endDate}
+                </if>
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.party.group.employee.EmployeeMapper">
+
+    <!-- 查询所有员工 -->
+    <select id="listAll" resultType="Employee" parameterType="Integer" resultMap="pw.Employee">
+        SELECT *
+        FROM `t_party_employee`
+        WHERE `status` != 3
+        ORDER BY `created_time`
+    </select>
+
+    <select id="queryRoleByPartyId" parameterType="int" resultType="Integer">
+        SELECT `role_id` AS `roleId`
+        FROM `t_party_employee_role`
+        WHERE `party_id` = #{partyId}
+        ORDER BY `created_time`
+    </select>
+
+
+    <select id="queryByName" parameterType="String" resultMap="pw.Employee">
+        SELECT `id`,
+        `name`,
+        `status`
+        FROM `t_party_employee`
+        WHERE `name` = #{employeeName} AND `status` != 3
+    </select>
+
+    <select id="listRoleByPartyId" parameterType="Integer"  resultMap="pw.EmployeeRole">
+        SELECT `id` AS `id`,
+        `party_id` AS `partyId`,
+        `role_id` AS  `roleId`,
+        `created_time` AS `createdTime`,
+        `last_modified_time` AS `lastModifiedTime`
+        from `t_party_employee_role`
+        WHERE `party_id` = #{partyId} AND `status` != 3
+        ORDER BY `created_time`
+    </select>
+
+    <update id="updateStatusByPartyId" >
+        UPDATE `t_party_security_user`
+        SET `status` = #{status}
+        WHERE `party_id` = #{partyId}
+    </update>
+
+
+    <update id="updateUserStatusByPartyId" >
+        UPDATE `t_party_employee`
+        SET `status` = #{status}
+        WHERE `party_id` = #{partyId}
+    </update>
+
+    <delete id="delRoleByPartyId" parameterType="Integer" >
+        DELETE FROM `t_party_employee_role`
+        WHERE `party_id` = #{partyId}
+    </delete>
+
+    <delete id="delWaiterTableByPartyId" parameterType="integer">
+        DELETE FROM `t_party_employee_waiter_table`
+        WHERE `party_id` = #{partyId}
+    </delete>
+
+    <select id="queryByPartyId" parameterType="Integer" resultMap="pw.Employee">
+        SELECT * from `t_party_employee`
+        WHERE `party_id` = #{partyId} AND `status` != 3
+    </select>
+
+    <select id="queryByPartyIdWithoutDelete" parameterType="Integer" resultMap="pw.Employee">
+        SELECT * from `t_party_employee`
+        WHERE `party_id` = #{partyId}
+    </select>
+
+
+    <select id="listPartIdByRoles" parameterType="java.util.List" resultType="Integer">
+        SELECT DISTINCT `party_id`
+        from `t_party_employee_role`
+        <where>
+            `role_id` IN
+            <if test="roles != null and roles.size > 0">
+                <foreach collection="roles" index="index" item="roleId" open="(" separator="," close=")">
+                    #{roleId}
+                </foreach>
+            </if>
+            AND `status` != 3
+        </where>
+        ORDER BY `created_time`
+    </select>
+
+    <select id="queryByNumber" parameterType="String" resultMap="pw.Employee">
+        SELECT * FROM `t_party_employee`
+        WHERE `employee_number` = #{employeeNumber}
+          AND `status` != 3
+    </select>
+
+    <select id="queryByPhone" parameterType="String" resultMap="pw.Employee">
+         SELECT * FROM `t_party_employee` WHERE `phone` = #{phone} AND `status` != 3
+    </select>
+
+    <select id="listByPage" resultMap="pw.Employee">
+        SELECT *
+        FROM `t_party_employee` employee
+        WHERE `status` = 1
+        LEFT JOIN `t_party_security_user` partySecurityUser ON partySecurityUser.`party_id` = emlopyee.`party_id`
+        ORDER BY employee.`party_id` ASC
+        <if test="offset >= 0 and pageSize > 0">
+            LIMIT #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_party_employee`
+        WHERE `status` = 1
+    </select>
+
+    <select id="listAllNotDeleteByPage" resultMap="pw.Employee">
+        SELECT *
+        FROM `t_party_employee`
+        WHERE status != 3
+        ORDER BY id ASC
+        <if test="offset >= 0 and pageSize > 0">
+            LIMIT #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <update id="setRoleByPartyId">
+        UPDATE `t_party_employee_role`
+        SET `role_id` = #{roleId}
+        WHERE `party_id` = #{partyId}  AND `status` !=3
+    </update>
+
+    <update id="batchSetRoleById" parameterType="java.util.List">
+        UPDATE `t_party_security_user_group`
+        SET `group_id` = #{roleId}
+        WHERE user_id IN
+        <foreach collection="idList" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+
+    </update>
+
+    <update id="batchDeleteById" parameterType="java.util.List">
+        UPDATE `t_party_employee`
+        SET `status` = 3
+        WHERE id IN
+        <foreach collection="idList" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        AND `status` !=3
+
+    </update>
+
+    <update id="batchUpdateById" >
+        UPDATE `t_party_employee`
+        SET
+        <if test="userType == null ">
+          `user_type` = NULL,
+        </if>
+        <if test="userType != null ">
+            `user_type` = #{userType},
+        </if>
+        <if test="dicDepartment == null ">
+            `dic_department` = NULL,
+        </if>
+        <if test="dicDepartment != null ">
+            `dic_department` = #{dicDepartment},
+        </if>
+        <if test="dicPosition == null ">
+            `dic_position` = NULL,
+        </if>
+        <if test="dicPosition != null ">
+            `dic_position` = #{dicPosition},
+        </if>
+        <if test="dicImmediateS == null ">
+            `dic_immediate_s` = NULL
+        </if>
+        <if test="dicImmediateS != null ">
+            `dic_immediate_s` = #{dicImmediateS}
+        </if>
+        WHERE id IN
+        <foreach collection="idList" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        AND status != 3
+
+    </update>
+
+    <select id="queryNameByPartyId"  resultType="String">
+        SELECT `name`
+        FROM `t_party_employee`
+        WHERE `party_id` = #{partyId}  AND `status` !=3
+    </select>
+
+    <select id="queryEmployeeListByName" resultMap="pw.Employee">
+        SELECT *
+        FROM `t_party_employee` employee
+        <where>
+            <if test="employeeSearchDto != null">
+                <if test="employeeSearchDto.name != null and employeeSearchDto.name !='' ">
+                    employee.`name` LIKE "%"#{employeeSearchDto.name}"%"
+                </if>
+                AND employee.`status` != 3
+            </if>
+        </where>
+        ORDER BY employee.`created_time` DESC
+        <if test="employeeSearchDto != null and employeeSearchDto.offset >= 0 and employeeSearchDto.pageSize > 0">
+            LIMIT #{employeeSearchDto.offset},#{employeeSearchDto.pageSize}
+        </if>
+    </select>
+
+    <update id="delById" >
+        UPDATE
+        `t_party_employee`
+        SET status = 3
+        WHERE id = #{id}
+    </update>
+
+    <update id="delLoginStatusByPartyId">
+        UPDATE
+        `t_party_security_user`
+        SET status = 2
+        WHERE party_id = #{partyId}
+    </update>
+
+    <select id="getGroupIdByPartyId" resultType="int">
+        SELECT
+        employee.`group_id` AS groupId
+        FROM `t_party_employee` employee
+        WHERE employee.`party_id` = #{partyId}
+    </select>
+
+    <select id="countEmployeeListByName" resultType="int">
+        SELECT COUNT(0)
+        FROM `t_party_employee` employee
+        <where>
+            <if test="employeeSearchDto != null">
+                <if test="employeeSearchDto.name != null and employeeSearchDto.name !='' ">
+                    employee.`name` LIKE "%"#{employeeSearchDto.name}"%"
+                </if>
+                AND employee.`status` != 3
+            </if>
+        </where>
+    </select>
+
+    <delete id="delRoleById">
+        DELETE
+        FROM
+        `t_party_security_user_group`
+        WHERE user_id IN
+        <foreach collection="idList" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="checkLoginNameIsExist" resultType="int">
+        SELECT COUNT(0)
+        FROM `t_party_security_user`
+        WHERE `t_party_security_user`.`login_name` = #{loginName} AND status != 2
+    </select>
+
+    <select id="queryByPartyIdWithUsing" resultMap="pw.Employee">
+        SELECT *
+        FROM `t_party_employee`
+        WHERE party_id = #{partyId} AND status = 1
+    </select>
+
+    <select id="listUnderlingsByImmediateS" resultType="int">
+        SELECT employee.`party_id`
+        FROM `t_party_employee` employee
+        WHERE employee.dic_immediate_s = #{immediateSId}
+    </select>
+
+</mapper>

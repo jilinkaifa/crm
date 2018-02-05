@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.profile.analysis.AnalysisResultMapper">
+
+    <select id="listByMemberGroupId" resultMap="pw.AnalysisResult">
+        SELECT *
+        FROM `t_analysis_result`
+        WHERE `member_group_id` = #{memberGroupId}
+    </select>
+
+</mapper>

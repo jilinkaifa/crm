@@ -1,0 +1,66 @@
+.J_select{
+    width: 94px;
+    height: 29px;
+    margin-top: -22px;
+}
+.h100{
+	height: 100px;
+	padding: 5px 0px;
+}
+.select {
+    height: 32px;
+    padding: 0px 3px;
+    font-size: 12px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.w300{
+    width: 300px;
+}
+input[type="checkbox"]{
+    vertical-align:middle;
+}
+input.text{
+    text-align:center;
+}  
+.right{
+    position: relative;
+    display: inline
+}
+.h4{
+    font-size: 18px;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+.margin-left{
+    margin-left: 49px!important;
+}
+.margin-top{
+    margin-top: 20px;
+}
+.margin-bottom{
+    margin-bottom: 20px;
+}
+.tip{
+    color: red;
+}
+.inline{
+    display: inline;
+}
+.w45{
+    width: 45px;
+    padding: 6px 5px !important;
+}
+.readmine-size{
+    right: 124px !important;
+}

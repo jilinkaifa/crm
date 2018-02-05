@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.event.EventArchivedMapper">
+
+    <select id="listEventArchivedByDto" resultMap="pw.Event">
+        SELECT
+        event.`id` AS id,
+        event.`name` AS name,
+        event.`type`AS type,
+        event.`level`AS level,
+        eventRecordNotice.`event_id`AS eventId,
+        event.`created_time`AS createdTime,
+        eventRecordNotice.`event_status`AS eventStatus,
+        eventRecordNotice.`event_start_date`AS BQStartDate,
+        eventRecordNotice.`event_end_date`AS BQEndDate,
+        eventRecordNotice.`event_term_id`AS eventTermId,
+        memberGroup.`name`AS memberGroupName,
+        employee.`name`AS  createdPartyName
+        FROM `t_event`event
+        LEFT JOIN `t_event_record_notice` eventRecordNotice ON event.`id` = eventRecordNotice.`event_id`
+        LEFT JOIN `t_party_employee` employee ON event.`created_party_id` = employee.`party_id`
+        LEFT JOIN `t_member_group` memberGroup ON event.`member_group_id` = memberGroup.`id`
+
+        <where>
+            TRUE
+            <if test="eventArchivedSearchDto != null">
+                <if test="eventArchivedSearchDto.eventId != null and eventArchivedSearchDto.eventId !='' ">
+                    AND event.`id` = #{eventArchivedSearchDto.eventId}
+                </if>
+                <if test="eventArchivedSearchDto.name != null and eventArchivedSearchDto.name !=''">
+                    AND  employee.`name` LIKE "%"#{eventArchivedSearchDto.name}"%"
+                </if>
+                <if test="eventArchivedSearchDto.idcardNum != null and eventArchivedSearchDto.idcardNum !='' ">
+                    AND employee.`idcard_num` LIKE "%"#{eventArchivedSearchDto.idcardNum}"%"
+                </if>
+
+                <if test="eventArchivedSearchDto.eventName != null and eventArchivedSearchDto.eventName !='' ">
+                    AND event.`name` LIKE "%"#{eventArchivedSearchDto.eventName}"%"
+                </if>
+                <if test="eventArchivedSearchDto.eventType != null and eventArchivedSearchDto.eventType !='' ">
+                    AND event.`type` = #{eventArchivedSearchDto.eventType}
+                </if>
+                <if test="eventArchivedSearchDto.eventLevel != null and eventArchivedSearchDto.eventLevel !='' ">
+                    AND event.`level` = #{eventArchivedSearchDto.eventLevel}
+                </if>
+                <if test="eventArchivedSearchDto.memberGroupId != null and eventArchivedSearchDto.memberGroupId !='' ">
+                    AND memberGroup.`id` = #{eventArchivedSearchDto.memberGroupId}
+                </if>
+                AND (event.`is_logout` = 1 OR eventRecordNotice.`event_status` = 4) AND event.`is_marked` = 0
+            </if>
+        </where>
+        ORDER BY event.`created_time` DESC
+        <if test="eventArchivedSearchDto != null and eventArchivedSearchDto.offset >= 0 and eventArchivedSearchDto.pageSize > 0 ">
+            LIMIT #{eventArchivedSearchDto.offset}, #{eventArchivedSearchDto.pageSize}
+        </if>
+    </select>
+
+
+
+    <select id="queryEventArchivedById" resultMap="pw.Event">
+        SELECT event.`name` AS name,
+        event.`type`AS type,
+        event.`level`AS level,
+        event.`remind_time`AS remindTime,
+        event.`start_date`AS startDate,
+        event.`end_date`AS endDate,
+        event.`polling_time`AS pollingTime,
+        eventRecordNotice.`event_start_date`AS BQStartDate,
+        event.`is_points_related`AS isPointsRelated,
+        memberGroup.`name`AS memberGroupName,
+        event.`content`AS content,
+        event.`notice_content`AS noticeContent
+        FROM `t_event` event
+        LEFT JOIN `t_event_record_notice` eventRecordNotice ON event.`id` = eventRecordNotice.`event_id`
+        LEFT JOIN `t_member_group` memberGroup ON event.`member_group_id` = memberGroup.`id`
+        WHERE event.`id` = #{id}
+        ORDER BY event.`id` DESC
+        <if test="offset >= 0 and pageSize > 0">
+            LIMIT #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="countLogoutByEventSearchDto" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_event`
+        WHERE `is_logout` = 1 AND `is_marked` = 0
+    </select>
+
+    <select id="countByEventSearchDto" resultType="int">
+        SELECT COUNT(eventRecordNotice.id)
+        FROM   `t_event_record_notice` eventRecordNotice
+        LEFT JOIN `t_event` event ON event.`id` = eventRecordNotice.`event_id`
+        LEFT JOIN `t_member_group` memberGroup ON event.`member_group_id` = memberGroup.`id`
+        LEFT JOIN `t_party_employee` employee ON event.`created_party_id` = employee.`party_id`
+        <where>
+            TRUE
+            <if test="eventArchivedSearchDto != null">
+                <if test="eventArchivedSearchDto.eventId != null and eventArchivedSearchDto.eventId !='' ">
+                    AND event.`id` = #{eventArchivedSearchDto.eventId}
+                </if>
+                <if test="eventArchivedSearchDto.name != null and eventArchivedSearchDto.name !=''">
+                    AND  employee.`name` LIKE "%"#{eventArchivedSearchDto.name}"%"
+                </if>
+                <if test="eventArchivedSearchDto.idcardNum != null and eventArchivedSearchDto.idcardNum !='' ">
+                    AND employee.`idcard_num` LIKE "%"#{eventArchivedSearchDto.idcardNum}"%"
+                </if>
+
+                <if test="eventArchivedSearchDto.eventName != null and eventArchivedSearchDto.eventName !='' ">
+                    AND event.`name` LIKE "%"#{eventArchivedSearchDto.eventName}"%"
+                </if>
+                <if test="eventArchivedSearchDto.eventType != null and eventArchivedSearchDto.eventType !='' ">
+                    AND event.`type` = #{eventArchivedSearchDto.eventType}
+                </if>
+                <if test="eventArchivedSearchDto.eventLevel != null and eventArchivedSearchDto.eventLevel !='' ">
+                    AND event.`level` = #{eventArchivedSearchDto.eventLevel}
+                </if>
+                <if test="eventArchivedSearchDto.memberGroupId != null and eventArchivedSearchDto.memberGroupId !='' ">
+                    AND memberGroup.`id` = #{eventArchivedSearchDto.memberGroupId}
+                </if>
+                AND (event.`is_logout` = 1 OR eventRecordNotice.`event_status` = 4) AND event.`is_marked` = 0
+            </if>
+        </where>
+    </select>
+
+    <select id="queryIdcardByIdcard" resultType="String">
+        SELECT `idcard_num`
+        FROM `t_party_employee` employee
+        LEFT JOIN `t_event_record_notice`eventRecordNotice ON eventRecordNotice.`created_party_id` = employee.`party_id`
+        LEFT JOIN `t_event` event ON event.created_party_id = employee.party_id
+        WHERE employee.`idcard_num` LIKE "%"#{idcardNum}"%" AND (event.`is_logout` = 1 OR eventRecordNotice.`event_status` = 4) AND event.`is_marked` = 0
+        ORDER BY employee.`id` DESC
+    </select>
+
+    <select id="queryParticipantIdcardByIdcard" resultType="String">
+        SELECT `participant_idcard`
+        FROM `t_event_record_notice` eventRecordNotice
+        LEFT JOIN `t_event` event ON event.id = eventRecordNotice.event_id
+        WHERE eventRecordNotice.`participant_idcard` LIKE "%"#{idcardNum}"%" AND (event.`is_logout` = 1 OR eventRecordNotice.`event_status` = 4) AND event.`is_marked` = 0
+        ORDER BY eventRecordNotice.`id` DESC
+    </select>
+
+    <select id="countQueryEventRecordNoticeBySearchDto" resultMap="pw.EventRecordNotice">
+        SELECT*
+        FROM `t_event_record_notice`eventRecordNotice
+        <where>
+            eventRecordNotice.event_id = #{eventArchivedSearchDto.eventId}
+            <if test="eventArchivedSearchDto != null">
+                <if test="eventArchivedSearchDto.name != null and eventArchivedSearchDto.name !=''">
+                    AND  eventRecordNotice.`participant_name` LIKE "%"#{eventArchivedSearchDto.name}"%"
+                </if>
+                <if test="eventArchivedSearchDto.idcardNum != null and eventArchivedSearchDto.idcardNum !='' ">
+                    AND eventRecordNotice.`participant_idcard` LIKE "%"#{eventArchivedSearchDto.idcardNum}"%"
+                </if>
+            </if>
+        </where>
+        ORDER BY eventRecordNotice.`id` DESC
+    </select>
+
+    <select id="queryEventRecordNoticeBySearchDto" resultMap="pw.EventRecordNotice">
+        SELECT*
+        FROM `t_event_record_notice`eventRecordNotice
+        <where>
+            eventRecordNotice.event_id = #{eventArchivedSearchDto.eventId}
+            <if test="eventArchivedSearchDto != null">
+                <if test="eventArchivedSearchDto.name != null and eventArchivedSearchDto.name !=''">
+                    AND  eventRecordNotice.`participant_name` LIKE "%"#{eventArchivedSearchDto.name}"%"
+                </if>
+                <if test="eventArchivedSearchDto.idcardNum != null and eventArchivedSearchDto.idcardNum !='' ">
+                    AND eventRecordNotice.`participant_idcard` LIKE "%"#{eventArchivedSearchDto.idcardNum}"%"
+                </if>
+            </if>
+        </where>
+        ORDER BY eventRecordNotice.`id` DESC
+        <if test="eventArchivedSearchDto != null and eventArchivedSearchDto.offset >= 0 and eventArchivedSearchDto.pageSize > 0 ">
+            LIMIT #{eventArchivedSearchDto.offset}, #{eventArchivedSearchDto.pageSize}
+        </if>
+    </select>
+
+    <select id="queryEventRecordNoticeByEventId" resultType="EventRecordNotice">
+        SELECT *
+        FROM  `t_event_record_notice`eventRecordNotice
+        WHERE `event_id` = #{eventId}
+    </select>
+
+    <select id="countPointsByEventId" resultType="int">
+        SELECT	COUNT(*)
+        FROM`t_event_record_points_item`
+        WHERE event_record_notice_id = #{eventRecordNoticeId}
+    </select>
+
+    <select id="countCheckItemByEventId" resultType="int">
+        SELECT	COUNT(*)
+        FROM`t_check_item_result`
+        WHERE event_record_notice_id = #{eventRecordNoticeId}
+    </select>
+
+    <select id="queryEventIdByEventNoticeId" resultMap="pw.EventRecordNotice">
+        SELECT *
+        FROM `t_event_record_notice`
+        WHERE `id` = #{eventNoticeId}
+    </select>
+
+    <select id="listByEventId" resultMap="pw.EventRecordNotice">
+        SELECT
+        recordNotice.id AS id,
+        recordNotice.event_id AS eventId,
+        recordNotice.client_id AS clientId,
+        recordNotice.participant_name AS participantName,
+        recordNotice.participant_idcard AS participantIdcard,
+        recordNotice.event_participant_status AS eventParticipantStatus,
+        recordNotice.participant_tel AS participantTel,
+        recordNotice.event_participant_status AS participantStatus,
+        recordNotice.notice_status AS noticeStatus,
+        recordNotice.comment AS comment,
+        recordNotice.notice_time AS noticeTime,
+        recordNotice.sys_id AS sysId,
+        employee.name AS sysName
+        FROM
+        `t_event_record_notice` recordNotice
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = recordNotice.sys_id
+        LEFT JOIN `t_event` event ON event.id = recordNotice.event_id
+        WHERE recordNotice.event_id = #{eventId} AND (event.`is_logout` = 1 OR eventRecordNotice.`event_status` = 4) AND event.`is_marked` = 0
+        ORDER BY recordNotice.notice_status DESC, recordNotice.created_time DESC
+
+    </select>
+
+    <select id="listByEventIdWithoutArchived" resultMap="pw.EventRecordNotice">
+        SELECT
+        recordNotice.id AS id,
+        recordNotice.event_id AS eventId,
+        recordNotice.client_id AS clientId,
+        recordNotice.participant_name AS participantName,
+        recordNotice.participant_idcard AS participantIdcard,
+        recordNotice.event_participant_status AS eventParticipantStatus,
+        recordNotice.participant_tel AS participantTel,
+        recordNotice.event_participant_status AS participantStatus,
+        recordNotice.notice_status AS noticeStatus,
+        recordNotice.comment AS comment,
+        recordNotice.notice_time AS noticeTime,
+        recordNotice.sys_id AS sysId,
+        employee.name AS sysName
+        FROM
+        `t_event_record_notice` recordNotice
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = recordNotice.sys_id
+        LEFT JOIN `t_event` event ON event.id = recordNotice.event_id
+        WHERE recordNotice.event_id = #{eventId} AND (event.`is_logout` = 1 OR eventRecordNotice.`event_status` = 4) AND event.`is_marked` = 0
+        ORDER BY recordNotice.notice_status DESC, recordNotice.created_time DESC
+
+    </select>
+
+    <select id="queryPointsByEventId" resultMap="pw.PointsItem">
+        SELECT	*
+        FROM`t_points_item`
+        WHERE event_id = #{eventId}
+    </select>
+
+    <select id="queryCheckItemByEventId" resultMap="pw.CheckItem">
+        SELECT	*
+        FROM`t_check_item`
+        WHERE event_id = #{eventId}
+        ORDER BY `created_time` DESC
+    </select>
+
+    <select id="listEventRecordNoticeByEventId" resultMap="pw.EventRecordNotice">
+        SELECT *
+        FROM `t_event_record_notice` recordNotice
+        WHERE event_id = #{eventId}
+        ORDER BY `created_time` DESC
+    </select>
+
+    <select id="queryEventTermByEventId" resultMap="pw.EventTerm">
+        SELECT *
+        FROM `t_event_term`
+        WHERE id = #{eventId}
+    </select>
+
+
+</mapper>

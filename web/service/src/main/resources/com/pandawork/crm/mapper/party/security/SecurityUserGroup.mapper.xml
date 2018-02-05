@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pandawork.crm.mapper.party.security.SecurityUserGroupMapper">
+
+    <select id="listByUserId" resultMap="pw.SecurityUserGroup">
+        SELECT
+            userGroup.`id` as id,
+            userGroup.`user_id` as userId,
+            userGroup.`group_id` as groupId,
+            securityGroup.`name` as groupName,
+            securityGroup.`description` as groupDescription
+        FROM `t_party_security_user_group` userGroup
+        LEFT JOIN `t_party_security_group` securityGroup ON userGroup.`group_id` = securityGroup.`id`
+        WHERE userGroup.`user_id` = #{userId}
+        ORDER BY userGroup.`id`
+    </select>
+
+    <select id="listGroupIdByUserId" resultType="int">
+        SELECT
+            `group_id`
+        FROM `t_party_security_user_group`
+        WHERE `user_id` = #{userId}
+    </select>
+
+    <select id="listSecurityGroupByUserId" resultMap="pw.SecurityGroup">
+        SELECT
+            securityGroup.*
+        FROM `t_party_security_user_group` userGroup
+        LEFT JOIN `t_party_security_group` securityGroup ON userGroup.`group_id` = securityGroup.`id`
+        WHERE userGroup.user_id = #{userId}
+    </select>
+
+    <select id="listSecurityGroupByLoginName" resultMap="pw.SecurityGroup">
+        SELECT
+            securityGroup.*
+        FROM `t_party_security_user_group` userGroup
+        LEFT JOIN `t_party_security_user` securityUser ON securityUser.`id` = userGroup.`user_id`
+        LEFT JOIN `t_party_security_group` securityGroup ON userGroup.`group_id` = securityGroup.`id`
+        WHERE securityUser.`login_name` = #{loginName}
+    </select>
+
+    <delete id="delByGroupId">
+        DELETE FROM `t_party_security_user_group`
+        WHERE `group_id` = #{groupId}
+    </delete>
+
+    <delete id="delByUserId">
+        DELETE FROM `t_party_security_user_group`
+        WHERE `user_id` = #{userId}
+    </delete>
+
+    <select id="listByGroupId" resultMap="pw.SecurityUserGroup">
+        SELECT *
+        FROM
+        `t_party_security_user_group` userGroup
+        WHERE userGroup.group_id = #{groupId}
+    </select>
+
+    <select id="queryByUserId" resultMap="pw.SecurityUserGroup">
+        SELECT *
+        FROM `t_party_security_user_group` userGroup
+        WHERE userGroup.user_id = #{userId}
+    </select>
+
+</mapper>

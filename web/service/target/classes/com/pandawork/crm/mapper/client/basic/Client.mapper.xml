@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.client.basic.ClientMapper">
+
+    <!--查询相同身份证号个数-->
+    <select id="countIdCardNum"  resultType="Integer">
+        SELECT COUNT(1)
+        FROM `t_client`
+        WHERE `idcard_num` = #{idCardNum}
+    </select>
+
+    <!--检查档案号是否重复-->
+    <select id="countRecordId"  resultType="Integer">
+        SELECT COUNT(1)
+        FROM `t_client`
+        WHERE `record_id` = #{id}
+    </select>
+
+    <!--根据条件统计患者数量-->
+    <select id="count"  resultType="Integer">
+        SELECT COUNT(1)
+        FROM `t_client`client
+        <where>
+            client.`deleted`  != 1
+            <if test="searchDto != null">
+                <if test="searchDto.name != null and searchDto.name != ''">
+                    AND
+                    client.`name` LIKE "%"#{searchDto.name}"%"
+                </if>
+                <if test="searchDto.idCardNum != null and searchDto.idCardNum != ''">
+                    AND
+                    client.`idcard_num` LIKE "%"#{searchDto.idCardNum}"%"
+                </if>
+                <if test="searchDto.tel != null and searchDto.tel != ''">
+                    AND
+                    client.`tel` LIKE  "%"#{searchDto.tel}"%"
+                </if>
+                <if test="searchDto.dicType != null and searchDto.dicType != ''">
+                    AND
+                    client.`dic_type`  = #{searchDto.dicType}
+                </if>
+                <if test="searchDto.dicMCIType != null and searchDto.dicMCIType != ''">
+                    AND
+                    client.`dic_mci_type` = #{searchDto.dicMCIType}
+                </if>
+                <if test="searchDto.allCost != null and searchDto.allCost != ''">
+                    AND
+                    client.`all_cost`  >=  #{searchDto.allCost}
+                </if>
+                <if test="searchDto.startDate != null">
+                    AND client.`created_time` &gt;= #{searchDto.startDate}
+                </if>
+                <if test="searchDto.endDate != null">
+                    AND client.`created_time` &lt;= #{searchDto.endDate}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <!--条件统计会员数量-->
+    <select id="countMemberBySearchDto"  resultType="Integer">
+        SELECT COUNT(1)
+        FROM `t_client`client
+            <where>
+                `deleted`  != 1 AND `is_member` != 0
+            <if test="searchDto != null">
+                <if test="searchDto.name != null and searchDto.name != ''">
+                    AND
+                    client.`name` LIKE "%"#{searchDto.name}"%"
+                </if>
+                <if test="searchDto.idCardNum != null and searchDto.idCardNum != ''">
+                    AND
+                    client.`idcard_num` LIKE "%"#{searchDto.idCardNum}"%"
+                </if>
+                <if test="searchDto.tel != null and searchDto.tel != ''">
+                    AND
+                    client.`tel` LIKE "%"#{searchDto.tel}"%"
+                </if>
+                <if test="searchDto.memberGroupId != null and searchDto.memberGroupId != ''">
+                    AND
+                    client.`member_group_id`  = #{searchDto.memberGroupId}
+                </if>
+                <if test="searchDto.memberStatus != null and searchDto.memberStatus != ''">
+                    AND
+                    client.`member_status` = #{searchDto.memberStatus}
+                </if>
+                <if test="searchDto.level != null and searchDto.level != ''">
+                    AND
+                    client.`dic_type`  =  #{searchDto.level}
+                </if>
+                <if test="searchDto.isFixed != null">
+                    AND
+                    client.`is_fixed` = #{searchDto.isFixed}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <!--统计组内会员数量-->
+    <select id="countByGroupId"  resultType="Integer">
+        SELECT COUNT(1)
+        FROM `t_client`
+        WHERE `deleted`  != 1 AND `is_member` != 0 AND `member_group_id` = #{id}
+    </select>
+
+    <!--加入会员-->
+    <update id="addMember" parameterType="int">
+        UPDATE t_client
+        SET
+        is_member = 1
+        WHERE `id` = #{id}
+    </update>
+
+    <!--修改会员状态-->
+    <update id="updateMemberStatus" parameterType="int">
+        UPDATE t_client
+        SET
+        member_status = #{memberStatus}
+        WHERE `id` = #{id}
+    </update>
+
+    <!--修改会员信息-->
+    <update id="updateMember">
+        UPDATE t_client
+        SET
+        member_status = #{memberDto.memberStatus},
+        <if test="memberDto.recordId!= null and memberDto.recordId != ''">
+        record_id = #{memberDto.recordId},
+        </if>
+        <if test="memberDto.recordDate!= null and memberDto.recordDate != ''">
+        record_date = #{memberDto.recordDate},
+        </if>
+        member_deadline = #{memberDto.deadLine},
+        member_group_id = #{memberDto.memberGroupId},
+        is_member = 1,
+        is_fixed = #{memberDto.isFixed},
+        dic_type = #{memberDto.level},
+        name = #{memberDto.name},
+        gender = #{memberDto.gender},
+        tel = #{memberDto.tel},
+        sec_contact = #{memberDto.secContact},
+        dic_mci_type = #{memberDto.dicMCIType},
+        mci_num = #{memberDto.MCINum},
+        dic_sec_relation = #{memberDto.dicSecRelation},
+        sec_tel = #{memberDto.secTel},
+        company = #{memberDto.company},
+        diagnose_type = #{memberDto.diagnoseType},
+        height = #{memberDto.height},
+        weight = #{memberDto.weight},
+        address = #{memberDto.address},
+        dic_nation = #{memberDto.dicNation},
+        <if test="memberDto.memberPoints!= null and memberDto.memberPoints != ''">
+        member_points = #{memberDto.memberPoints},
+        </if>
+        <if test="memberDto.allPoints!= null and memberDto.allPoints != ''">
+        all_points = #{memberDto.allPoints},
+        </if>
+        hospitalization = #{memberDto.hospitalization}
+        WHERE `id` = #{memberDto.id}
+    </update>
+
+    <!--删除患者-->
+    <update id="delClient" parameterType="int">
+        UPDATE t_client
+        SET
+        deleted = #{deleted}
+        WHERE `id` = #{id}
+    </update>
+
+    <!--分页查询-->
+    <select id="listByPage"  resultMap="pw.Client">
+        SELECT  *
+        FROM `t_client`
+        WHERE `deleted`  != 1
+        ORDER BY `created_time` DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <!--分页查询会员信息-->
+    <select id="listMemberBySearchDto"  resultMap="pw.Client">
+        SELECT  *
+        FROM `t_client`client
+        <where>
+            client.`deleted`  != 1 AND client.`is_member` != 0
+            <if test="searchDto != null">
+                <if test="searchDto.name != null and searchDto.name != ''">
+                    AND
+                    client.`name` LIKE "%"#{searchDto.name}"%"
+                </if>
+                <if test="searchDto.idCardNum != null and searchDto.idCardNum != ''">
+                    AND
+                    client.`idcard_num` LIKE "%"#{searchDto.idCardNum}"%"
+                </if>
+                <if test="searchDto.tel != null and searchDto.tel != ''">
+                    AND
+                    client.`tel` LIKE "%"#{searchDto.tel}"%"
+                </if>
+                <if test="searchDto.memberGroupId != null and searchDto.memberGroupId != ''">
+                    AND
+                    client.`member_group_id`  = #{searchDto.memberGroupId}
+                </if>
+                <if test="searchDto.memberStatus != null">
+                    AND
+                    client.`member_status` = #{searchDto.memberStatus}
+                </if>
+                <if test="searchDto.level != null">
+                    AND
+                    client.`dic_type`  =  #{searchDto.level}
+                </if>
+                <if test="searchDto.isFixed != null">
+                    AND
+                    client.`is_fixed` = #{searchDto.isFixed}
+                </if>
+            </if>
+        </where>
+        ORDER BY client.`created_time` DESC
+        <if test="searchDto != null and searchDto.offset >= 0 and searchDto.pageSize > 0 ">
+            LIMIT #{searchDto.offset}, #{searchDto.pageSize}
+        </if>
+    </select>
+
+    <!--根据id查询患者-->
+    <select id="queryById"  resultMap="pw.Client">
+        SELECT  *
+        FROM `t_client`
+        WHERE  `deleted` != 1 AND `id` = #{id}
+    </select>
+
+    <!--根据会员组id查询会员列表-->
+    <select id="listByMemberGroupId"  resultMap="pw.Client">
+        SELECT  *
+        FROM `t_client`
+        WHERE `member_group_id` = #{id} AND `deleted`  != 1
+    </select>
+
+    <!--根据searchDto查询患者列表-->
+    <select id="listBySearchDto" resultMap="pw.Client">
+        SELECT
+        client.`id` AS id,
+        client.`name` AS name,
+        client.`gender` AS gender,
+        client.`idcard_num` AS idCardNum,
+        client.`tel` AS tel,
+        client.`diagnose_type` AS diagnoseType,
+        client.`dic_Type` AS dicType,
+        client.`dic_mci_type` AS dicMCIType,
+        client.`all_cost` AS allCost,
+        client.`created_party_id` AS createdPartyId,
+        client.`created_time` AS createdTime,
+        client.`last_modified_time` AS lastModifiedTime
+        FROM `t_client`client
+        <where>
+            client.`deleted`  != 1
+            <if test="searchDto != null">
+                <if test="searchDto.name != null and searchDto.name != ''">
+                    AND
+                    client.`name` LIKE "%"#{searchDto.name}"%"
+                </if>
+                <if test="searchDto.idCardNum != null and searchDto.idCardNum != ''">
+                    AND
+                    client.`idcard_num` LIKE "%"#{searchDto.idCardNum}"%"
+                </if>
+                <if test="searchDto.tel != null and searchDto.tel != ''">
+                    AND
+                    client.`tel` LIKE  "%"#{searchDto.tel}"%"
+                </if>
+                <if test="searchDto.dicType != null and searchDto.dicType != ''">
+                    AND
+                    client.`dic_type`  = #{searchDto.dicType}
+                </if>
+                <if test="searchDto.dicMCIType != null and searchDto.dicMCIType != ''">
+                    AND
+                    client.`dic_mci_type` = #{searchDto.dicMCIType}
+                </if>
+                <if test="searchDto.allCost != null and searchDto.allCost != ''">
+                    AND
+                    client.`all_cost`  >=  #{searchDto.allCost}
+                </if>
+                <if test="searchDto.startDate != null">
+                    AND client.`created_time` &gt;= #{searchDto.startDate}
+                </if>
+                <if test="searchDto.endDate != null">
+                    AND client.`created_time` &lt;= #{searchDto.endDate}
+                </if>
+            </if>
+        </where>
+        ORDER BY client.`last_modified_time` DESC
+        <if test="searchDto != null and searchDto.offset >= 0 and searchDto.pageSize > 0 ">
+            LIMIT #{searchDto.offset}, #{searchDto.pageSize}
+        </if>
+    </select>
+
+    <!--模糊查询患者搜索框返回备选值-->
+    <select id="listForSearch" resultMap="pw.Client">
+        SELECT
+        client.`id` AS id,
+        client.`name` AS name,
+        client.`gender` AS gender,
+        client.`idcard_num` AS idCardNum,
+        client.`tel` AS tel,
+        client.`diagnose_type` AS diagnoseType,
+        client.`dic_Type` AS dicType,
+        dictionary1.`name` AS dicTypeName,
+        client.`dic_mci_type` AS dicMCIType,
+        dictionary2.`name` AS dicMCITypeName,
+        client.`all_cost` AS allCost,
+        client.`created_party_id` AS createdPartyId,
+        client.`created_time` AS createdTime,
+        client.`last_modified_time` AS lastModifiedTime
+        FROM `t_client`client
+        LEFT JOIN `t_dictionary`dictionary1 ON dictionary1.`id` = client.`dic_Type`
+        LEFT JOIN `t_dictionary`dictionary2 ON dictionary2.`id` = client.`dic_mci_type`
+        <where>
+            client.`deleted`  != 1
+            <if test="searchDto != null">
+                <if test="searchDto.isMember != null and searchDto.isMember  != 0">
+                    AND
+                    client.`is_member` != 0
+                </if>
+                <if test="searchDto.name != null and searchDto.name != ''">
+                    AND
+                    client.`name` LIKE "%"#{searchDto.name}"%"
+                </if>
+                <if test="searchDto.idCardNum != null and searchDto.idCardNum != ''">
+                    AND
+                    client.`idcard_num` LIKE "%"#{searchDto.idCardNum}"%"
+                </if>
+                <if test="searchDto.tel != null and searchDto.tel != ''">
+                    AND
+                    client.`tel` LIKE "%"#{searchDto.tel}"%"
+                </if>
+                <if test="searchDto.memberGroupId != null and searchDto.memberGroupId != ''">
+                    AND
+                    client.`member_group_id`  = #{searchDto.memberGroupId}
+                </if>
+                <if test="searchDto.dicType != null and searchDto.dicType != ''">
+                    AND
+                    client.`dic_type`  = #{searchDto.dicType}
+                </if>
+                <if test="searchDto.dicMCIType != null and searchDto.dicMCIType != ''">
+                    AND
+                    client.`dic_mci_type` = #{searchDto.dicMCIType}
+                </if>
+                <if test="searchDto.allCost != null and searchDto.allCost != ''">
+                    AND
+                    client.`all_cost`  >=  #{searchDto.allCost}
+                </if>
+            </if>
+        </where>
+        ORDER BY client.`last_modified_time` DESC
+        LIMIT 20
+    </select>
+
+    <!--模糊查询患者搜索框返回备选值-->
+    <select id="listMemberForSearch" resultMap="pw.Client">
+        SELECT
+        client.`id` AS id,
+        client.`name` AS name,
+        client.`gender` AS gender,
+        client.`idcard_num` AS idCardNum,
+        client.`tel` AS tel,
+        client.`diagnose_type` AS diagnoseType,
+        client.`dic_Type` AS dicType,
+        dictionary1.`name` AS dicTypeName,
+        client.`dic_mci_type` AS dicMCIType,
+        dictionary2.`name` AS dicMCITypeName,
+        client.`all_cost` AS allCost,
+        client.`created_party_id` AS createdPartyId,
+        client.`created_time` AS createdTime,
+        client.`last_modified_time` AS lastModifiedTime
+        FROM `t_client`client
+        LEFT JOIN `t_dictionary`dictionary1 ON dictionary1.`id` = client.`dic_Type`
+        LEFT JOIN `t_dictionary`dictionary2 ON dictionary2.`id` = client.`dic_mci_type`
+        <where>
+            client.`deleted`  != 1
+            <if test="searchDto != null">
+                <if test="searchDto.isMember != null and searchDto.isMember  != 0">
+                    AND
+                    client.`is_member` != 0
+                </if>
+                <if test="searchDto.name != null and searchDto.name != ''">
+                    AND
+                    client.`name` LIKE "%"#{searchDto.name}"%"
+                </if>
+                <if test="searchDto.idCardNum != null and searchDto.idCardNum != ''">
+                    AND
+                    client.`idcard_num` LIKE "%"#{searchDto.idCardNum}"%"
+                </if>
+                <if test="searchDto.tel != null and searchDto.tel != ''">
+                    AND
+                    client.`tel` LIKE "%"#{searchDto.tel}"%"
+                </if>
+                <if test="searchDto.dicType != null and searchDto.dicType != ''">
+                    AND
+                    client.`dic_type`  = #{searchDto.dicType}
+                </if>
+                <if test="searchDto.dicMCIType != null and searchDto.dicMCIType != ''">
+                    AND
+                    client.`dic_mci_type` = #{searchDto.dicMCIType}
+                </if>
+                <if test="searchDto.allCost != null and searchDto.allCost != ''">
+                    AND
+                    client.`all_cost`  >=  #{searchDto.allCost}
+                </if>
+                <if test="searchDto.memberGroupId != null and searchDto.memberGroupId != ''">
+                    AND
+                    client.`member_group_id`  = #{searchDto.memberGroupId}
+                </if>
+            </if>
+        </where>
+        ORDER BY client.`last_modified_time` DESC
+        LIMIT 20
+    </select>
+
+</mapper>

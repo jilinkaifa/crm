@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.event.EventRecordNoticeMapper">
+
+    <select id="queryByEventTermId" resultMap="pw.EventRecordNotice">
+        SELECT
+        recordNotice.id AS id,
+        recordNotice.event_id AS eventId,
+        recordNotice.event_start_date AS eventStartDate,
+        recordNotice.event_end_date AS eventEndDate,
+        recordNotice.member_group_id AS memberGroupId,
+        memberGroup.name AS memberGroupName,
+        recordNotice.client_id AS clientId,
+        recordNotice.participant_name AS participantName,
+        recordNotice.participant_idcard AS participantIdcard,
+        recordNotice.participant_tel AS participantTel,
+        recordNotice.notice_status AS noticeStatus,
+        recordNotice.comment AS comment,
+        recordNotice.notice_time AS noticeTime,
+        recordNotice.sys_id AS sysId,
+        employee.name AS sysName,
+        eventTerm.start_date AS BQStartDate,
+        recordNotice.event_participant_times AS eventParticipantTimes,
+        recordNotice.event_participant_status AS eventParticipantStatus,
+        eventTerm.id AS eventTermId,
+        recordNotice.event_status AS eventStatus
+        FROM
+        `t_event_record_notice` recordNotice
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = recordNotice.sys_id
+        LEFT JOIN `t_member_group` memberGroup ON memberGroup.id = recordNotice.member_group_id
+        LEFT JOIN `t_event_term` eventTerm ON eventTerm.id = recordNotice.event_term_id
+        <where>
+            TRUE
+            <if test="participantName != null and participantName != ''">
+              AND  recordNotice.participant_name LIKE "%"#{participantName}"%"
+            </if>
+            <if test="participantIdcard != null and participantIdcard != ''">
+              AND  recordNotice.participant_idcard LIKE "%"#{participantIdcard}"%"
+            </if>
+            AND recordNotice.event_term_id = #{eventTermId} AND (recordNotice.notice_status = 1 OR recordNotice.notice_status = 2)
+        </where>
+        ORDER BY recordNotice.notice_status ASC, recordNotice.created_time DESC
+        <if test="offset >= 0 and pageSize > 0">
+            LIMIT #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="countByEventTermId" resultType="int">
+        SELECT COUNT(0)
+        FROM
+        `t_event_record_notice` recordNotice
+        LEFT JOIN `t_event_term` eventTerm ON eventTerm.id = recordNotice.event_term_id
+        <where>
+            TRUE
+            <if test="participantName != null and participantName != ''">
+                 AND  recordNotice.participant_name LIKE "%"#{participantName}"%"
+            </if>
+            <if test="participantIdcard != null and participantIdcard != ''">
+                 AND  recordNotice.participant_idcard LIKE "%"#{participantIdcard}"%"
+            </if>
+            AND recordNotice.event_term_id = #{eventTermId} AND (recordNotice.notice_status = 1 OR recordNotice.notice_status = 2)
+        </where>
+    </select>
+
+    <select id="queryByEventTermIdWithoutNotice" resultMap="pw.EventRecordNotice">
+        SELECT
+        recordNotice.id AS id,
+        recordNotice.event_id AS eventId,
+        recordNotice.client_id AS clientId,
+        recordNotice.participant_name AS participantName,
+        recordNotice.participant_idcard AS participantIdcard,
+        recordNotice.participant_tel AS participantTel,
+        recordNotice.notice_status AS noticeStatus,
+        recordNotice.comment AS comment,
+        recordNotice.notice_time AS noticeTime,
+        recordNotice.sys_id AS sysId,
+        employee.name AS sysName
+        FROM
+        `t_event_record_notice` recordNotice
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = recordNotice.sys_id
+        WHERE recordNotice.event_term_id = #{eventTermId} AND recordNotice.notice_status = 1
+        ORDER BY recordNotice.created_time DESC
+        <if test="offset >= 0 and pageSize > 0">
+            LIMIT #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="listNameTop20ByEventTermId" resultMap="pw.EventRecordNotice">
+        SELECT
+        DISTINCT recordNotice.participant_name AS participantName
+        FROM
+        `t_event_record_notice` recordNotice
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = recordNotice.sys_id
+        LEFT JOIN `t_member_group` memberGroup ON memberGroup.id = recordNotice.member_group_id
+        LEFT JOIN `t_event_term` eventTerm ON eventTerm.id = recordNotice.event_id
+        <where>
+            TRUE
+            <if test="participantName != null and participantName != ''">
+               AND recordNotice.participant_name LIKE "%"#{participantName}"%"
+            </if>
+            AND recordNotice.event_term_id = #{eventTermId} AND (recordNotice.notice_status = 1 OR recordNotice.notice_status = 2)
+        </where>
+        ORDER BY recordNotice.created_time DESC
+        LIMIT 20
+    </select>
+
+    <select id="listIdcardTop20ByEventTermId" resultMap="pw.EventRecordNotice">
+        SELECT
+        DISTINCT recordNotice.participant_idcard AS participantIdcard
+        FROM
+        `t_event_record_notice` recordNotice
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = recordNotice.sys_id
+        LEFT JOIN `t_member_group` memberGroup ON memberGroup.id = recordNotice.member_group_id
+        LEFT JOIN `t_event_term` eventTerm ON eventTerm.id = recordNotice.event_id
+        <where>
+            TRUE
+            <if test="participantIdcard != null and participantIdcard != ''">
+               AND recordNotice.participant_idcard LIKE "%"#{participantIdcard}"%"
+            </if>
+            AND recordNotice.event_term_id = #{eventTermId} AND (recordNotice.notice_status = 1 OR recordNotice.notice_status = 2)
+        </where>
+        ORDER BY recordNotice.created_time DESC
+        LIMIT 20
+    </select>
+
+</mapper>

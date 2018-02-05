@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pandawork.crm.mapper.party.security.SecurityGroupPermissionMapper">
+
+    <delete id="delByGroupId">
+        DELETE FROM `t_party_security_group_permission`
+        WHERE `group_id` = #{groupId}
+    </delete>
+
+    <select id="listByGroupId" resultMap="pw.SecurityGroupPermission">
+        SELECT
+            groupPermission.*,
+            permission.`description` AS permissionDescription,
+            permission.`expression` AS permissionExpression
+        FROM `t_party_security_group_permission` groupPermission
+        LEFT JOIN `t_party_security_permission` permission ON groupPermission.`permission_id` = permission.`id`
+        WHERE `group_id` = #{groupId}
+        ORDER BY CONVERT(description USING gbk)
+    </select>
+
+    <select id="listPermissionIdByGroupId" resultType="int">
+        SELECT
+            `permission_id`
+        FROM `t_party_security_group_permission`
+        WHERE `group_id` = #{groupId}
+    </select>
+
+    <select id="listByGroupIdAndPage" resultMap="pw.SecurityGroupPermission">
+        SELECT
+            groupPermission.*,
+            permission.`description` AS permissionDescription,
+            permission.`expression` AS permissionExpression
+        FROM `t_party_security_group_permission` groupPermission
+        LEFT JOIN `t_party_security_permission` permission ON groupPermission.`permission_id` = permission.`id`
+        WHERE `group_id` = #{groupId}
+        ORDER BY CONVERT(description USING gbk)
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="countByGroupId" resultType="int">
+        SELECT count(1)
+        FROM `t_party_security_group_permission`
+        WHERE `group_id` = #{groupId}
+    </select>
+</mapper>

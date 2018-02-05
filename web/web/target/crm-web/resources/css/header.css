@@ -1,0 +1,86 @@
+.head-ui{
+	/* opacity: 0.2; */
+}
+.navbar{
+	background-image: url('../img/head-background.png');
+	background-size: 100% 100%;
+}
+.bars{
+	width:230px;
+	height:36px;
+	font-size:25px;
+}
+.fa-exchange{
+	/*width: 230px;*/
+	/*height: 40px;*/
+	padding-left: 2px;
+	padding-top: 6px;
+	cursor: pointer;
+}
+.menu-logo{
+	width: 30px;
+	height: 30px;
+	overflow: hidden;
+}
+.menu-logo img{
+	display: block;
+	width: 55px;
+	height: 45px;
+	margin-top: 5px;
+	margin-left: 15px;
+}
+.navbar-nav li{
+	/*margin-right: 2px;*/
+    padding-right: 12px;
+    cursor:pointer;
+}
+.admin-hello{
+	 padding-top:10px !important; 
+	 margin-right:-15px !important;
+	 height:40px !important;
+}
+.navbar-nav{
+	padding-right:5px !important; 
+}
+.menu-list{
+	/*padding-right:20px !important ; */
+}
+.logo-pic{
+	width: 55px;
+	height: 51px;
+	margin-left: 15px;
+	display: block;
+	background-image: url('/img/logo.png');
+	background-size:100% 100%;
+}
+.nav-text{
+    text-align: center;
+}
+.background-color{
+	background-color: #D2D3D6 !important;
+}
+#logoMenu0,#logoMenu1,#logoMenu2,#logoMenu3,#logoMenu4{
+	width: 50px;
+	height: 45px;
+	margin-left: 17px;
+	margin-top: 5px;
+	background-size:100% 100%;
+}
+#logoMenu0{
+	background-image: url('/img/index.png');
+}
+#logoMenu1{
+	background-image: url('/img/client.png');
+}
+#logoMenu2{
+	background-image: url('/img/portrayal.png');
+}
+#logoMenu3{
+	background-image: url('/img/e-crb.png');
+}
+#logoMenu4{
+	background-image: url('/img/system.png');
+}
+.no-display{
+	display: none !important;
+}

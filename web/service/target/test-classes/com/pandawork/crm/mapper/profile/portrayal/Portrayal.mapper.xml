@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.profile.portrayal.PortrayalMapper">
+
+    <select id="countProfile" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_profile`
+        WHERE `client_id` = #{clientId} AND `label_type_id` = #{labelTypeId} AND `label_item_id` = #{labelItemId}
+    </select>
+
+    <select id="queryByClientId" resultMap="pw.Profile">
+        SELECT
+          profile.`id` AS id,
+          profile.`client_id` AS clientId,
+          profile.`label_type_id` AS labelTypeId,
+          labelType.`is_multiple` AS isMultiple,
+          labelType.`name` AS labelTypeName,
+          profile.`label_item_id` AS labelItemId,
+          labelItem.`dic_label_name` AS labelItemName,
+          profile.`created_party_id` AS createdPartyId
+        FROM `t_profile` profile
+        LEFT JOIN `t_label_item` labelItem ON labelItem.`id` = profile.`label_item_id`
+        LEFT JOIN `t_label_type` labelType ON labelType.`id` = profile.`label_type_id`
+        WHERE profile.`client_id` = #{clientId}
+        ORDER BY profile.`label_type_id` ASC
+    </select>
+
+    <select id="countByClientIdAndTypeId" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_profile`
+        WHERE `client_id` = #{clientId} AND `label_type_id` = #{typeId}
+    </select>
+
+    <select id="listProfileByClientIdAndTypeId" resultType="String">
+        SELECT
+          labelItem.`dic_label_name`
+        FROM `t_profile` profile
+        LEFT JOIN `t_label_item` labelItem ON labelItem.`id` = profile.`label_item_id`
+        WHERE profile.`client_id` = #{clientId} AND profile.`label_type_id` = #{typeId}
+        ORDER BY profile.`label_type_id` ASC
+    </select>
+
+    <delete id="delByByClientIdAndTypeId">
+        DELETE
+        FROM `t_profile`
+        WHERE `client_id` = #{clientId} AND `label_type_id` = #{typeId}
+    </delete>
+
+    <select id="queryClientNameByClientIdAndTypeId" resultType="String">
+        SELECT
+          client.`name`
+        FROM `t_profile` profile
+        LEFT JOIN `t_client` client ON client.`id` = profile.`client_id`
+        WHERE profile.`client_id` = #{clientId} AND profile.`label_type_id` = #{typeId}
+    </select>
+
+    <select id="listByItemId" resultMap="pw.Profile">
+        SELECT *
+        FROM `t_profile`
+        WHERE `label_item_id` = #{itemId}
+        ORDER BY `id` ASC
+    </select>
+
+</mapper>

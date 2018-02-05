@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.profile.action.ActionAnalyseMapper">
+
+    <select id="queryIsMemberCountAll" resultMap="pw.Client">
+        SELECT t_client.`is_member` AS isMember,
+        COUNT(0) AS isMemberCount
+        FROM t_client
+        GROUP BY t_client.`is_member`;
+    </select>
+
+
+    <select id="queryDicMCITypeCountAll"  resultMap="pw.Client">
+      SELECT
+            t_client.`dic_mci_type` AS dicMCIType,
+            t_dictionary.`name` AS dicMCITypeName,
+            COUNT(0) AS dicMCITypeCount
+         FROM t_client LEFT OUTER JOIN t_dictionary ON (t_client.`dic_mci_type` = t_dictionary.`id`)
+         GROUP BY t_client.`dic_mci_type`;
+
+    </select>
+
+
+    <select id="queryGenderAll" resultMap="pw.Client">
+        SELECT DISTINCT (t_client.`gender`) AS gender
+        FROM t_client
+    </select>
+
+
+    <select id="queryDicNationNameAll" resultMap="pw.Client">
+        SELECT DISTINCT (t_dictionary.`name`) AS dicNationName,
+        t_dictionary.`id` AS dicNation
+        FROM t_client,t_dictionary
+        WHERE t_client.`dic_nation` = t_dictionary.`id`
+    </select>
+
+
+    <select id="countByActionSearchDto" resultType="int">
+        SELECT COUNT(0)
+        FROM t_client client
+        WHERE
+        <if test="actionSearchDto != null ">
+            <if test="actionSearchDto.gender != null and actionSearchDto.gender != -1">
+                client.gender = #{actionSearchDto.gender}
+            </if>
+            <if test="actionSearchDto.dicNation != null and actionSearchDto.dicNation != -1">
+                AND client.`dic_nation` = #{actionSearchDto.dicNation}
+            </if>
+            <if test="actionSearchDto.dicMciType != null and actionSearchDto.dicMciType != -1">
+                AND client.dic_mci_type = #{actionSearchDto.dicMciType}
+            </if>
+            <if test="actionSearchDto.UserType != null and actionSearchDto.UserType != -1">
+                AND client.is_member = #{actionSearchDto.UserType}
+            </if>
+        </if>
+        AND client.`id` IN
+        (SELECT t_profile.`client_id` FROM t_profile
+        <where>
+            <if test="actionSearchDto.labelTypeFirst != null and actionSearchDto.labelTypeFirst != -1">AND
+                t_profile.label_type_id = #{actionSearchDto.labelTypeFirst}
+            </if>
+            <if test="
+            actionSearchDto.labelItemFirst != null and actionSearchDto.labelItemFirst != -1">
+                AND  t_profile.label_item_id = #{actionSearchDto.labelItemFirst}
+            </if>
+
+        </where>
+        UNION
+        SELECT t_profile.`client_id` FROM t_profile
+        <where>
+            <if test="actionSearchDto.labelTypeFirst != null and actionSearchDto.labelTypeFirst != -1">
+                AND  t_profile.label_type_id = #{actionSearchDto.labelTypeSecond}
+            </if>
+            <if test="actionSearchDto.labelItemFirst != null and actionSearchDto.labelItemFirst != -1">
+                AND  t_profile.label_item_id = #{actionSearchDto.labelItemSecond}
+            </if>
+        </where>
+        UNION
+        SELECT t_profile.`client_id` FROM t_profile
+        <where>
+            <if test="actionSearchDto.labelTypeFirst != null and actionSearchDto.labelTypeFirst != -1">
+                AND  t_profile.label_type_id = #{actionSearchDto.labelTypeThird}
+            </if>
+            <if test="actionSearchDto.labelItemFirst != null and actionSearchDto.labelItemFirst != -1">
+                AND  t_profile.label_item_id = #{actionSearchDto.labelItemThird}
+            </if>
+
+        </where>
+        )
+    </select>
+
+
+    <select id="queryCountAll" resultType="int">
+        SELECT COUNT(0)
+        FROM t_client
+    </select>
+
+
+    <select id="queryClient" resultMap="pw.Client">
+        SELECT
+        client.name AS name,
+        client.tel AS tel,
+        client.idcard_num AS idcardNum,
+        client.is_member AS isMember,
+        client.member_points AS memberPoints,
+        MAX(t_visit.`cost`) AS maxCost,
+        client.all_cost AS allCost
+        FROM t_client client LEFT OUTER JOIN t_visit ON (client.`id` = t_visit.`client_id`)
+        GROUP BY client.`id`
+        LIMIT 0, 10
+
+    </select>
+
+    <select id="queryClientByActionSearchDto" resultMap="pw.Client">
+        SELECT
+        client.name AS name,
+        client.tel AS tel,
+        client.idcard_num AS idcardNum,
+        client.is_member AS isMember,
+        client.member_points AS memberPoints,
+        MAX(t_visit.`cost`) AS maxCost,
+        client.all_cost AS allCost
+        FROM t_client client LEFT OUTER JOIN t_visit ON (client.`id` = t_visit.`client_id`)
+        WHERE
+            <if test="actionSearchDto != null ">
+                <if test="actionSearchDto.gender != null and actionSearchDto.gender != -1">
+                    client.gender = #{actionSearchDto.gender}
+                </if>
+                <if test="actionSearchDto.dicNation != null and actionSearchDto.dicNation != -1">
+                    AND client.`dic_nation` = #{actionSearchDto.dicNation}
+                </if>
+                <if test="actionSearchDto.dicMciType != null and actionSearchDto.dicMciType != -1">
+                    AND client.dic_mci_type = #{actionSearchDto.dicMciType}
+                </if>
+                <if test="actionSearchDto.UserType != null and actionSearchDto.UserType != -1">
+                    AND client.is_member = #{actionSearchDto.UserType}
+                </if>
+            AND client.`id` IN
+            (SELECT t_profile.`client_id` FROM t_profile
+            <where>
+                <if test="actionSearchDto.labelTypeFirst != null and actionSearchDto.labelTypeFirst != -1">AND
+                    t_profile.label_type_id = #{actionSearchDto.labelTypeFirst}
+                </if>
+                <if test="
+                actionSearchDto.labelItemFirst != null and actionSearchDto.labelItemFirst != -1">
+                    AND  t_profile.label_item_id = #{actionSearchDto.labelItemFirst}
+                </if>
+            </where>
+            UNION
+            SELECT t_profile.`client_id` FROM t_profile
+            <where>
+                <if test="actionSearchDto.labelTypeFirst != null and actionSearchDto.labelTypeFirst != -1">
+                    AND  t_profile.label_type_id = #{actionSearchDto.labelTypeSecond}
+                </if>
+                <if test="actionSearchDto.labelItemFirst != null and actionSearchDto.labelItemFirst != -1">
+                    AND  t_profile.label_item_id = #{actionSearchDto.labelItemSecond}
+                </if>
+            </where>
+            UNION
+            SELECT t_profile.`client_id` FROM t_profile
+            <where>
+                <if test="actionSearchDto.labelTypeFirst != null and actionSearchDto.labelTypeFirst != -1">
+                    AND  t_profile.label_type_id = #{actionSearchDto.labelTypeThird}
+                </if>
+                <if test="actionSearchDto.labelItemFirst != null and actionSearchDto.labelItemFirst != -1">
+                    AND  t_profile.label_item_id = #{actionSearchDto.labelItemThird}
+                </if>
+            </where>
+            )
+            </if>
+        GROUP BY client.`id`
+            <if test="actionSearchDto.offset >= 0 and actionSearchDto.pageSize > 0 ">
+                LIMIT #{actionSearchDto.offset}, #{actionSearchDto.pageSize}
+            </if>
+    </select>
+
+
+    <select id="queryIsMemberCountByActionSearchDto" resultMap="pw.Client">
+        SELECT
+        client.`is_member` AS isMember,
+        COUNT(1) AS isMemberCount
+        FROM t_client client
+        WHERE
+            <if test="actionSearchDto != null ">
+                <if test="actionSearchDto.gender != null and actionSearchDto.gender != -1">
+                    client.gender = #{actionSearchDto.gender}
+                </if>
+                <if test="actionSearchDto.dicNation != null and actionSearchDto.dicNation != -1">
+                    AND client.`dic_nation` = #{actionSearchDto.dicNation}
+                </if>
+                <if test="actionSearchDto.dicMciType != null and actionSearchDto.dicMciType != -1">
+                    AND client.dic_mci_type = #{actionSearchDto.dicMciType}
+                </if>
+                <if test="actionSearchDto.UserType != null and actionSearchDto.UserType != -1">
+                    AND client.is_member = #{actionSearchDto.UserType}
+                </if>
+            AND client.`id` IN
+            (SELECT t_profile.`client_id` FROM t_profile
+            <where>
+                <if test="actionSearchDto.labelTypeFirst != null and actionSearchDto.labelTypeFirst != -1">AND
+                    t_profile.label_type_id = #{actionSearchDto.labelTypeFirst}
+                </if>
+                <if test="
+                actionSearchDto.labelItemFirst != null and actionSearchDto.labelItemFirst != -1">
+                    AND  t_profile.label_item_id = #{actionSearchDto.labelItemFirst}
+                </if>
+            </where>
+            UNION
+            SELECT t_profile.`client_id` FROM t_profile
+            <where>
+                <if test="actionSearchDto.labelTypeFirst != null and actionSearchDto.labelTypeFirst != -1">
+                    AND  t_profile.label_type_id = #{actionSearchDto.labelTypeSecond}
+                </if>
+                <if test="actionSearchDto.labelItemFirst != null and actionSearchDto.labelItemFirst != -1">
+                    AND  t_profile.label_item_id = #{actionSearchDto.labelItemSecond}
+                </if>
+            </where>
+            UNION
+            SELECT t_profile.`client_id` FROM t_profile
+            <where>
+                <if test="actionSearchDto.labelTypeFirst != null and actionSearchDto.labelTypeFirst != -1">
+                    AND  t_profile.label_type_id = #{actionSearchDto.labelTypeThird}
+                </if>
+                <if test="actionSearchDto.labelItemFirst != null and actionSearchDto.labelItemFirst != -1">
+                    AND  t_profile.label_item_id = #{actionSearchDto.labelItemThird}
+                </if>
+
+            </where>
+            )
+            </if>
+        GROUP BY client.`is_member`
+    </select>
+
+
+    <select id="queryDicMCITypeCountByActionSearchDto" resultMap="pw.Client">
+        SELECT
+        t_dictionary.`name` AS dicMCITypeName,
+        client.`dic_mci_type` AS disMCIType,
+        COUNT(0) AS dicMCITypeCount
+        FROM t_client client LEFT OUTER JOIN t_dictionary ON (client.`dic_mci_type` = t_dictionary.`id`)
+        WHERE
+            <if test="actionSearchDto != null ">
+                <if test="actionSearchDto.gender != null and actionSearchDto.gender != -1">
+                    client.gender = #{actionSearchDto.gender}
+                </if>
+                <if test="actionSearchDto.dicNation != null and actionSearchDto.dicNation != -1">
+                    AND client.`dic_nation` = #{actionSearchDto.dicNation}
+                </if>
+                <if test="actionSearchDto.dicMciType != null and actionSearchDto.dicMciType != -1">
+                    AND client.dic_mci_type = #{actionSearchDto.dicMciType}
+                </if>
+                <if test="actionSearchDto.UserType != null and actionSearchDto.UserType != -1">
+                    AND client.is_member = #{actionSearchDto.UserType}
+                </if>
+            AND client.`id` IN
+            (SELECT t_profile.`client_id` FROM t_profile
+                <where>
+                    <if test="actionSearchDto.labelTypeFirst != null and actionSearchDto.labelTypeFirst != -1">AND
+                        t_profile.label_type_id = #{actionSearchDto.labelTypeFirst}
+                    </if>
+                    <if test="
+                    actionSearchDto.labelItemFirst != null and actionSearchDto.labelItemFirst != -1">
+                        AND  t_profile.label_item_id = #{actionSearchDto.labelItemFirst}
+                    </if>
+                </where>
+            UNION
+            SELECT t_profile.`client_id` FROM t_profile
+                <where>
+                    <if test="actionSearchDto.labelTypeFirst != null and actionSearchDto.labelTypeFirst != -1">
+                        AND  t_profile.label_type_id = #{actionSearchDto.labelTypeSecond}
+                    </if>
+                    <if test="actionSearchDto.labelItemFirst != null and actionSearchDto.labelItemFirst != -1">
+                        AND  t_profile.label_item_id = #{actionSearchDto.labelItemSecond}
+                    </if>
+                </where>
+            UNION
+            SELECT t_profile.`client_id` FROM t_profile
+                <where>
+                    <if test="actionSearchDto.labelTypeFirst != null and actionSearchDto.labelTypeFirst != -1">
+                        AND  t_profile.label_type_id = #{actionSearchDto.labelTypeThird}
+                    </if>
+                    <if test="actionSearchDto.labelItemFirst != null and actionSearchDto.labelItemFirst != -1">
+                        AND  t_profile.label_item_id = #{actionSearchDto.labelItemThird}
+                    </if>
+                </where>
+            )
+            </if>
+        GROUP BY client.`dic_mci_type`;
+    </select>
+
+
+    <select id="queryProfessionCountByCountSearchDto" resultMap="pw.Client">
+        SELECT
+        t_dictionary.`name` AS dicMCITypeName,
+        client.`dic_mci_type` AS disMCIType,
+        COUNT(0) AS dicMCITypeCount
+        FROM t_client client LEFT OUTER JOIN t_dictionary ON (client.`dic_mci_type` = t_dictionary.`id`)
+        WHERE
+        <if test="countSearchDto != null ">
+            <if test="countSearchDto.gender != null and countSearchDto.gender != -1">
+                client.gender = #{countSearchDto.gender}
+            </if>
+            <if test="countSearchDto.dicNation != null and countSearchDto.dicNation != -1">
+                AND client.`dic_nation` = #{countSearchDto.dicNation}
+            </if>
+            <if test="countSearchDto.dicMciType != null and countSearchDto.dicMciType != -1">
+                AND client.dic_mci_type = #{countSearchDto.dicMciType}
+            </if>
+            <if test="countSearchDto.UserType != null and countSearchDto.UserType != -1">
+                AND client.is_member = #{countSearchDto.UserType}
+            </if>
+        AND client.`id` IN
+        (SELECT t_profile.`client_id` FROM t_profile
+        <where>
+            <if test="countSearchDto.labelTypeFirst != null and countSearchDto.labelTypeFirst != -1">AND
+                t_profile.label_type_id = #{countSearchDto.labelTypeFirst}
+            </if>
+            <if test="
+                    countSearchDto.labelItemFirst != null and countSearchDto.labelItemFirst != -1">
+                AND  t_profile.label_item_id = #{countSearchDto.labelItemFirst}
+            </if>
+        </where>
+        UNION
+        SELECT t_profile.`client_id` FROM t_profile
+        <where>
+            <if test="countSearchDto.labelTypeFirst != null and countSearchDto.labelTypeFirst != -1">
+                AND  t_profile.label_type_id = #{countSearchDto.labelTypeSecond}
+            </if>
+            <if test="countSearchDto.labelItemFirst != null and countSearchDto.labelItemFirst != -1">
+                AND  t_profile.label_item_id = #{countSearchDto.labelItemSecond}
+            </if>
+        </where>
+        UNION
+        SELECT t_profile.`client_id` FROM t_profile
+        <where>
+            <if test="countSearchDto.labelTypeFirst != null and countSearchDto.labelTypeFirst != -1">
+                AND  t_profile.label_type_id = #{countSearchDto.labelTypeThird}
+            </if>
+            <if test="countSearchDto.labelItemFirst != null and countSearchDto.labelItemFirst != -1">
+                AND  t_profile.label_item_id = #{countSearchDto.labelItemThird}
+            </if>
+        </where>
+        )
+        </if>
+        GROUP BY t_profile.`label_item_id`;
+    </select>
+
+    <select id="listClientBySearchDto" resultMap="pw.Client">
+        SELECT *
+        FROM `t_client` client
+        <where>
+            client.`deleted` = 0
+            <if test="actionSearchDto != null ">
+                <if test="actionSearchDto.gender != null and actionSearchDto.gender != -1">
+                    AND client.gender = #{actionSearchDto.gender}
+                </if>
+                <if test="actionSearchDto.dicNation != null and actionSearchDto.dicNation != -1">
+                    AND client.`dic_nation` = #{actionSearchDto.dicNation}
+                </if>
+                <if test="actionSearchDto.dicMciType != null and actionSearchDto.dicMciType != -1">
+                    AND client.dic_mci_type = #{actionSearchDto.dicMciType}
+                </if>
+                <if test="actionSearchDto.UserType != null and actionSearchDto.UserType != -1">
+                    AND client.is_member = #{actionSearchDto.UserType}
+                </if>
+                ORDER BY client.`created_time` DESC
+                <if test="actionSearchDto != null and actionSearchDto.offset >= 0 and actionSearchDto.pageSize > 0 ">
+                    LIMIT #{actionSearchDto.offset}, #{actionSearchDto.pageSize}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="countClientBySearchDto" resultMap="pw.Client">
+        SELECT *
+        FROM `t_client` client
+        <where>
+            client.`deleted` = 0
+            <if test="actionSearchDto != null ">
+                <if test="actionSearchDto.gender != null and actionSearchDto.gender != -1">
+                    AND client.gender = #{actionSearchDto.gender}
+                </if>
+                <if test="actionSearchDto.dicNation != null and actionSearchDto.dicNation != -1">
+                    AND client.`dic_nation` = #{actionSearchDto.dicNation}
+                </if>
+                <if test="actionSearchDto.dicMciType != null and actionSearchDto.dicMciType != -1">
+                    AND client.dic_mci_type = #{actionSearchDto.dicMciType}
+                </if>
+                <if test="actionSearchDto.UserType != null and actionSearchDto.UserType != -1">
+                    AND client.is_member = #{actionSearchDto.UserType}
+                </if>
+                ORDER BY client.`created_time` DESC
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据searchDto获取患者信息 新 20171103 -->
+    <select id="listClientBySearchDtoNew" resultMap="pw.Client">
+        SELECT *
+        FROM `t_client` client
+        <where>
+            client.`deleted` != 1
+            <if test="actionSearchDto != null ">
+                <if test="actionSearchDto.gender != null and actionSearchDto.gender != -1">
+                    AND client.gender = #{actionSearchDto.gender}
+                </if>
+                <if test="actionSearchDto.dicNation != null and actionSearchDto.dicNation != -1">
+                    AND client.`dic_nation` = #{actionSearchDto.dicNation}
+                </if>
+                <if test="actionSearchDto.dicMciType != null and actionSearchDto.dicMciType != -1">
+                    AND client.dic_mci_type = #{actionSearchDto.dicMciType}
+                </if>
+                <if test="actionSearchDto.UserType != null and actionSearchDto.UserType != -1">
+                    AND client.dic_type = #{actionSearchDto.UserType}
+                </if>
+                <if test="actionSearchDto.conditionCount != 0">
+                    AND client.id IN (SELECT client_id FROM (SELECT client_id,count(*) FROM t_profile WHERE 1 = 1
+                    <if test="actionSearchDto.labelTypeFirst != null and actionSearchDto.labelItemFirst != null">
+                        <if test="actionSearchDto.signPosition == 1">
+                            AND
+                        </if>
+                        (label_type_id = #{actionSearchDto.labelTypeFirst} AND label_item_id = #{actionSearchDto.labelItemFirst})
+                    </if>
+                    <if test="actionSearchDto.labelTypeSecond != null and actionSearchDto.labelItemSecond != null">
+                        <choose>
+                            <when test="actionSearchDto.signPosition == 2">
+                                AND
+                            </when>
+                            <otherwise>
+                                OR
+                            </otherwise>
+                        </choose>
+                        (label_type_id = #{actionSearchDto.labelTypeSecond} AND label_item_id = #{actionSearchDto.labelItemSecond})
+                    </if>
+                    <if test="actionSearchDto.labelTypeThird != null and actionSearchDto.labelItemThird != null">
+                        <choose>
+                            <when test="actionSearchDto.signPosition == 3">
+                                AND
+                            </when>
+                            <otherwise>
+                                OR
+                            </otherwise>
+                        </choose>
+                        (label_type_id = #{actionSearchDto.labelTypeThird} AND label_item_id = #{actionSearchDto.labelItemThird})
+                    </if>
+                    GROUP BY client_id HAVING count(*) >= #{actionSearchDto.conditionCount} ) t )
+                </if>
+                  ORDER BY client.`created_time` DESC
+                <if test="actionSearchDto != null and actionSearchDto.offset >= 0 and actionSearchDto.pageSize > 0 ">
+                    LIMIT #{actionSearchDto.offset}, #{actionSearchDto.pageSize}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="countClientBySearchDtoNew" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_client` client
+        <where>
+            client.`deleted` != 1
+            <if test="actionSearchDto != null ">
+                <if test="actionSearchDto.gender != null and actionSearchDto.gender != -1">
+                    AND client.gender = #{actionSearchDto.gender}
+                </if>
+                <if test="actionSearchDto.dicNation != null and actionSearchDto.dicNation != -1">
+                    AND client.`dic_nation` = #{actionSearchDto.dicNation}
+                </if>
+                <if test="actionSearchDto.dicMciType != null and actionSearchDto.dicMciType != -1">
+                    AND client.dic_mci_type = #{actionSearchDto.dicMciType}
+                </if>
+                <if test="actionSearchDto.UserType != null and actionSearchDto.UserType != -1">
+                    AND client.dic_type = #{actionSearchDto.UserType}
+                </if>
+                <if test="actionSearchDto.conditionCount != 0">
+                    AND client.id IN (SELECT client_id FROM (SELECT client_id,count(*) FROM t_profile WHERE 1 = 1
+                    <if test="actionSearchDto.labelTypeFirst != null and actionSearchDto.labelItemFirst != null">
+                        <if test="actionSearchDto.signPosition == 1">
+                            AND
+                        </if>
+                        (label_type_id = #{actionSearchDto.labelTypeFirst} AND label_item_id = #{actionSearchDto.labelItemFirst})
+                    </if>
+                    <if test="actionSearchDto.labelTypeSecond != null and actionSearchDto.labelItemSecond != null">
+                        <choose>
+                            <when test="actionSearchDto.signPosition == 2">
+                                AND
+                            </when>
+                            <otherwise>
+                                OR
+                            </otherwise>
+                        </choose>
+                        (label_type_id = #{actionSearchDto.labelTypeSecond} AND label_item_id = #{actionSearchDto.labelItemSecond})
+                    </if>
+                    <if test="actionSearchDto.labelTypeThird != null and actionSearchDto.labelItemThird != null">
+                        <choose>
+                            <when test="actionSearchDto.signPosition == 3">
+                                AND
+                            </when>
+                            <otherwise>
+                                OR
+                            </otherwise>
+                        </choose>
+                        (label_type_id = #{actionSearchDto.labelTypeThird} AND label_item_id = #{actionSearchDto.labelItemThird})
+                    </if>
+                    GROUP BY client_id HAVING count(*) >= #{actionSearchDto.conditionCount} ) t )
+                </if>
+            </if>
+        </where>
+    </select>
+</mapper>

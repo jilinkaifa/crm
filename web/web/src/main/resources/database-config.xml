@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="byName" default-lazy-init="false">
+
+    <tx:annotation-driven />
+
+    <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+        <!--<property name="jdbcUrl" value="jdbc:mysql://192.168.10.8:3306/db_crm?defaultFetchSize=25&amp;useLocalSessionState=true&amp;elideSetAutoCommit=true&amp;useUsageAdvisor=false&amp;useReadAheadInput=false&amp;useUnbufferedInput=false&amp;cacheServerConfiguration=true&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull" />-->
+        <!--<property name="password" value="mysql"/>-->
+        <property name="jdbcUrl" value="jdbc:mysql://192.168.10.8:3306/db_crm?defaultFetchSize=25&amp;useLocalSessionState=true&amp;elideSetAutoCommit=true&amp;useUsageAdvisor=false&amp;useReadAheadInput=false&amp;useUnbufferedInput=false&amp;cacheServerConfiguration=true&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull" />
+        <!--<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/db_crm?defaultFetchSize=25&amp;useLocalSessionState=true&amp;elideSetAutoCommit=true&amp;useUsageAdvisor=false&amp;useReadAheadInput=false&amp;useUnbufferedInput=false&amp;cacheServerConfiguration=true&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull" />-->
+        <!--<property name="jdbcUrl" value="jdbc:mysql://192.168.10.8:3306/test_crm?defaultFetchSize=25&amp;useLocalSessionState=true&amp;elideSetAutoCommit=true&amp;useUsageAdvisor=false&amp;useReadAheadInput=false&amp;useUnbufferedInput=false&amp;cacheServerConfiguration=true&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull" />-->
+        <!--<property name="jdbcUrl" value="jdbc:mysql://192.168.10.8:3306/wj_crm?defaultFetchSize=25&amp;useLocalSessionState=true&amp;elideSetAutoCommit=true&amp;useUsageAdvisor=false&amp;useReadAheadInput=false&amp;useUnbufferedInput=false&amp;cacheServerConfiguration=true&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull" />-->
+        <!--<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/db_crm?defaultFetchSize=25&amp;useLocalSessionState=true&amp;elideSetAutoCommit=true&amp;useUsageAdvisor=false&amp;useReadAheadInput=false&amp;useUnbufferedInput=false&amp;cacheServerConfiguration=true&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull" />-->
+        <!--<property name="password" value="root"/>-->
+        <!--<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/db_crm?defaultFetchSize=25&amp;useLocalSessionState=true&amp;elideSetAutoCommit=true&amp;useUsageAdvisor=false&amp;useReadAheadInput=false&amp;useUnbufferedInput=false&amp;cacheServerConfiguration=true&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull" />-->
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="idleConnectionTestPeriodInMinutes" value="60"/>
+        <property name="idleMaxAgeInMinutes" value="240"/>
+        <property name="maxConnectionsPerPartition" value="60"/>
+        <property name="minConnectionsPerPartition" value="20"/>
+        <property name="partitionCount" value="3"/>
+        <property name="acquireIncrement" value="10"/>
+        <property name="statementsCacheSize" value="50"/>
+        <property name="releaseHelperThreads" value="3"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="sqlSessionFactory" class="com.pandawork.core.framework.dao.mybatis.SqlSessionFactoryBean">
+        <!-- db datasource -->
+        <property name="dataSource" ref="dataSource" />
+        <!-- 实体目录 -->
+        <property name="typeAliasesPackage" value="com.pandawork.crm.common.entity;com.pandawork.crm.common.dto;" />
+        <property name="mapperLocations">
+            <list>
+                <!--这个要配置 例如 classpath:com/pandawork/test/mapper/**/*Mapper.xml-->
+                <value>classpath:com/pandawork/crm/mapper/**/*mapper.xml</value>
+            </list>
+        </property>
+        <!-- 非接口实现的配置文件 -->
+        <property name="useTag" value="false" />
+    </bean>
+
+    <bean id="sqlSessionTemplate" class="com.pandawork.core.framework.dao.mybatis.dataBaseSharing.template.RWSqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory" />
+    </bean>
+
+    <bean id="mapper" class="com.pandawork.core.framework.dao.mybatis.dataBaseSharing.template.RWMapperScannerConfigurer">
+        <property name="basePackage" value="com.pandawork.crm.mapper"></property>
+        <property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+    </bean>
+
+</beans>

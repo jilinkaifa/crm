@@ -1,0 +1,90 @@
+/*-----------------------------------------------------------------------------
+* @Description:     面板
+* @Version:         1.0.0
+* @author:          cuiy(361151713@qq.com)
+* @date             2015.9.16
+* ==NOTES:=============================================
+* v1.0.0(2015.9.16):
+*---------------------------------------------------------------------------*/
+
+.panel-info .panel-heading {
+    color: #ffffff;
+    background-color: #69d269;
+    border-color: #69d269;
+    border-radius: 0;
+    padding: 6px 15px;
+}
+.panel-info .panel-heading > h4{
+    font-size: 14px;
+}
+.panel-info .panel-body {
+    padding: 10px 15px 0px 15px;
+    border-radius: 0;
+}
+.panel-info {
+    border-color: #8eef8e;
+    border-radius: 0;
+}
+.panel-footer{
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+.btn-toolbar .btn-default{
+    border-radius: 0;
+    font-size: 12px;
+}
+.btn-toolbar .btn-primary{
+    color: #ffffff;
+    /*background-color: #43da43;*/
+    border-color: #4f8edc;
+    border-radius: 0;
+    font-size: 12px;
+    border: 0;
+    background: -webkit-linear-gradient(#83ec83, #4ca94c); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#83ec83, #4ca94c); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#83ec83, #4ca94c); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#83ec83, #4ca94c); /* 标准的语法（必须放在最后） */
+}
+.btn-toolbar .btn-primary:hover{
+    background-color: #69d269;
+}
+.panel-body .btn-success{
+    color: #ffffff;
+    background-color: #85c744;
+    border-color: #85c744;
+    border-radius: 0;
+    font-size: 12px;
+}
+.panel-body .btn-warning {
+    background-color: #f0ad4e;
+    border-color: #eea236;
+    border-radius: 0;
+    color: #ffffff;
+    font-size: 12px;
+}
+.panel-body .btn-warning:hover{
+    background-color: #e9991c;
+}
+.panel-body .btn-primary{
+    color: #ffffff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+    border-radius: 0;
+    font-size: 12px;
+}
+.panel-body .btn-success:hover{
+    background-color: #83b95b;
+}
+.panel-body .panel-tool-bar{
+    position: relative;
+}
+.panel-body .btn-danger{
+    color: #ffffff;
+    border-radius: 0;
+    font-size: 12px;
+}
+.panel-body .btn-info{
+    color: #fff;
+    font-size: 12px;
+    border-radius: 0;
+}

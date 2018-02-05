@@ -1,0 +1,674 @@
+/******************管理员面板公共样式start*************************/
+.container-head{
+    padding-right: 15px;
+}
+html,
+body{
+    font-family: "微软雅黑";
+    background-color: #e6e7e8;
+}
+.page{
+    background-color: #e6e7e8;
+}
+h4, .h4, h5, .h5, h6, .h6 {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+nav > ul > li:hover .arrow{
+    display: block;
+}
+.margin-top-0{
+    margin-top: 0;
+}
+.margin-bottom-10{
+    margin-bottom: 10px;
+}
+.margin-bottom-15{
+    margin-bottom: 15px;
+}
+.margin-bottom-20{
+    margin-bottom: 20px;
+}
+.margin-bottom-30{
+    margin-bottom: 30px;
+}
+.margin-top-15{
+    margin-top: 15px;
+}
+.margin-top-20{
+    margin-top: 20px;
+}
+.margin-top-25{
+    margin-top: 25px;
+}
+.margin-top-30{
+    margin-top: 30px;
+}
+.margin-left-10{
+    margin-left: 10px;
+}
+.margin-left-15{
+    margin-left: 15px;
+}
+.margin-left-20{
+    margin-left: 20px;
+}
+.margin-left-50{
+    margin-left: 50px; 
+}
+.margin-right-10{
+    margin-right: 10px;
+}
+.margin-right-15{
+    margin-right: 15px;
+}
+.padding-top-15{
+    padding-top: 15px;
+}
+.padding-top-6{
+    padding-top: 6px;
+}
+.padding-bottom-6{
+    padding-bottom: 6px;
+}
+.padding-bottom-15{
+    padding-bottom: 15px;
+}
+.padding-left-160{
+    padding-left: 160px;
+}
+.padding-left-15{
+    padding-left: 15px;
+}
+.padding-right-15{
+    padding-right: 15px;
+}
+.no-padding-left{
+    padding-left: 0;
+}
+.no-padding-right{
+    padding-right: 0;
+}
+.padding-right-10{
+    padding-right: 10px;
+}
+.height-18{
+    height: 18px;
+}
+form .requires{
+    color: #ff0000;
+    margin-right: 2px;
+}
+/******************管理员面板公共样式end*************************/
+
+
+/*****************管理员面板头部样式start**************************/
+.admin-nav.navbar{
+    /* sunwanlin 7.29 */
+    min-height: 80px;
+    /* background-color: #595f69; */
+    /* background: url('/img/head-background.png'); */
+    margin-bottom: 0;
+}
+.admin-nav.navbar a{
+    /*padding-left:15px;*/
+}
+.admin-nav.navbar a i{
+    padding:12px;
+}
+.logo-text{
+    /* sunwanlin 7.29 */
+    font-weight: 700;
+    font-size: 20px;
+    color: #FFF;
+    line-height: 40px;
+    height: 60px;
+    width: 235px;
+    text-align: left;
+    position: relative;
+    top: 12px;
+    left: 25px;
+    line-height: 27px;
+}
+.logo-text:hover,
+.logo-text:focus{
+    text-decoration: none;
+    color: #fff;
+}
+.hello-administrator{
+    height: 40px;
+    line-height: 40px;
+    padding-right: 15px;
+}
+.admin-nav.navbar .left-toggle{
+    /* sunwanlin 7.29 */
+    display: inline-block;
+    width: 55px;
+    height: 51px;
+    line-height: 51px;
+    color: #dedede;
+    position: relative;
+    left: 22px;
+    top: 12px;
+}
+.head-ui{
+    /* sunwanlin */
+    width: 100%;
+}
+.navbar-default .navbar-nav > li > a {
+     color: #dedede; 
+}
+.admin-nav.navbar .menu-list:link {
+    color: #dedede;
+}       /* 未访问的链接 */
+.admin-nav.navbar .menu-list:visited {
+    color: #fff;
+}   /* 已访问的链接 */
+.admin-nav.navbar .menu-list:hover {
+    color: #fff;
+}   /* 鼠标移动到链接上 */
+.admin-nav.navbar .menu-list:active {
+    color: #fff;
+}
+.admin-nav.navbar .navbar-nav > li.active{
+    background-color: #1BB133;
+}
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #fff;
+    background-color: #1BB133;
+}
+.admin-nav.navbar .menu-list{
+    line-height: 26px;
+    height: 28px;
+    padding: 0 6px;
+    display: block;
+}
+.navbar-nav > li > .dropdown-menu {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.admin-nav .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none; 
+    float: left;
+    min-width: 160px;
+    /*padding: 5px 0;*//* 注释——lily */
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 0;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+.admin-nav .dropdown-menu.arrow:before {
+    position: absolute;
+    top: -8px;
+    left: 10px;
+    display: inline-block;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+    border-left: 10px solid transparent;
+    content: '';
+}
+/* 把padding上下改为0——lily */
+.admin-nav .dropdown-menu a{
+    padding: 0px 5px;
+}
+.administrator{
+    width: 25px;
+    padding-top: 10px;
+}
+
+/*****************管理员面板头部样式end**************************/
+
+/*******************************siderbar start*********************/
+.sidebar{
+    width: 230px;
+    min-height: 600px;
+    background-color: #e6e7e8;
+    border-right: 1px solid #d2d3d6;
+    /*padding-top: 20px;*/
+}
+.sidebar > li.active > a:after {
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 9px 9px 9px 0;
+    border-color: transparent #f7f8fa transparent transparent;
+    content: "";
+    position: absolute;
+    top: 50%;
+    margin-top: -9px;
+    right: 0px;
+}
+.sidebar li > a {
+    position: relative;
+}
+.sidebar > li > a{
+    color: #3f444c;
+    display: block;
+    padding: 10px;
+    position: relative;
+    text-decoration: none;
+}
+.sidebar > li.active > a {
+    background: #595f69;
+    color: #ffffff;
+    width: 230px;
+    box-shadow: inset -1px 0 0 0 rgba(0, 0, 0, 0.1);
+}
+.sidebar > li > a:hover {
+    background-color: #d2d3d6;
+    color: #3f444c;
+    box-shadow: inset -1px 0 0 0 rgba(0, 0, 0, 0.1);
+}
+.sidebar.nav-pills > li > a {
+    border-radius: 0;
+    /*cursor: default;*/
+}
+.sidebar.nav-pills > li.active > a,
+.sidebar.nav-pills > li.active > a:hover,
+.sidebar.nav-pills > li.active > a:focus {
+    /* sunwanlin */
+  color: #fff;
+  /*background-color: #595f69;*/
+  background-color: #1bb133;
+}
+.sidebar.nav-stacked > li + li {
+    margin-top: 0; 
+    margin-left: 0;
+}
+.sidebar > li ul li a{
+    padding: 5px 10px 5px 40px;
+    display: block;
+    text-decoration: none;
+    color: #3f444c;
+}
+.sidebar > li ul li a:hover{
+   background-color: #d2d3d6;
+}
+.sidebar > li.active > a .fa.fa-angle-right{
+    transform: rotate(90deg);
+    transition: transform 0.15s ease-in 0s;
+    position: absolute;
+    right: 20px;
+    top: 12px;
+}
+.sidebar > li > ul > li > a .fa.fa-angle-right{
+    transform: rotate(0deg);
+    transition: transform 0.15s ease-in 0s;
+    position: absolute;
+    right: 20px;
+    top: 7px;
+}
+.sidebar > li > ul > li.active > a .fa.fa-angle-right{
+    transform: rotate(90deg);
+    transition: transform 0.15s ease-in 0s;
+    position: absolute;
+    right: 20px;
+    top: 7px;
+}
+.sidebar > li li.active{
+    background-color: #ccc;
+}
+.sidebar > li > ul > li.active > a{
+    /* background-color: #777b83; sunwanlin 7.29*/
+    background: url('../img/sidebar-active.png');
+    color: #000;
+}
+.sidebar > li li.active li{
+    background-color: #e6e7e8;
+}
+.sidebar > li > ul ul li a{
+    padding: 5px 10px 5px 60px;
+}
+.sidebar > li > ul ul li.active{
+    background-color: #666;
+    background-color: #777b83;
+}
+.sidebar > li > ul ul li.active a{
+    color: #fff;
+    position: relative;
+}
+.sidebar > li > ul > li.active > a .fa.fa-angle-right{
+    position: absolute;
+    top: 7px;
+}
+hr {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #d2d3d6;
+}
+.margin-left{
+    margin-left: 24px;
+}
+
+/*.angle-right{
+    position: absolute;
+    right: 20px;
+    top: 12px;
+}
+.angle-right{
+    position: absolute;
+    right: 20px;
+    top: 12px;
+}*/
+/*******************************siderbar end*********************/
+
+/*******************************holder start*********************/
+.holder{
+    font-size: 12px;
+    margin-left: 230px;
+    background-color: #f7f8fa;
+    padding-top: 5px;
+    padding-bottom: 30px;
+}
+.container {
+    width: 100%;
+}
+.breadcrumb {
+    padding: 8px 0;
+    margin-bottom: 10px;
+    list-style: none;
+    background-color: transparent;
+    border-radius: 4px;
+}
+.breadcrumb + h2{
+    font-size: 22px;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+.checkbox label, .radio label {
+    min-height: 20px;
+    padding-left: 20px;
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+    margin-right: 15px;
+}
+input[type="radio"], input[type="checkbox"] {
+    margin: 2px 0 0;
+    margin-top: 1px \9;
+    line-height: normal;
+    cursor: pointer;
+}
+.btn-default {
+    background-color: #fff;
+    color: #333;
+    border-radius: 0;
+    background-color: #e6e7e8;
+    border: 0;
+    font-size: 12px;
+}
+.btn-default:hover{
+    background-color: #d1d3d4;
+    border: 0;
+}
+a.label-info{
+    padding: 3px 8px;
+    background-color: #69d269;
+    color: #fff;
+}
+a.label-info:hover{
+    cursor: pointer;
+    background-color: #00CCFF;
+    text-decoration: none;
+}
+/*链接的默认样式hover提示禁止：*/
+a.label-defalut{
+    padding: 3px 8px;
+    background-color: #777;
+    color: #fff;
+    text-decoration: none;
+}
+a.label-defalut:hover{
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+/*******************************holder end*********************/
+
+
+/*******************************footer start*********************/
+.footer{
+    border-top: 1px solid #d2d3d6;
+    background: #edeef0;
+    margin-left: 230px;
+    height: 36px;
+    margin-top: -30px;
+    overflow: hidden;
+    padding: 5px 15px;
+    font-size: 12px;
+}
+/*******************************footer end*********************/
+
+@media (min-width: 640px) and (max-width: 767px){
+    .header-menu + ul,
+    .header-menu + ul + ul{
+        display: none;
+    }
+    .menu-list-logo{
+        float: none !important;
+    }
+    .header-menu{
+        display: block;
+        color: #dedede;
+        height: 40px;
+        line-height: 40px;
+    }
+    .header-menu:hover,
+    .header-menu:focus{
+        color: #fff;
+        text-decoration: none;
+    }
+    .sidebar{
+        display: none;
+    }
+    .holder{
+        margin-left: 0;
+    }
+}
+@media (max-width: 640px){
+    .header-menu + ul,
+    .header-menu + ul + ul{
+        display: none;
+    }
+    .menu-list-logo{
+        float: none !important;
+    }
+    .header-menu{
+        display: block;
+        color: #dedede;
+        height: 40px;
+        line-height: 40px;
+    }
+    .header-menu:hover,
+    .header-menu:focus{
+        color: #fff;
+        text-decoration: none;
+    }
+}
+
+/*******************************form extends start*********************/
+form .help-inline{
+    /*display: inline-block;*/
+    height: 30px;
+    line-height: 30px;
+}
+/*******************************form extends end*********************/
+
+
+/********************多选对话框中的样式 start*****************************/
+.mul-select button{
+    border-radius: 0;
+    font-size: 12px;
+}
+.mul-select .batch-select{
+    position: fixed;
+    color: #fff;
+}
+.mul-select .batch-select{
+    padding: 7px 8px;
+    background-color: #ff0000;
+}
+.mul-select .batch-select:hover{
+    opacity: 1;
+    color: #fff;
+    background-color: #e73c3c;
+}
+/*表头*/
+.mul-select form table thead{
+    background-color: #fff;
+}
+.mul-select form table{
+    position: relative;
+}
+/*验证*/
+.success-field{
+    background: rgba(0, 0, 0, 0) url("/resources/tool/base-widget/img/form/success-icon.png") no-repeat scroll 100% 50%;
+}
+.error-field{
+    border: 1px solid #b94a48 !important;
+    background: rgba(0, 0, 0, 0) url("../../../tool/base-widget/img/form/edit-red.png") no-repeat scroll 100% 50%;
+}
+.focus-field{
+    border: 1px solid #a0a0a0 !important;
+    background: rgba(0, 0, 0, 0) url("../../../tool/base-widget/img/form/edit-gray.png") no-repeat scroll 100% 50%;
+}
+/********************多选对话框中的样式 end*****************************/
+
+
+/********************标签的样式 start*****************************/
+.tags .label-info{
+    padding: 7px;
+    margin-right: 10px;
+    color: #fff;
+}
+.tags .label-info i{
+    margin-left: 5px;
+}
+.tags .label-info i:hover{
+    color: #dedede;
+    cursor: pointer;
+}
+/********************标签的样式 end*****************************/
+/******************** CRM *****************************/
+.btn-radius-no{
+    border-radius: 0px !important;
+    font-size: 12px !important;
+    border: none;
+}
+.padding-left{
+    padding-left: 0px !important;
+}
+.margin-top-10{
+    margin-top: 10px;
+}
+.margin-left--15{
+    margin-left: -15px;
+}
+.margin-top--10{
+    margin-top: -12px;
+}
+.margin-bottom-10{
+    margin-bottom: 8px;
+}
+.margin-bottom--10{
+    margin-bottom: -10px;
+}
+.col-sm-13{
+    width: 105% !important;
+}
+.to{
+    height: 32px;
+    width: 32px;
+    line-height: 32px;
+    display: inline-block;
+    text-align: center;
+    background-color: #eee;
+}
+.time-row{
+    float: left;
+}
+.calendar{
+    background: url("../img/calendar.jpg") right;
+    background-size: 11% 70%;
+    background-repeat:no-repeat;
+}
+.new160{
+    width: 55% !important;
+}
+.new180{
+    width: 75% !important;
+}
+.new185{
+    width: 78.7% !important;
+}
+.new190{
+    width: 80% !important;
+}
+.new200{
+    width: 85% !important;
+}
+table{
+    font-size: 12px !important;
+}
+.w220{
+    width: 230px !important;
+}
+.w210{
+    width: 175px !important;
+}
+.w30{
+    width: 30px;
+    padding: 6px 5px !important;
+}
+.record{
+    display: inline-block;
+    padding-left: 1px;
+    margin-top: 17px;
+}
+.record span{
+    padding: 5px 5px;
+    color: #337ab7;
+}
+.table tr th{
+    padding: 8px 5px !important;
+}
+.table tr td{
+    padding: 8px 5px !important;
+}
+.table tr td a{
+    padding: 3px 5px !important;
+}
+.control-width{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.width1{
+    width:61px;
+}
+.width2{
+    width: 100px;
+}
+.width3{
+    width: 200px;
+}
+.width150{
+    width: 150px;
+}

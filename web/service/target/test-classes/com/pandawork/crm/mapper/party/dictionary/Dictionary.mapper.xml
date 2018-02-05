@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.party.dictionary.DictionaryMapper">
+
+    <!--根据父类id与名称查询字典值-->
+    <select id="queryDictionaryByPIdAndName" resultMap="pw.Dictionary">
+        SELECT *
+        FROM t_dictionary dictionary
+        WHERE `deleted` != 1 AND dictionary.parent_id = #{parentId} AND dictionary.name = #{name}
+    </select>
+
+    <!--根据父类id与名称查询字典值-->
+    <select id="countDictionaryByPIdAndName" resultType="Integer">
+        SELECT  COUNT(1)
+        FROM t_dictionary dictionary
+        WHERE `deleted` != 1 AND dictionary.parent_id = #{parentId} AND dictionary.name = #{name}
+    </select>
+
+    <!--根据父类id查询字典值-->
+    <select id="listByPId" resultMap="pw.Dictionary">
+        SELECT *
+        FROM t_dictionary dictionary
+        WHERE `deleted` != 1 AND dictionary.parent_id = #{parentId}
+    </select>
+    <!--根据id查询字典值-->
+    <select id="queryById" resultMap="pw.Dictionary">
+        SELECT *
+        FROM t_dictionary dictionary
+        WHERE dictionary.id = #{id}
+        <!--防止已使用的字典值被删数据无法显示：故在此注释-->
+        <!--AND `deleted` != 1-->
+    </select>
+
+    <!--根据id查询作为父类字典值得个数-->
+    <select id="countParentById" parameterType="int" resultType="Integer">
+          SELECT COUNT(1)
+          FROM `t_dictionary`
+          WHERE `parent_id` = #{id} AND `deleted` != 1
+    </select>
+
+    <!--根据id修改删除状态-->
+    <update id="delDictionary">
+        UPDATE  t_dictionary
+        SET
+        deleted = #{deleted}
+        WHERE `id` = #{id}
+    </update>
+
+    <!--根据id查询字典值-->
+    <select id="listForSearch" resultMap="pw.Dictionary">
+        SELECT *
+        FROM t_dictionary dictionary
+        WHERE
+        `deleted` != 1 AND dictionary.parent_id = #{pId}
+        <if test="key != null and key != ''">
+            AND
+            dictionary.`name` LIKE "%"#{key}"%"
+        </if>
+    </select>
+
+    <!--查询全部字典值-->
+    <select id="listAll" resultMap="pw.Dictionary">
+        SELECT *
+        FROM t_dictionary dictionary
+        WHERE
+        `deleted` != 1
+    </select>
+
+</mapper>

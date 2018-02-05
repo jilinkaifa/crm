@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.event.AffairPreparedMapper">
+
+    <select id="listAllRejectedByPage" resultMap="pw.Event">
+        SELECT *
+        FROM `t_event` event
+        WHERE `approval_status` = 3 AND `is_logout` = 0 AND `created_party_id` = #{createdPartyId} AND `is_marked` = 0
+        ORDER BY id DESC
+        <if test="offset >= 0 and pageSize > 0 ">
+            LIMIT #{offset}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="listAllToApprovalByPage" resultMap="pw.Event">
+        SELECT
+        t_event.`created_time` AS createdTime ,
+        t_event.`approval_status` AS approvalStatus,
+        t_event.`name` AS name
+        FROM `t_event`
+        <where>
+            t_event.`approval_status` = 1 AND
+            t_event.`is_logout` = 0 AND
+            t_event.`approval_id` = #{approvalId}
+        </where>
+        ORDER BY id DESC
+        <if test="offset >= 0 and pageSize > 0 ">
+            LIMIT #{offset}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="countRejected" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_event`
+        WHERE `approval_status` = 3 AND `is_logout` = 0 AND `created_party_id` = #{createdPartyId} AND `is_marked` = 0
+    </select>
+
+    <select id="countToApproval" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_event`
+        WHERE `approval_status` = 1 AND
+        `is_logout` = 0 AND
+        `approval_id` = #{approvalId}
+    </select>
+
+    <select id="listEventByPartyIdListAndStatus" resultMap="pw.Event">
+        SELECT *
+        FROM `t_event` event
+        WHERE `is_marked` = 0 AND event.`is_logout` = 0 AND event.`approval_status` = #{status} AND event.`created_party_id` IN
+        <foreach collection="partyIdList" item="partyId" index="index" open="(" close=")" separator=",">
+            #{partyId}
+        </foreach>
+        ORDER BY last_modified_time DESC
+        <if test="offset >= 0 and pageSize > 0 ">
+            LIMIT #{offset}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="countEventByPartyIdListAndStatus" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_event` event
+        WHERE `is_marked` = 0 AND event.`is_logout` = 0 AND event.`approval_status` = #{status} AND event.`created_party_id` IN
+        <foreach collection="partyIdList" item="partyId" index="index" open="(" close=")" separator=",">
+            #{partyId}
+        </foreach>
+    </select>
+</mapper>

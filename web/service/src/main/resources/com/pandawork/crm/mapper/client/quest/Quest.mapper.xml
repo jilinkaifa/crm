@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.client.quest.QuestMapper">
+
+    <!--统计会员数量-->
+    <select id="countBySearchDto"  resultType="Integer">
+        SELECT COUNT(1)
+        FROM `t_quest`quest , `t_client`client
+        <where>
+            client.`deleted`  != 1 AND client.`is_member` != 0 AND client.`id` = quest.`client_id`
+            <if test="searchDto != null">
+                <if test="searchDto.name != null and searchDto.name != ''">
+                    AND
+                    client.`name` LIKE "%"#{searchDto.name}"%"
+                </if>
+                <if test="searchDto.idCardNum != null and searchDto.idCardNum != ''">
+                    AND
+                    client.`idcard_num` LIKE "%"#{searchDto.idCardNum}"%"
+                </if>
+                <if test="searchDto.tel != null and searchDto.tel != ''">
+                    AND
+                    client.`tel` LIKE "%"#{searchDto.tel}"%"
+                </if>
+                <if test="searchDto.startDate != null">
+                    AND quest.`next_quest_time` &gt;= #{searchDto.startDate}
+                </if>
+                <if test="searchDto.endDate != null">
+                    AND quest.`next_quest_time` &lt;= #{searchDto.endDate}
+                </if>
+                <if test="searchDto.memberGroupId != null and searchDto.memberGroupId != ''">
+                    AND
+                    quest.`member_group_id`  =  #{searchDto.memberGroupId}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="countByClientId"  resultType="Integer">
+    SELECT COUNT(1)
+    FROM `t_quest`
+    WHERE client_id = #{id}
+    </select>
+
+    <!--根据searchDto查询会员问卷列表-->
+    <select id="listBySearchDto" resultMap="pw.Quest">
+        SELECT
+        quest.`id` AS id,
+        quest.`client_id` AS clientId,
+        client.`name` AS clientName,
+        client.`idcard_num` AS idCardNum,
+        client.`tel` AS tel,
+        client.`all_cost` AS allCost,
+        client.`is_member` AS isMember,
+        client.`member_group_id` AS memberGroupId,
+        memberGroup.`name` AS memberGroupName,
+        client.`quest_count` AS questCount,
+        quest.`quest_time` AS questTime,
+        quest.`quest_types` AS questTypes,
+        quest.`is_remindahead` AS isRemindahead,
+        quest.`remindahead_days` AS remindaheadDay,
+        max(quest.`next_quest_time`) AS nextQuestTime,
+        quest.`comment` AS comment,
+        quest.`created_party_id` AS createdPartyId,
+        quest.`created_time` AS createdTime,
+        quest.`last_modified_time` AS lastModifiedTime
+        FROM `t_client`client,`t_quest`quest,`t_member_group`memberGroup
+        <where>
+            client.`deleted`  != 1 AND client.`is_member` != 0 AND client.`member_group_id` = memberGroup.`id` AND quest.`client_id` = client.`id`
+            <if test="searchDto != null">
+                <if test="searchDto.name != null and searchDto.name != ''">
+                    AND
+                    client.`name` LIKE "%"#{searchDto.name}"%"
+                </if>
+                <if test="searchDto.idCardNum != null and searchDto.idCardNum != ''">
+                    AND
+                    client.`idcard_num` LIKE "%"#{searchDto.idCardNum}"%"
+                </if>
+                <if test="searchDto.tel != null and searchDto.tel != ''">
+                    AND
+                    client.`tel` LIKE "%"#{searchDto.tel}"%"
+                </if>
+                <if test="searchDto.startDate != null">
+                    AND quest.`next_quest_time` &gt;= #{searchDto.startDate}
+                </if>
+                <if test="searchDto.endDate != null">
+                    AND quest.`next_quest_time` &lt;= #{searchDto.endDate}
+                </if>
+                <if test="searchDto.memberGroupId != null and searchDto.memberGroupId != ''">
+                    AND
+                    quest.`member_group_id`  =  #{searchDto.memberGroupId}
+                </if>
+                <if test="searchDto.questCount != null and searchDto.questCount != ''">
+                    AND
+                    client.`quest_count`  =  #{searchDto.questCount}
+                </if>
+
+            </if>
+        </where>
+        GROUP BY quest.`client_id`
+        ORDER BY nextQuestTime ASC
+        <if test="searchDto != null and searchDto.offset >= 0 and searchDto.pageSize > 0 ">
+            LIMIT #{searchDto.offset}, #{searchDto.pageSize}
+        </if>
+    </select>
+
+    <!--模糊查询搜索框返回备选值-->
+    <select id="listForSearch" resultMap="pw.Client">
+        SELECT
+        client.`id` AS id,
+        client.`name` AS name,
+        client.`gender` AS gender,
+        client.`idcard_num` AS idCardNum,
+        client.`tel` AS tel,
+        client.`diagnose_type` AS diagnoseType,
+        client.`dic_Type` AS dicType,
+        dictionary1.`name` AS dicTypeName,
+        client.`dic_mci_type` AS dicMCIType,
+        dictionary2.`name` AS dicMCITypeName,
+        client.`all_cost` AS allCost
+        FROM `t_client`client
+        LEFT JOIN `t_dictionary`dictionary1 ON dictionary1.`id` = client.`dic_Type`
+        LEFT JOIN `t_dictionary`dictionary2 ON dictionary2.`id` = client.`dic_mci_type`
+        <where>
+            client.`deleted`  != 1 AND client.`is_member` !=0
+            <if test="searchDto != null">
+                <if test="searchDto.name != null and searchDto.name != ''">
+                    AND
+                    client.`name` LIKE "%"#{searchDto.name}"%"
+                </if>
+                <if test="searchDto.idCardNum != null and searchDto.idCardNum != ''">
+                    AND
+                    client.`idcard_num` LIKE "%"#{searchDto.idCardNum}"%"
+                </if>
+                <if test="searchDto.tel != null and searchDto.tel != ''">
+                    AND
+                    client.`tel` LIKE "%"#{searchDto.tel}"%"
+                </if>
+                <if test="searchDto.dicType != null and searchDto.dicType != ''">
+                    AND
+                    client.`dic_type`  = #{searchDto.dicType}
+                </if>
+                <if test="searchDto.dicMCIType != null and searchDto.dicMCIType != ''">
+                    AND
+                    client.`dic_mci_type` = #{searchDto.dicMCIType}
+                </if>
+                <if test="searchDto.costGt != null and searchDto.costGt != ''">
+                    AND
+                    client.`all_cost`  >=  #{searchDto.costGt}
+                </if>
+            </if>
+        </where>
+        ORDER BY client.`last_modified_time` DESC
+        LIMIT 20
+    </select>
+
+    <select id="queryByClientId"  resultMap="pw.Quest">
+    SELECT
+         quest.`id` AS id,
+         quest.`client_id` AS clientId,
+        quest.`quest_time` AS questTime,
+        quest.`quest_types` AS questTypes,
+        quest.`next_quest_time` AS nextQuestTime,
+        quest.`comment` AS COMMENT,
+        quest.`created_party_id` AS createdPartyId,
+        quest.`created_time` AS createdTime,
+        quest.`last_modified_time` AS lastModifiedTime
+        FROM `t_quest`quest
+        WHERE quest.`client_id` = #{id}
+        AND quest.`created_time` = (SELECT MAX(quest.`created_time`) FROM `t_quest`quest WHERE quest.`client_id` = #{id}
+            GROUP BY quest.`client_id`)
+    </select>
+
+    <select id="countBySearchDtoNew" resultType="int">
+        SELECT count(1) FROM (
+        SELECT
+        quest.`id` AS id
+        FROM `t_client`client,`t_quest`quest,`t_member_group`memberGroup
+        <where>
+            client.`deleted`  != 1 AND client.`is_member` != 0 AND client.`member_group_id` = memberGroup.`id` AND quest.`client_id` = client.`id`
+            <if test="searchDto != null">
+                <if test="searchDto.name != null and searchDto.name != ''">
+                    AND
+                    client.`name` LIKE "%"#{searchDto.name}"%"
+                </if>
+                <if test="searchDto.idCardNum != null and searchDto.idCardNum != ''">
+                    AND
+                    client.`idcard_num` LIKE "%"#{searchDto.idCardNum}"%"
+                </if>
+                <if test="searchDto.tel != null and searchDto.tel != ''">
+                    AND
+                    client.`tel` LIKE "%"#{searchDto.tel}"%"
+                </if>
+                <if test="searchDto.startDate != null">
+                    AND quest.`next_quest_time` &gt;= #{searchDto.startDate}
+                </if>
+                <if test="searchDto.endDate != null">
+                    AND quest.`next_quest_time` &lt;= #{searchDto.endDate}
+                </if>
+                <if test="searchDto.memberGroupId != null and searchDto.memberGroupId != ''">
+                    AND
+                    quest.`member_group_id`  =  #{searchDto.memberGroupId}
+                </if>
+                <if test="searchDto.questCount != null and searchDto.questCount != ''">
+                    AND
+                    client.`quest_count`  =  #{searchDto.questCount}
+                </if>
+            </if>
+        </where>
+        GROUP BY quest.`client_id`) AS t
+    </select>
+
+</mapper>

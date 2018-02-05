@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.event.CheckItemMapper">
+    <select id="listAll" resultMap="pw.CheckItem">
+      SELECT *
+      FROM `t_check_item`
+      ORDER BY id DESC
+    </select>
+
+    <select id="listByEventId" resultMap="pw.CheckItem">
+        SELECT *
+        FROM `t_check_item`
+        WHERE event_id = #{eventId}
+        ORDER BY id ASC
+    </select>
+
+    <select id="checkExistByName" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_check_item`
+        WHERE name = #{name}
+    </select>
+
+    <delete id="deleteByEventId" >
+        DELETE
+        FROM
+        `t_check_item`
+        WHERE event_id = #{eventId}
+    </delete>
+
+</mapper>

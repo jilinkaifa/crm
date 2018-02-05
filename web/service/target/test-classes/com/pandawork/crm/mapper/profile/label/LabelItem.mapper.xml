@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.profile.label.LabelItemMapper">
+    <select id="listAll" resultMap="pw.LabelItem">
+        SELECT *
+        FROM `t_label_item`
+        WHERE `deleted` = 0
+    </select>
+
+    <select id="countByDicLabelName" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_label_item`
+        WHERE `dic_label_name` = #{name}
+    </select>
+
+    <select id="queryByTypeId" resultMap="pw.LabelItem">
+        SELECT *
+        FROM `t_label_item`
+        WHERE `label_type_id` = #{typeId}
+        AND `deleted` = 0
+    </select>
+
+    <select id="listTextByTypeId" resultMap="pw.LabelItem">
+       SELECT *
+       FROM `t_label_item`
+       WHERE `label_type_id` = #{typeId}
+       AND `deleted` = 0
+       LIMIT 0, 9
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+        FROM `t_label_item`
+    </select>
+
+    <select id="countNotDeleted" resultType="int">
+        SELECT COUNT(*)
+        FROM `t_label_item`
+        WHERE `deleted` = 0
+    </select>
+
+    <select id="countByType" resultType="int">
+        SELECT COUNT(*)
+        FROM `t_label_item`
+        WHERE `label_type_id` = #{typeId}
+    </select>
+
+    <select id="countNotDeletedByType" resultType="int">
+        SELECT COUNT(*)
+        FROM `t_label_item`
+        WHERE `label_type_id` = #{typeId} and `deleted` = 0
+    </select>
+
+    <update id="delById">
+        DELETE FROM `t_label_item`
+        WHERE `id` = #{id}
+    </update>
+
+    <select id="listByPage" resultMap="pw.LabelItem">
+        SELECT *
+        FROM `t_label_item`
+        WHERE `label_type_id` = #{typeId}
+        ORDER BY `id` DESC
+        LIMIT #{offset},#{pageSize}
+    </select>
+
+    <!-- 检查是否有重名的标签类型 王俊 20171027 -->
+    <select id="countByDicLabelNameNew" resultType="int">
+        SELECT COUNT(1)
+        FROM `t_label_item`
+        WHERE `label_type_id` = #{labelTypeId} and `dic_label_name` = #{name}
+    </select>
+
+</mapper>

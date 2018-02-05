@@ -1,0 +1,24 @@
+textarea{
+	display: inline;
+	padding: 5px !important;
+}
+.new999{
+    width: 108% !important;
+}
+input[type="checkbox"]{
+    margin: 2px 4px 0 !important;
+    line-height: normal;
+    cursor: pointer;
+}
+.selectBox{
+	font-weight: normal;
+}
+.readText {
+    margin-left: 12px;
+}
+.checkboxWidth{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: normal;
+}

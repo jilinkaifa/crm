@@ -1,0 +1,84 @@
+
+.content-page{
+	border: 2px solid  #e0e0e0;
+	width:1130px;
+	height: 580px;
+	margin-left: 200px;
+	margin-top: 100px;
+}
+form .requires {
+    color: #ff0000;
+    margin-right: 2px;
+}
+
+.header-title{
+	padding-left: 25px;
+	color: #6c6c6c;
+}
+.container{
+	padding-top: 28px;
+}
+.detail{
+	font-size: 12px !important;
+	width: 69px !important;
+    height: 27px !important;
+    padding: 3px 3px !important;
+    margin-left: 6px;
+    background: #84C1FF!important;
+    color:#ffffff !important;
+  }
+.J_tableName{
+	height: 28px !important;
+    border: 1px solid #BEBEBE;
+    border-radius: 3px;
+}
+.row{
+	margin-top: 7px !important ; 
+}
+.h100{
+	height: 100px;
+}
+.h64{
+	height: 64px !important;
+}
+.margin-left-10{
+	margin-left: 10px;
+}
+.margin-right-10{
+	margin-left: 10px;
+}
+.margin-bottom-20{
+	margin-bottom: 20px;
+}
+.margin-top--30{
+	margin-top: -36px !important;
+}
+.padding-right-10{
+	padding-right: 10px;
+}
+textarea{
+	display: inline;
+	padding: 5px !important;
+}
+.new999{
+    width: 108% !important;
+}
+select.form-controls{
+    height: 32px;
+    width: 40% !important;
+    margin-left: 15px;
+}
+.checkboxWidth{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-weight: normal;
+}
+input[type="checkbox"]{
+    margin: 2px 4px 0 !important;
+    line-height: normal;
+    cursor: pointer;
+}
+.selectBox{
+	font-weight: normal;
+}

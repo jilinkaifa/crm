@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.event.EventTermMapper">
+
+    <select id="listAllByStatus" resultMap="pw.EventTerm">
+        SELECT *
+        FROM `t_event_term`
+        WHERE `status` = #{status}
+    </select>
+
+    <select id="searchTOP20ByName" resultMap="pw.EventTerm">
+        SELECT
+        DISTINCT event.name AS name
+        FROM
+        `t_event` event
+        LEFT JOIN `t_event_term` eventTerm ON eventTerm.event_id = event.id
+        <where>
+            <if test="name != null and name != ''">
+                event.name LIKE  "%"#{name}"%"
+            </if>
+            AND (eventTerm.status = 1 OR eventTerm.status = 2)
+        </where>
+        ORDER BY event.created_time DESC
+        LIMIT 20
+    </select>
+
+    <!-- 获取已经到通知期的活动 -->
+    <select id="getTodayNoticeActivitiesList" resultMap="pw.EventTerm">
+        SELECT
+          *
+        FROM
+           t_event_term
+        WHERE
+           Date(polling_date) = Date(SYSDATE())
+           AND `status` = 0
+    </select>
+
+    <!-- 取在通知期和执行期的活动 -->
+    <select id="listAllByNotificationExecutionActivity" resultMap="pw.EventTerm">
+        SELECT
+        *
+        FROM
+        t_event_term
+        WHERE `status` IN (1,2)
+    </select>
+
+</mapper>

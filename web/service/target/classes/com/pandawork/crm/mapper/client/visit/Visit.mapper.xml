@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.client.visit.VisitMapper">
+    
+    <select id="listByPage" resultMap="pw.Visit">
+        SELECT
+        visit.`client_id` AS clientId,
+        client.`name` AS clientName,
+        client.`gender` AS gender,
+        client.`dic_type` AS dicType,
+        client.`idcard_num` AS clientIdcardNum,
+        client.`tel` AS clientTel,
+        visit.`first_visit_type` AS firstVisitType,
+        count(*) AS visitTimes,
+        max(visit.`visit_time`) AS visitTime,
+        sum(visit.`cost`) AS cost
+        FROM `t_visit` visit,`t_client` client
+        <where>
+            visit.`client_id`=client.`id` AND client.`deleted` = 0 AND visit.`deleted` = 0
+        </where>
+        GROUP BY visit.`client_id`
+        <if test="offset >= 0 and pageSize > 0 ">
+            LIMIT #{offset}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="listByVisitSearchDto" resultMap="pw.Visit">
+        SELECT
+        visit.`client_id` AS clientId,
+        client.`name` AS clientName,
+        client.`gender` AS gender,
+        client.`dic_type` AS dicType,
+        client.`idcard_num` AS clientIdcardNum,
+        client.`tel` AS clientTel,
+        visit.`first_visit_type` AS firstVisitType,
+        count(*) AS visitTimes,
+        max(visit.`visit_time`) AS visitTime,
+        sum(visit.`cost`) AS cost
+        FROM `t_visit` visit,`t_client` client
+        <where>
+            visit.`client_id`=client.`id` AND client.`deleted` = 0 AND visit.`deleted` = 0
+            <if test="visitSearchDto != null">
+                <if test="visitSearchDto.clientName != null and visitSearchDto.clientName != ''">
+                    AND client.`name` LIKE "%"#{visitSearchDto.clientName}"%"
+                </if>
+                <if test="visitSearchDto.clientIdcardNum != null and visitSearchDto.clientIdcardNum != ''" >
+                    AND client.`idcard_num` LIKE "%"#{visitSearchDto.clientIdcardNum}"%"
+                </if>
+                <if test="visitSearchDto.clientTel != null and visitSearchDto.clientTel != ''">
+                    AND client.`tel` LIKE "%"#{visitSearchDto.clientTel}"%"
+                </if>
+                <if test="visitSearchDto.clientType != null and visitSearchDto.clientType != ''">
+                    AND client.`dic_Type` = #{visitSearchDto.clientType}
+                </if>
+                <if test="visitSearchDto.memberGroupId != null and visitSearchDto.memberGroupId != ''">
+                    AND client.`member_group_id` = #{visitSearchDto.memberGroupId}
+                </if>
+            </if>
+        </where>
+        GROUP BY visit.`client_id`
+        <if test="visitSearchDto.visitTimes != null and visitSearchDto.visitTimes >= 0">
+            HAVING COUNT(*) = #{visitSearchDto.visitTimes}
+        </if>
+        <if test="visitSearchDto != null and visitSearchDto.offset >= 0 and visitSearchDto.pageSize > 0 ">
+            LIMIT #{visitSearchDto.offset}, #{visitSearchDto.pageSize}
+        </if>
+    </select>
+
+    <select id="getLastVisitByClientId" resultMap="pw.Visit">
+         SELECT
+         visit.`id` AS id,
+        visit.`first_visit_type` AS firstVisitType,
+        visit.`visit_from` AS visitFrom
+        FROM `t_visit` visit,`t_client`client
+        WHERE
+            visit.`client_id`=client.`id` AND client.`deleted` = 0 AND visit.`deleted` = 0
+            AND visit.`created_time` = (SELECT MAX(visit2.`created_time`) FROM `t_visit` visit2,`t_client` client2 WHERE visit2.`client_id`= #{id} AND client2.`deleted` = 0 AND visit2.`deleted` = 0)
+    </select>
+
+    <select id="getAllCost" resultType="double">
+        SELECT
+        sum(visit.`cost`)
+        FROM `t_visit` visit,`t_client` client
+        <where>
+            visit.`client_id`=client.`id` AND client.`deleted` = 0 AND visit.`deleted` = 0
+            <if test="clientId != null and clientId >= 0">
+                AND visit.`client_id` = #{clientId}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryByClientId" resultMap="pw.Visit">
+        SELECT
+        visit.`id` AS id,
+        visit.`client_id` AS clientId,
+        client.`name` AS clientName,
+        visit.`visit_from` AS  visitFrom,
+        visit.`visit_time` AS visitTime,
+        visit.`visit_content` AS visitContent,
+        visit.`cost` AS cost,
+        visit.`created_party_id` AS createdPartyId,
+        visit.`created_time` AS createdTime
+        FROM `t_visit` visit,`t_client` client
+        <where>
+            visit.`client_id`=client.`id` AND client.`deleted` = 0 AND visit.`deleted` = 0
+            <if test="clientId != null and clientId > 0">
+                AND visit.`client_id` = #{clientId}
+            </if>
+        </where>
+        <if test="offset >= 0 and pageSize > 0 ">
+            LIMIT #{offset}, #{pageSize}
+        </if>
+    </select>
+
+    <update id="delByClientId">
+        UPDATE t_visit
+        <if test="clientId != null and clientId >= 0">
+            SET t_visit.`deleted` = 1
+        </if>
+        WHERE t_visit.`client_id` = #{clientId}
+    </update>
+
+    <select id="listByVisitDetailSearchDto" resultMap="pw.Visit">
+        SELECT
+        visit.`id` AS id,
+        visit.`client_id` AS clientId,
+        client.`name` AS clientName,
+        visit.`visit_from` AS  visitFrom,
+        visit.`visit_time` AS visitTime,
+        visit.`visit_content` AS visitContent,
+        visit.`cost` AS cost,
+        visit.`created_party_id` AS createdPartyId,
+        visit.`last_modified_time` AS lastModifiedTime,
+        party.`name` AS partyName
+        FROM `t_visit` visit,`t_client` client,`t_party_employee` party
+        <where>
+            visit.`client_id`=client.`id` AND visit.`created_party_id` = party.`party_id` AND client.`deleted` = 0 AND visit.`deleted` = 0 AND visit.`visit_from` IS NOT NULL
+            <if test="searchDto != null">
+                <if test="searchDto.clientId != null and searchDto.clientId != ''">
+                    AND visit.`client_id` = #{searchDto.clientId}
+                </if>
+                <if test="searchDto.visitFrom != null and searchDto.visitFrom >= 0">
+                    AND visit.`visit_from` = #{searchDto.visitFrom}
+                </if>
+                <if test="searchDto.visitContent != null and searchDto.visitContent != ''">
+                    AND visit.`visit_content` LIKE "%"#{searchDto.visitContent}"%"
+                </if>
+                <if test="searchDto.startDate != null and searchDto.startDate != ''">
+                    AND visit.`visit_time` >= #{searchDto.startDate}
+                </if>
+                <if test="searchDto.endDate != null and searchDto.endDate != ''">
+                    AND visit.`visit_time` &lt;= #{searchDto.endDate}
+                </if>
+            </if>
+        </where>
+        ORDER BY visit.`created_time` DESC
+        <if test="searchDto != null and searchDto.offset >= 0 and searchDto.pageSize > 0 ">
+            LIMIT #{searchDto.offset}, #{searchDto.pageSize}
+        </if>
+    </select>
+
+    <select id="countByVisitDetailSearchDto" resultType="int">
+        SELECT COUNT(*)
+        FROM `t_visit` visit,`t_client` client,`t_party_employee` party
+        <where>
+            visit.`client_id`=client.`id` AND visit.`created_party_id` = party.`party_id` AND client.`deleted` = 0 AND visit.`deleted` = 0
+            <if test="searchDto != null">
+                <if test="searchDto.clientId != null and searchDto.clientId != ''">
+                    AND visit.`client_id` = #{searchDto.clientId}
+                </if>
+                <if test="searchDto.visitFrom != null and searchDto.visitFrom >= 0">
+                    AND visit.`visit_from` = #{searchDto.visitFrom}
+                </if>
+                <if test="searchDto.visitContent != null and searchDto.visitContent != ''">
+                    AND visit.`visit_content` LIKE "%"#{searchDto.visitContent}"%"
+                </if>
+                <if test="searchDto.startDate != null and searchDto.startDate != ''">
+                    AND visit.`visit_time` >= #{searchDto.startDate}
+                </if>
+                <if test="searchDto.endDate != null and searchDto.endDate != ''">
+                    AND visit.`visit_time` &lt;= #{searchDto.endDate}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <update id="delById">
+        UPDATE t_visit
+        <if test="id != null and id >= 0">
+            SET t_visit.`deleted` = 1
+        </if>
+        WHERE t_visit.`id` = #{id}
+    </update>
+
+    <update id="updateVisit">
+        UPDATE t_visit
+        SET t_visit.`visit_from` = #{visit.visitFrom},
+        t_visit.`visit_time` = #{visit.visitTime},
+        t_visit.`visit_content` = #{visit.visitContent},
+        t_visit.`cost` = #{visit.cost},
+        t_visit.`created_party_id` = #{visit.createdPartyId},
+        t_visit.`last_modified_time` = #{visit.lastModifiedTime}
+        <where>
+            t_visit.`id` = #{visit.id} AND t_visit.`deleted` = 0
+        </where>
+    </update>
+
+    <select id="queryById" resultMap="pw.Visit">
+        SELECT
+        visit.`id` AS id,
+        visit.`client_id` AS clientId,
+        client.`name` AS clientName,
+        visit.`visit_from` AS visitFrom,
+        visit.`visit_time` AS visitTime,
+        visit.`visit_content` AS visitContent,
+        visit.`cost` AS cost,
+        party.`name` AS partyName,
+        visit.`last_modified_time` AS lastModifiedTime
+        FROM `t_visit` visit ,`t_client` client,`t_party_employee` party
+        <where>
+            visit.`client_id` = client.`id` AND visit.`created_party_id` = party.`party_id` AND client.`deleted` = 0 AND visit.`deleted` = 0
+            <if test="id != null and id >= 0">
+                AND visit.`id` = #{id}
+            </if>
+        </where>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(DISTINCT t_visit.`client_id`)
+        FROM `t_visit`
+        WHERE t_visit.`deleted` = 0 AND t_visit.`visit_from` IS NOT NULL
+    </select>
+
+    <select id="moneyToPoints" resultType="int">
+        SELECT pointsConvert.`money_to_points`
+        FROM `t_points_convert` pointsConvert
+    </select>
+
+
+    <select id="countCostByDate" resultType="decimal">
+        SELECT
+        SUM(visit.`cost`) AS cost
+        FROM `t_visit`visit,`t_client`
+        WHERE
+            visit.`deleted` != 1 AND visit.`visit_time` =  #{date} AND
+            t_client.`id` = visit.`client_id` AND t_client.`member_group_id` = #{id}
+    </select>
+
+    <!-- 近半年会员患者及销售情况分析 月份 -->
+    <select id="getMonth" resultType="java.lang.String">
+        select date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%m') as ti from DUAL
+        UNION ALL
+        select date_format(DATE_SUB(curdate(), INTERVAL 2 MONTH),'%m') as ti from DUAL
+        UNION ALL
+        select date_format(DATE_SUB(curdate(), INTERVAL 3 MONTH),'%m') as ti from DUAL
+        UNION ALL
+        select date_format(DATE_SUB(curdate(), INTERVAL 4 MONTH),'%m') as ti from DUAL
+        UNION ALL
+        select date_format(DATE_SUB(curdate(), INTERVAL 5 MONTH),'%m') as ti from DUAL
+        UNION ALL
+        select date_format(DATE_SUB(curdate(), INTERVAL 6 MONTH),'%m') as ti from DUAL
+        UNION ALL
+        select date_format(DATE_SUB(curdate(), INTERVAL 7 MONTH),'%m') as ti from DUAL
+    </select>
+
+    <!-- 近半年会员患者及销售情况分析 销售总额 -->
+    <select id="getGrossSales" resultType="decimal">
+        select sum(IFNULL(tt.cost,0)) as total from (select * from (
+        select date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%m') as ti from DUAL
+        UNION ALL
+        select date_format(DATE_SUB(curdate(), INTERVAL 2 MONTH),'%Y-%m') as ti from DUAL
+        UNION ALL
+        select date_format(DATE_SUB(curdate(), INTERVAL 3 MONTH),'%Y-%m') as ti from DUAL
+        UNION ALL
+        select date_format(DATE_SUB(curdate(), INTERVAL 4 MONTH),'%Y-%m') as ti from DUAL
+        UNION ALL
+        select date_format(DATE_SUB(curdate(), INTERVAL 5 MONTH),'%Y-%m') as ti from DUAL
+        UNION ALL
+        select date_format(DATE_SUB(curdate(), INTERVAL 6 MONTH),'%Y-%m') as ti from DUAL
+        UNION ALL
+        select date_format(DATE_SUB(curdate(), INTERVAL 7 MONTH),'%Y-%m') as ti from DUAL) d) dd LEFT JOIN (SELECT
+           v.client_id,
+           DATE_FORMAT(v.visit_time, '%Y-%m') as tv,
+           v.cost
+        FROM
+           t_visit v
+        WHERE
+           EXISTS (
+              SELECT
+                 1
+              FROM
+                 t_client t
+              WHERE
+                 t.id = v.client_id
+              AND t.is_member = 1
+              AND t.deleted = 0
+           )
+        ORDER BY
+           v.visit_time DESC) tt
+        ON dd.ti = tt.tv
+        GROUP BY dd.ti
+        order by dd.ti DESC
+    </select>
+
+    <!-- 近半年会员患者及销售情况分析 会员患者数 -->
+    <select id="getNumberOfMembers" resultType="java.lang.Integer">
+        select COUNT(1) from t_client where is_member = 1 and deleted = 0 and Date(created_time) &lt;= last_day(date_sub(now(),interval 1 month))
+        UNION ALL
+        select COUNT(1) from t_client where is_member = 1 and deleted = 0 and Date(created_time) &lt;= last_day(date_sub(now(),interval 2 month))
+        UNION ALL
+        select COUNT(1) from t_client where is_member = 1 and deleted = 0 and Date(created_time) &lt;= last_day(date_sub(now(),interval 3 month))
+        UNION ALL
+        select COUNT(1) from t_client where is_member = 1 and deleted = 0 and Date(created_time) &lt;= last_day(date_sub(now(),interval 4 month))
+        UNION ALL
+        select COUNT(1) from t_client where is_member = 1 and deleted = 0 and Date(created_time) &lt;= last_day(date_sub(now(),interval 5 month))
+        UNION ALL
+        select COUNT(1) from t_client where is_member = 1 and deleted = 0 and Date(created_time) &lt;= last_day(date_sub(now(),interval 6 month))
+        UNION ALL
+        select COUNT(1) from t_client where is_member = 1 and deleted = 0 and Date(created_time) &lt;= last_day(date_sub(now(),interval 7 month))
+    </select>
+</mapper>

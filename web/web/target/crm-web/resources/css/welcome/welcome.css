@@ -1,0 +1,22 @@
+
+.bg{
+	background: url(/img/timg2.jpg) no-repeat;
+	background-size:100% 100%;
+	height: 683px;
+}
+.bg-box{
+	margin-top:7%;
+	color:#1bb133;
+	font-family: 'STXingkai';
+}
+p{
+	color:#1bb133;
+}
+.small-font{
+	margin-left:29.3%;
+	font-size: 40px;
+}
+.big-font{
+	font-size: 50px;
+	text-align: center;
+}

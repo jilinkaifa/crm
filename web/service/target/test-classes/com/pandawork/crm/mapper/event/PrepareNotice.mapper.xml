@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.event.PrepareNoticeMapper">
+    <select id="listAll" resultMap="pw.EventTerm">
+        SELECT
+        eventTerm.id AS id,
+        event.id AS eventId,
+        event.name AS name,
+        event.type AS type,
+        event.level AS level,
+        memberGroup.name AS memberGroupName,
+        eventTerm.start_date AS startDate
+        FROM `t_event` event
+        LEFT JOIN `t_member_group` memberGroup ON event.member_group_id = memberGroup.id
+        LEFT JOIN `t_event_term` eventTerm ON event.id = eventTerm.event_id
+        WHERE eventTerm.status = 1
+        ORDER BY eventTerm.created_time ASC
+    </select>
+
+    <select id="listEventBySearchDto" resultMap="pw.EventTerm">
+        SELECT
+        eventTerm.id AS id,
+        event.id AS eventId,
+        event.name AS name,
+        event.type AS type,
+        event.level AS level,
+        memberGroup.name AS memberGroupName,
+        eventTerm.start_date AS startDate
+        FROM `t_event` event
+        LEFT JOIN `t_member_group` memberGroup ON event.member_group_id = memberGroup.id
+        LEFT JOIN `t_event_term` eventTerm ON event.id = eventTerm.event_id
+        <where>
+            <if test="prepareNoticeSearchDto != null" >
+                <if test="prepareNoticeSearchDto.name != null and prepareNoticeSearchDto.name != ''" >
+                    event.name LIKE "%"#{prepareNoticeSearchDto.name}"%"
+                </if>
+                <if test="prepareNoticeSearchDto.level != null and prepareNoticeSearchDto.level != -1" >
+                    event.level = #{prepareNoticeSearchDto.level}
+                </if>
+                <if test="prepareNoticeSearchDto.type != null and prepareNoticeSearchDto.type != -1 " >
+                    event.type = #{prepareNoticeSearchDto.type}
+                </if>
+                <if test="prepareNoticeSearchDto.startTime != null and prepareNoticeSearchDto.startTime != '' and prepareNoticeSearchDto.endTime != null and prepareNoticeSearchDto.endTime != ''">
+                    `event.start_date` BETWEEN #{prepareNoticeSearchDto.startTime} AND #{prepareNoticeSearchDto.endTime}
+                </if>
+            </if>
+            AND eventTerm.status = 1
+        </where>
+        ORDER BY eventTerm.created_time ASC
+        <if test="prepareNoticeSearchDto != null and prepareNoticeSearchDto.offset >= 0 and prepareNoticeSearchDto.pageSize > 0">
+            LIMIT #{prepareNoticeSearchDto.offset}, #{prepareNoticeSearchDto.pageSize}
+        </if>
+    </select>
+
+    <select id="countAll" resultType="int">
+        SELECT COUNT(event.id)
+        FROM `t_event` event
+        LEFT JOIN `t_member_group` memberGroup ON event.member_group_id = memberGroup.id
+        LEFT JOIN `t_event_term` eventTerm ON event.id = eventTerm.event_id
+        WHERE eventTerm.status = 1
+    </select>
+
+    <select id="countEventBySearchDto" resultType="int">
+        SELECT COUNT(event.id)
+        FROM `t_event` event
+        LEFT JOIN `t_member_group` memberGroup ON event.member_group_id = memberGroup.id
+        LEFT JOIN `t_event_term` eventTerm ON event.id = eventTerm.event_id
+        <where>
+            <if test="prepareNoticeSearchDto != null" >
+                <if test="prepareNoticeSearchDto.name != null and prepareNoticeSearchDto.name != ''" >
+                    event.name = "%"#{prepareNoticeSearchDto.name}"%"
+                </if>
+                <if test="prepareNoticeSearchDto.level != null and prepareNoticeSearchDto.level != -1" >
+                    event.level = #{prepareNoticeSearchDto.level}
+                </if>
+                <if test="prepareNoticeSearchDto.type != null and prepareNoticeSearchDto.type != -1 " >
+                    event.type = #{prepareNoticeSearchDto.type}
+                </if>
+                <if test="prepareNoticeSearchDto.startTime != null and prepareNoticeSearchDto.startTime != '' and prepareNoticeSearchDto.endTime != null and prepareNoticeSearchDto.endTime != ''">
+                    `event.start_date` BETWEEN #{prepareNoticeSearchDto.startTime} AND #{prepareNoticeSearchDto.endTime}
+                </if>
+                AND eventTerm.status = 1
+            </if>
+            AND eventTerm.status = 1
+        </where>
+    </select>
+</mapper>

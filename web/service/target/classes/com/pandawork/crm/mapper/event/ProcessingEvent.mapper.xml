@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.event.ProcessingEventMapper">
+
+    <select id="countProcessingEvent" resultType="int">
+        SELECT COUNT(0)
+        FROM `t_event_term`
+        WHERE status = 1 OR status = 2
+    </select>
+
+    <select id="ListProcessingEvent" resultMap="pw.EventTerm">
+        SELECT
+        event.name AS name,
+        event.type AS type,
+        event.level AS level,
+        eventTerm.status AS status,
+        eventTerm.start_date AS startDate,
+        eventTerm.member_group_id AS memberGroupId,
+        memberGroup.id AS memberGroupName,
+        event.created_party_id AS createdPartyId,
+        employee.name AS createdPartyName,
+        eventTerm.created_time AS createdTime
+        FROM `t_event` event
+        LEFT JOIN `t_event_term` eventTerm ON event.id = eventTerm.event_id
+        LEFT JOIN `t_party_employee` employee ON event.created_party_id = employee.party_id
+        LEFT JOIN `t_member_group` memberGroup ON eventTerm.member_group_id = memberGroup.id
+        WHERE eventTerm.status = 1 OR eventTerm.status = 2
+        ORDER BY eventTerm.created_time DESC, eventTerm.status ASC
+    </select>
+
+    <select id="countToBeNoticedPerson" resultType="int">
+        SELECT COUNT(id)
+        FROM `t_event_record_notice`
+        WHERE event_term_id = #{eventTermId} AND notice_status = 1
+    </select>
+
+    <select id="countToBeFinishedPerson" resultType="int">
+        SELECT COUNT(id)
+        FROM `t_event_record_notice`
+        WHERE event_term_id = #{eventTermId} AND event_participant_status = 0
+    </select>
+
+    <select id="listProcessingEventBySearchDto" resultMap="pw.EventTerm">
+        SELECT
+        eventTerm.id AS id,
+        event.id AS eventId,
+        event.name AS name,
+        event.type AS type,
+        event.level AS level,
+        eventTerm.status AS status,
+        eventTerm.start_date AS startDate,
+        eventTerm.end_date AS endDate,
+        eventTerm.member_group_id AS memberGroupId,
+        memberGroup.name AS memberGroupName,
+        event.start_date AS eventStartDate,
+        event.end_date AS eventEndDate,
+        event.created_party_id AS createdPartyId,
+        employee.name AS createdPartyName,
+        eventTerm.created_time AS createdTime
+        FROM `t_event` event
+        LEFT JOIN `t_event_term` eventTerm ON event.id = eventTerm.event_id
+        LEFT JOIN `t_party_employee` employee ON event.created_party_id = employee.party_id
+        LEFT JOIN `t_member_group` memberGroup ON eventTerm.member_group_id = memberGroup.id
+        <where>
+            TRUE
+            <if test="eventSearchDto.status != null and eventSearchDto.status != '' " >
+                AND eventTerm.status = #{eventSearchDto.status}
+            </if>
+            <if test="eventSearchDto.status == null or  eventSearchDto.status == '' " >
+                AND (eventTerm.status = 1 OR eventTerm.status = 2)
+            </if>
+            <if test="eventSearchDto.createdPartyName != null and eventSearchDto.createdPartyName != ''" >
+                AND employee.name LIKE "%"#{eventSearchDto.createdPartyName}"%"
+            </if>
+            <if test="eventSearchDto.idcardNum != null and eventSearchDto.idcardNum != ''" >
+                AND employee.idcard_num LIKE "%"#{eventSearchDto.idcardNum}"%"
+            </if>
+            <if test="eventSearchDto.name != null and eventSearchDto.name != ''" >
+                AND event.name LIKE "%"#{eventSearchDto.name}"%"
+            </if>
+            <if test="eventSearchDto.level != null and eventSearchDto.level != ''" >
+                AND event.level = #{eventSearchDto.level}
+            </if>
+            <if test="eventSearchDto.type != null and eventSearchDto.type != '' " >
+                AND event.type = #{eventSearchDto.type}
+            </if>
+        </where>
+        ORDER BY eventTerm.created_time DESC, eventTerm.status ASC
+        <if test="eventSearchDto != null and eventSearchDto.offset >= 0 and eventSearchDto.pageSize > 0">
+            LIMIT #{eventSearchDto.offset}, #{eventSearchDto.pageSize}
+        </if>
+    </select>
+
+    <select id="countProcessingEventBySearchDto" resultType="int">
+        SELECT COUNT(event.id)
+        FROM `t_event` event
+        LEFT JOIN `t_event_term` eventTerm ON event.id = eventTerm.event_id
+        LEFT JOIN `t_party_employee` employee ON event.created_party_id = employee.party_id
+        LEFT JOIN `t_member_group` memberGroup ON eventTerm.member_group_id = memberGroup.id
+        <where>
+            TRUE
+            <if test="eventSearchDto.status != null and eventSearchDto.status != '' " >
+                AND eventTerm.status = #{eventSearchDto.status}
+            </if>
+            <if test="eventSearchDto.status == null or  eventSearchDto.status == '' " >
+                AND (eventTerm.status = 1 OR eventTerm.status = 2)
+            </if>
+            <if test="eventSearchDto.createdPartyName != null and eventSearchDto.createdPartyName != ''" >
+                AND employee.name LIKE "%"#{eventSearchDto.createdPartyName}"%"
+            </if>
+            <if test="eventSearchDto.idcardNum != null and eventSearchDto.idcardNum != ''" >
+                AND employee.idcard_num LIKE "%"#{eventSearchDto.idcardNum}"%"
+            </if>
+            <if test="eventSearchDto.name != null and eventSearchDto.name != ''" >
+                AND event.name LIKE "%"#{eventSearchDto.name}"%"
+            </if>
+            <if test="eventSearchDto.level != null and eventSearchDto.level != ''" >
+                AND event.level = #{eventSearchDto.level}
+            </if>
+            <if test="eventSearchDto.type != null and eventSearchDto.type != '' " >
+                AND event.type = #{eventSearchDto.type}
+            </if>
+        </where>
+    </select>
+
+    <update id="pauseTerm" >
+        UPDATE
+        `t_event_term`
+        SET pause_status = 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="pauseEvent" >
+        UPDATE
+        `t_event_term`
+        SET pause_status = 1
+        WHERE id = #{id}
+    </update>
+
+    <select id="queryById" resultMap="pw.EventTerm">
+        SELECT
+         eventTerm.id AS id,
+         event.name AS name,
+         event.type As type,
+         event.level AS level,
+         eventTerm.status AS status,
+         event.remind_time AS remindTime,
+         event.start_date AS eventStartDate,
+         event.end_date AS eventEndDate,
+         event.polling_time AS pollingTime,
+         eventTerm.start_date AS startDate,
+         event.is_points_related AS isPointsRelated,
+         event.is_checkitem_related AS isCheckItemRelated,
+         eventTerm.member_group_id AS memberGroupId,
+         memberGroup.name AS memberGroupName,
+         eventTerm.start_date AS startDate,
+         event.content AS content,
+         event.notice_content AS noticeContent,
+         eventTerm.event_id AS eventId
+         FROM `t_event_term` eventTerm
+         LEFT JOIN `t_event` event ON event.id = eventTerm.event_id
+         LEFT JOIN `t_member_group` memberGroup ON memberGroup.id = eventTerm.member_group_id
+         WHERE eventTerm.id = #{id}
+    </select>
+
+    <select id ="listByEventTermId" resultMap="pw.EventRecordNotice">
+        SELECT
+        eventRecordNotice.participant_name AS participantName,
+        eventRecordNotice.participant_idcard AS participantIdcard,
+        eventRecordNotice.participant_tel AS participantTel,
+        eventRecordNotice.notice_status AS noticeStatus,
+        eventRecordNotice.comment AS comment,
+        eventRecordNotice.notice_time AS noticeTime,
+        eventRecordNotice.sys_id AS sysId,
+        employee.name AS sysName
+        FROM `t_event_record_notice` eventRecordNotice
+        LEFT JOIN `t_party_employee` employee  ON employee.party_id = eventRecordNotice.sys_id
+        WHERE eventRecordNotice.event_term_id = #{eventTermId}
+        ORDER BY eventRecordNotice.created_time DESC
+        <if test="offset >= 0 and pageSize > 0">
+            LIMIT #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <update id="batchNotice" >
+        UPDATE
+        `t_event_record_notice` eventRecordNotice
+        SET eventRecordNotice.notice_status = #{status}, eventRecordNotice.comment = #{comment}
+        WHERE event_term_id IN
+        <foreach collection="idList" item="eventTermId" index="index" open="(" close=")" separator=",">
+            #{eventTermId}
+        </foreach>
+    </update>
+
+    <select id="listCountBQParticipantById" resultType="com.pandawork.crm.common.dto.event.processing.CountParticipantDto">
+        (SELECT
+        checkItemResult.id AS id,
+        checkItemResult.event_record_notice_id AS eventRecordNoticeId,
+        concat_ws(":",checkItem.name,checkItem.content) AS content,
+        employee.name AS createdPartyName,
+        checkItemResult.created_time AS createdTime
+        FROM `t_check_item_result` checkItemResult
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = checkItemResult.created_party_id
+        LEFT JOIN `t_check_item` checkItem ON checkItemResult.check_item_id = checkItem.id
+        WHERE checkItemResult.event_record_notice_id = #{eventRecordNoticeId})
+        UNION
+        (SELECT
+        eventRecordPointsItem.id AS id,
+        eventRecordPointsItem.`event_record_notice_id` AS eventRecordNoticeId,
+        concat_ws(":",pointsItem.name,pointsItem.points_value) AS content,
+        employee.name AS createdPartyName,
+        eventRecordPointsItem.created_time AS createdTime
+        FROM
+        `t_event_record_points_item` eventRecordPointsItem
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = eventRecordPointsItem.created_party_id
+        LEFT JOIN `t_points_item` pointsItem ON eventRecordPointsItem.points_item_id = pointsItem.id
+        WHERE eventRecordPointsItem.event_record_notice_id = #{eventRecordNoticeId})
+        <!--<if test="offset >= 0 and pageSize > 0">-->
+            <!--LIMIT #{offset},#{pageSize}-->
+        <!--</if>-->
+    </select>
+
+    <select id="countParticipantById" resultType="int">
+        SELECT sum(cnt) FROM
+        ((SELECT COUNT(0) AS cnt
+        FROM `t_check_item_result` checkItemResult
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = checkItemResult.created_party_id
+        LEFT JOIN `t_check_item` checkItem ON checkItemResult.check_item_id = checkItem.id
+        WHERE checkItemResult.event_record_notice_id = #{eventRecordNoticeId})
+        UNION
+        (SELECT COUNT(0) AS cnt
+        FROM
+        `t_event_record_points_item` eventRecordPointsItem
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = eventRecordPointsItem.created_party_id
+        LEFT JOIN `t_points_item` pointsItem ON eventRecordPointsItem.points_item_id = pointsItem.id
+        WHERE eventRecordPointsItem.event_record_notice_id = #{eventRecordNoticeId}))
+    </select>
+
+    <select id="listByClientId" resultMap="pw.EventTerm">
+        SELECT
+        eventRecordNotice.id AS id,
+        event.name AS name,
+        event.type AS type,
+        event.level AS level,
+        eventTerm.status AS status,
+        eventRecordNotice.notice_status AS noticeStatus,
+        eventTerm.start_date AS startDate,
+        memberGroup.id AS memberGroupId,
+        memberGroup.name AS memberGroupName,
+        employee.party_id AS createdPartyId,
+        employee.name AS createdPartyName,
+        event.created_time AS createdTime
+        FROM
+        `t_event_record_notice` eventRecordNotice
+        LEFT JOIN `t_event` event ON event.id = eventRecordNotice.event_id
+        LEFT JOIN `t_event_term` eventTerm ON eventRecordNotice.event_term_id = eventTerm.id
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = event.created_party_id
+        LEFT JOIN `t_member_group` memberGroup ON memberGroup.id = eventRecordNotice.member_group_id
+        WHERE eventRecordNotice.client_id = #{clientId}
+        ORDER BY eventRecordNotice.created_time DESC
+        <if test="offset >= 0 and pageSize > 0">
+            LIMIT #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="countByClientId" resultType="int">
+        SELECT COUNT(eventRecordNotice.id)
+        FROM
+        `t_event_record_notice` eventRecordNotice
+        WHERE eventRecordNotice.client_id = #{clientId}
+    </select>
+
+    <update id="updateParticipantStatusById" >
+        UPDATE
+        `t_event_record_notice` eventRecordNotice
+        SET
+        eventRecordNotice.event_participant_status = #{status}, eventRecordNotice.event_participant_times = # {eventParticipantTimes}
+        WHERE id = #{id}
+    </update>
+
+    <select id="queryByClientId" resultMap="pw.EventTerm">
+        SELECT
+        eventTerm.id AS id,
+        event.name AS name,
+        event.type AS type,
+        event.level AS level,
+        eventTerm.start_date AS startDate,
+        eventTerm.notice_content AS noticeContent
+        FROM
+        `t_event_term` eventTerm
+        LEFT JOIN `t_event` event ON event.id = eventTerm.event_id
+        LEFT JOIN `t_event_record_notice` eventRecordNotice ON eventRecordNotice.event_term_id = eventTerm.id
+        WHERE eventRecordNotice.client_id = #{clientId} AND eventRecordNotice.notice_status = 1
+        ORDER BY eventTerm.created_time DESC
+        <if test="offset >= 0 and pageSize > 0">
+            LIMIT #{offset}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="countEventTermByClientId" resultType="int">
+        SELECT COUNT(0)
+        FROM
+        `t_event_term` eventTerm
+        LEFT JOIN `t_event` event ON event.id = eventTerm.event_id
+        LEFT JOIN `t_event_record_notice` eventRecordNotice ON eventRecordNotice.event_term_id = eventTerm.id
+        WHERE eventRecordNotice.client_id = #{clientId} AND eventRecordNotice.notice_status = 1
+    </select>
+
+    <select id="countCheckItemByEventId" resultType="int">
+         SELECT COUNT(0)
+         FROM `t_check_item` checkItem
+         WHERE checkItem.event_id = #{eventId}
+    </select>
+
+    <select id="countPointsItemByEventId" resultType="int">
+         SELECT COUNT(0)
+         FROM `t_points_item` pointsItem
+         WHERE pointsItem.event_id = #{eventId}
+    </select>
+
+    <select id="listEventByClientId" resultMap="pw.Event">
+        SELECT
+        event.id AS id,
+        event.name AS name,
+        event.type AS type,
+        event.level AS level,
+        recordNotice.event_status AS eventStatus,
+        event.start_date AS startDate,
+        event.member_group_id AS memberGroupId,
+        memberGroup.name AS memberGroupName,
+        employee.name AS createdPartyName,
+        event.created_time AS createdTime
+        FROM `t_event` event
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = event.created_party_id
+        LEFT JOIN `t_member_group` memberGroup ON memberGroup.id = event.member_group_id
+        LEFT JOIN `t_event_record_notice` recordNotice ON recordNotice.event_id = event.id
+        WHERE recordNotice.client_id = #{clientId}
+        <if test="offset >= 0 and pageSize > 0">
+          LIMIT #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="countEventByClientId" resultType="int">
+        SELECT COUNT(0)
+        FROM `t_event` event
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = event.created_party_id
+        LEFT JOIN `t_member_group` memberGroup ON memberGroup.id = event.member_group_id
+        LEFT JOIN `t_event_record_notice` recordNotice ON recordNotice.event_id = event.id
+        WHERE recordNotice.client_id = #{clientId}
+    </select>
+
+    <select id="countAllParticipant" resultType="int">
+        SELECT sum(recordNotice.event_participant_times)
+        FROM `t_event_record_notice` recordNotice
+        WHERE recordNotice.event_id = #{eventId} AND recordNotice.client_id = #{clientId}
+    </select>
+
+    <select id="listEventNoticeIdByEventId" resultType="int">
+        SELECT
+        id
+        FROM `t_event_record_notice` recordNotice
+        WHERE recordNotice.event_id = #{eventId} AND recordNotice.client_id = #{clientId}
+    </select>
+
+    <select id="listAllBQParticipantById" resultType="com.pandawork.crm.common.dto.event.processing.CountParticipantDto">
+        (SELECT
+        checkItemResult.id AS id,
+        checkItemResult.event_record_notice_id AS eventRecordNoticeId,
+        concat_ws(":",checkItem.name,checkItem.content) AS content,
+        employee.name AS createdPartyName,
+        checkItemResult.created_time AS createdTime
+        FROM `t_check_item_result` checkItemResult
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = checkItemResult.created_party_id
+        LEFT JOIN `t_check_item` checkItem ON checkItemResult.check_item_id = checkItem.id
+        WHERE checkItemResult.event_record_notice_id = #{eventRecordNoticeId})
+        UNION
+        (SELECT
+        eventRecordPointsItem.id AS id,
+        eventRecordPointsItem.`event_record_notice_id` AS eventRecordNoticeId,
+        concat_ws(":",pointsItem.name,pointsItem.points_value) AS content,
+        employee.name AS createdPartyName,
+        eventRecordPointsItem.created_time AS createdTime
+        FROM
+        `t_event_record_points_item` eventRecordPointsItem
+        LEFT JOIN `t_party_employee` employee ON employee.party_id = eventRecordPointsItem.created_party_id
+        LEFT JOIN `t_points_item` pointsItem ON eventRecordPointsItem.points_item_id = pointsItem.id
+        WHERE eventRecordPointsItem.event_record_notice_id = #{eventRecordNoticeId})
+    </select>
+
+
+    <select id="listByGroupId" resultMap="pw.EventTerm">
+        SELECT *
+        FROM
+        `t_event_term`
+        WHERE (status = 1 or status = 2) AND member_group_id = #{groupId}
+    </select>
+
+    <select id="listTop20EmployeeByName" resultMap="pw.Employee">
+        SELECT
+        DISTINCT employee.name AS name
+        FROM
+        `t_party_employee` employee
+        LEFT JOIN `t_event` event ON employee.party_id = event.created_party_id
+        LEFT JOIN `t_event_term` eventTerm ON eventTerm.event_id = event.id
+        <where>
+            TRUE
+            <if test="name != null and name != ''">
+               AND employee.name LIKE  "%"#{name}"%"
+            </if>
+            AND (eventTerm.status = 1 OR eventTerm.status = 2)
+        </where>
+        ORDER BY event.created_time DESC
+        LIMIT 20
+    </select>
+
+    <select id="listTop20EmployeeByIdcard" resultMap="pw.Employee">
+        SELECT
+        DISTINCT employee.idcard_num AS idcardNum
+        FROM
+        `t_party_employee` employee
+        LEFT JOIN `t_event` event ON employee.party_id = event.created_party_id
+        LEFT JOIN `t_event_term` eventTerm ON eventTerm.event_id = event.id
+        <where>
+            TRUE
+            <if test="idcardNum != null and idcardNum != ''">
+                AND employee.idcard_num LIKE "%"#{idcardNum}"%"
+            </if>
+            AND (eventTerm.status = 1 OR eventTerm.status = 2)
+        </where>
+        ORDER BY event.created_time DESC
+        LIMIT 20
+    </select>
+
+    <select id="countNextTerm" resultType="int">
+        SELECT
+          COUNT(1)
+            FROM
+               (
+                  SELECT
+                     id
+                  FROM
+                     `t_event_term`
+                  WHERE
+                     event_id = #{eventId}
+                  AND `status` = 0
+                  AND DATE(polling_date) > SYSDATE()
+                  ORDER BY
+                     polling_date
+                  <if test="flag != 'all'" >
+                       LIMIT 1
+                  </if>
+               ) t
+    </select>
+
+    <update id="pauseNextTerm" >
+        UPDATE t_event_term
+        SET `status` = 4,
+        <if test="flag != 'all'" >
+            pause_status = 1
+        </if>
+        <if test="flag == 'all'" >
+            pause_status = 2
+        </if>
+        WHERE
+           event_id = #{eventId}
+        AND `status` = 0
+        AND DATE(polling_date) > SYSDATE()
+        ORDER BY
+           polling_date
+        <if test="flag != 'all'" >
+            LIMIT 1
+        </if>
+    </update>
+
+</mapper>

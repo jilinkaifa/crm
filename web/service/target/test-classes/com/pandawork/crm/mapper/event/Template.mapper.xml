@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pandawork.crm.mapper.event.TemplateMapper">
+
+    <select id="listTemplateByEventSearchDto" resultMap="pw.Event">
+        SELECT
+        event.`id` AS id,
+        event.`name` AS name,
+        event.`template_id` templateId,
+        event.`is_marked` AS isMarked,
+        event.`is_template_used` AS isTemplateUsed,
+        event.`is_pure_template` AS is_pure_template,
+        event.`type` AS type,
+        event.`level` AS level,
+        event.`remind_time` AS remindTime,
+        event.`start_date` AS startDate,
+        event.`end_date` AS endDate,
+        event.`polling_time` AS pollingTime,
+        event.`polling_start_date` AS pollingStartTime,
+        event.`polling_end_date` AS pollingEndTime,
+        event.`is_points_related` AS isPointsRelated,
+        event.`is_checkitem_related` AS isCheckItemRelated,
+        event.`content` AS content,
+        event.`attachment` AS attachment,
+        event.`dic_notice_type` AS dicNoticeType,
+        event.`notice_content` AS noticeContent,
+        event.`apply_time` AS applyTime,
+        event.`approval_id` AS approvalId,
+        event.`approval_status` AS approvalStatus,
+        event.`apply_time` AS applyTime,
+        event.`is_logout` AS isLogout,
+        event.`logout_time` AS logoutTime,
+        event.`created_party_id` AS createdPartyId,
+        event.`created_time` AS createdTime,
+        event.`last_modified_time` AS lastModifiedTime,
+        memberGroup.`name` AS memberGroupName,
+        partyEmployee.`name` AS createdPartyName
+        FROM `t_event` event
+        LEFT JOIN `t_member_group` memberGroup ON event.`member_group_id` = memberGroup.`id`
+        LEFT JOIN `t_party_employee` partyEmployee ON event.`created_party_id` = partyEmployee.`party_id`
+        <where>
+            <if test="eventSearchDto != null">
+                <if test="eventSearchDto.name != null and eventSearchDto.name != '' ">
+                    AND event.`name` LIKE "%"#{eventSearchDto.name}"%"
+                </if>
+                <if test="eventSearchDto.type != null and eventSearchDto.type != '' and eventSearchDto.type >= 0 ">
+                    AND event.`type` = #{eventSearchDto.type}
+                </if>
+                <if test="eventSearchDto.level != null and eventSearchDto.level != '' and eventSearchDto.level >= 0 ">
+                    AND event.`level` = #{eventSearchDto.level}
+                </if>
+                <if test="eventSearchDto.createdPartyName != null and eventSearchDto.createdPartyName != '' ">
+                    AND partyEmployee.`name` LIKE "%"#{eventSearchDto.createdPartyName}"%"
+                </if>
+            </if>
+            AND event.`is_marked` = 1
+            AND event.`is_logout` != 1
+        </where>
+        ORDER BY event.`created_time` DESC
+        <if test="eventSearchDto != null and eventSearchDto.offset >= 0 and eventSearchDto.pageSize >0 ">
+            LIMIT #{eventSearchDto.offset}, #{eventSearchDto.pageSize}
+        </if>
+    </select>
+
+    <select id="countTemplateByEventSearchDto" resultType="int">
+        SELECT COUNT(event.id)
+        FROM `t_event` event
+        LEFT JOIN `t_member_group` memberGroup ON event.`member_group_id` = memberGroup.`id`
+        LEFT JOIN `t_party_employee` partyEmployee ON event.`created_party_id` = partyEmployee.`party_id`
+        <where>
+            <if test="eventSearchDto != null">
+                <if test="eventSearchDto.name != null and eventSearchDto.name != '' ">
+                    AND event.`name` LIKE "%"#{eventSearchDto.name}"%"
+                </if>
+                <if test="eventSearchDto.type != null and eventSearchDto.type != '' and eventSearchDto.type >= 0 ">
+                    AND event.`type` = #{eventSearchDto.type}
+                </if>
+                <if test="eventSearchDto.level != null and eventSearchDto.level != '' and eventSearchDto.level >= 0 ">
+                    AND event.`level` = #{eventSearchDto.level}
+                </if>
+                <if test="eventSearchDto.createdPartyName != null and eventSearchDto.createdPartyName != '' ">
+                    AND partyEmployee.`name` LIKE "%"#{eventSearchDto.createdPartyName}"%"
+                </if>
+                AND event.`is_logout` != 1
+                AND event.`is_marked` = 1
+            </if>
+        </where>
+    </select>
+
+    <select id="countByName" resultType="Integer">
+        SELECT COUNT(1)
+        FROM `t_event`
+        WHERE `name` = #{name} AND `is_marked` = 1
+    </select>
+
+    <update id="delTemplateById">
+        UPDATE `t_event`
+        SET `is_logout` = 1
+        WHERE `id` = #{id}
+    </update>
+
+</mapper>
