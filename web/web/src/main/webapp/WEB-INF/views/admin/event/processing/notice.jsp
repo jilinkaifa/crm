@@ -62,6 +62,51 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-sm-12 margin-bottom-30 margin-top--10">
+                    <div class="form-horizontal J_detailForm">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h4>结果记录</h4>
+                            </div>
+                            <div class="panel-body">
+                                <input type="hidden" name="eventRecordNoticeId" class="eventRecordNoticeId" value="${eventRecordNoticeId}">
+                                <input type="hidden" name="id" class="eventTermId" value="${event.id}">
+                                <input type="hidden" name="clientId" class="clientId" value="${clientId}">
+                                <form class="form-group col-sm-12 J_detailForm">
+                                    <input name="id" hidden="hidden" value="${eventRecordNoticeId}" />
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">状态</label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control J_selectName w200" name="status">
+                                                <option value="1">未通知</option>
+                                                <option value="2">已通知</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">备注</label>
+                                        <div class="col-sm-6">
+                                            <textarea name="comment" class="form-control J_editRemInput" cols="30" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-4">
+                                        <div class="btn-toolbar">
+                                            <button class="btn-success btn J_submit btn-radius-no" type="button"><i class="fa fa-save"></i>&nbsp;确定</button>
+                                            <button class="btn-default btn J_reset" type="reset"><i class="fa fa-undo"></i>&nbsp;重置</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
