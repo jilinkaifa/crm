@@ -1,5 +1,6 @@
 ﻿1111111package com.pandawork.crm.mapper.client.basic;
 2222222
+3333333
 
 import com.pandawork.crm.common.dto.client.basic.ClientSearchDto;
 import com.pandawork.crm.common.dto.client.member.MemberDto;
