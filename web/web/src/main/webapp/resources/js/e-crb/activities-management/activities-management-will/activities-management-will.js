@@ -199,16 +199,19 @@ $(function(){
             form = $('.J_form').serializeObject(),
             content = $('.J_content').val(),
             noticeContent = $('.J_noticeContent').val(),
+            memberGroupId = $('.J_group input').val(),
+
             attachment = $('.attachment').val();
         var templateId = $(".J_templateId").val();
         var isTemplateUsed = $(".J_isTemplateUsed").val();
-
+        alert(memberGroupId);
         jQuery.extend(form,{
             content: content,
             noticeContent: noticeContent,
             attachment: attachment,
             templateId:templateId,
-            isTemplateUsed:isTemplateUsed
+            isTemplateUsed:isTemplateUsed,
+            memberGroupId:memberGroupId
         });
 
         var
@@ -283,6 +286,63 @@ $(function(){
                 }
             });
      }
+    //主页面检查项显示
+    $('#forjianchaxianshi').on("click",function() {
+        $("#aa").show();
+        $('#aa div').children().remove();
+       
+
+        var
+                tr = $('.J_tbody').children(),
+                trPoints = $('.J_tbodyPoints').children(),
+
+                checkItemList = [],
+                pointsItemList = [],
+                id, checkItemName, checkItemContent,
+                idPoints, checkPointsItemName, checkPointsItemContent,
+                data;
+
+            tr.each(function () {
+                var tdArr = $(this).children(),
+                    id = $(this).attr('data-id'),
+                    trList = {},
+                    checkItemName = tdArr.eq(1).text(),
+                    checkItemContent = tdArr.eq(2).text();
+                    $('#aa div').append(
+                        '<p>'+checkItemName+ ':'+checkItemContent+'</p>'
+                    );
+
+            });
+
+
+
+        }
+);
+
+    //主页积分显示
+    $('#forjifenxianshi').on("click",function() {
+        $("#bb").show();
+            $('#bb div').children().remove();
+
+            var
+
+                trPoints = $('.J_tbodyPoints').children(),
+                idPoints, checkPointsItemName, checkPointsItemContent,
+                data;
+        　　　　　trPoints.each(function () {
+                 var tdArr = $(this).children(),
+                 idPoints = $(this).attr('data-id'),
+                      checkPointsItemName = tdArr.eq(1).text(),
+                      checkPointsItemContent = tdArr.eq(2).text();
+                    $('#bb div').append(
+                        '<p>'+checkPointsItemName+':' +checkPointsItemContent+'</p>'
+                    );
+
+                });
+
+
+        }
+    );
     /**
      * 提交审核
      * 点击了提交审核按钮
@@ -327,11 +387,12 @@ $(function(){
                 content: checkItemContent
             };
             checkItemList.push(checkItem);
+            alert(checkItemList);
         });
         trPoints.each(function(){
             var tdArr = $(this).children(),
                 idPoints = $(this).attr('data-id'),
-                trPointsList = {}, 
+                trPointsList = {},
                 checkPointsItemName = tdArr.eq(1).text(),
                 checkPointsItemContent = tdArr.eq(2).text();
 
@@ -593,17 +654,7 @@ $(function(){
                         }
                     }
                 },
-                memberGroupId: {
-                    validators: {
-                        notEmpty: {
-                            message: ' '
-                        },
-                        regexp: {
-                            regexp: /^[0-9]\d*$/,
-                            message: '活动人员不能为空'
-                        }
-                    }
-                },
+
                 type: {
                     validators: {
                         notEmpty: {
@@ -765,13 +816,17 @@ $(function(){
             checkItemName =$('.J_checkItemName').val(),
             checkItemContent = $('.J_checkItemContent').find("option:selected").text();
 
+
+
+
         $('.J_tbody').append(
             '<tr data-id="' + curId + '"> \
                 <td> <input class="J_subCheck"  type="checkbox" name="subCheck" > </td> \
                 <td>'+checkItemName+'</td>\
                 <td> <span>'+ checkItemContent + '</span> </td> \
             </tr>');
-        $('#addDialog').modal('hide');
+
+              $('#addDialog').modal('hide');
         /**
          * 清楚验证缓存
          */

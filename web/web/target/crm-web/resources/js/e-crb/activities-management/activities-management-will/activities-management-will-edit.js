@@ -11,14 +11,14 @@
  修改内容见标签 modify, 并删除了有关保存模板的代码
  * ---------------------------------------------------------------------------*/
 $(function(){
-    var roleName =  $("#roleName").val();
-    if(roleName == '营销人员'){
-        $(".J_activitiesType option[value='1']").remove();
-        $(".J_polling").addClass('hide');
-        $(".J_group").addClass('hide');
-        $(".J_pollingTime").val(-1);
-        $(".J_memberGroupId").val(-1);
-    }
+    // var roleName =  $("#roleName").val();
+    // if(roleName == '营销人员'){
+    //     $(".J_activitiesType option[value='1']").remove();
+    //     $(".J_polling").addClass('hide');
+    //     $(".J_group").addClass('hide');
+    //     $(".J_pollingTime").val(-1);
+    //     $(".J_memberGroupId").val(-1);
+    // }
 
     //切换侧边栏
     $('#Menu3,#logoMenu3').trigger('click');
@@ -83,6 +83,8 @@ $(function(){
                         $(".J_pollingTimeIpt").val(rs.pollingTime);//循环粒度隐藏框
                         $(".J_memberGroupIdIpt").val(rs.memberGroupId);//活动人员隐藏框
                     }
+                    $("#realMemberGroupId").val(rs.memberGroupId);
+                    $("#realType").val(rs.type);
                 }
                 else{
                     $('#modalDialog').modal();//活动名称重复对话框
@@ -354,9 +356,9 @@ $(function(){
      * @return {[type]} [description]
      */
     function submitForm(){
-        var memberGroupId = $("select[name='memberGroupId']").val();
+        var realMemberGroupId = $("#realMemberGroupId").val();
+        var realType = $("#realType").val();
         var pollingTime = $("select[name='pollingTime']").val();
-
         var activitiesId = getUrlParam('id');
         var
             form = $('.J_form').serializeObject(),
@@ -364,10 +366,9 @@ $(function(){
             noticeContent = $('.J_noticeContent').val(),
             attenchment = $('.J_file').val();
 
-        form.memberGroupId = memberGroupId;
+        form.memberGroupId = realMemberGroupId;
         form.pollingTime = pollingTime;
-
-        //console.log(form);
+        form.type = realType;
 
         jQuery.extend(form,{
             id:activitiesId,
@@ -478,6 +479,34 @@ $(function(){
     $('.J_cancel').click(function() {
         resetForm();
     });
+    //主页面检查项显示
+    $('#forjianchaxianshi').on("click",function() {
+            $("#aa").show();
+            $('#aa div').children().remove();
+            var
+                tr = $('.J_tbody').children(),
+                trPoints = $('.J_tbodyPoints').children(),
+
+                checkItemList = [],
+                pointsItemList = [],
+                id, checkItemName, checkItemContent,
+                idPoints, checkPointsItemName, checkPointsItemContent,
+                data;
+
+            tr.each(function () {
+                var tdArr = $(this).children(),
+                    id = $(this).attr('data-id'),
+                    trList = {},
+                    checkItemName = tdArr.eq(1).text(),
+                    checkItemContent = tdArr.eq(2).text();
+                $('#aa div').append(
+                    '<p>'+checkItemName+ ':'+checkItemContent+'</p>'
+                );
+
+            });
+        }
+    );
+
     /*******************************************以下是积分项的函数******************************************************/
     //点击check添加对话框确定按钮验证
     $('.J_addPointsDlg').click(function(){
@@ -491,6 +520,31 @@ $(function(){
     $('.J_delDlg').click(function(){
         delItem();
     });
+
+    //主页积分显示
+    $('#forjifenxianshi').on("click",function() {
+            $("#bb").show();
+            $('#bb div').children().remove();
+
+            var
+
+                trPoints = $('.J_tbodyPoints').children(),
+                idPoints, checkPointsItemName, checkPointsItemContent,
+                data;
+            trPoints.each(function () {
+                var tdArr = $(this).children(),
+                    idPoints = $(this).attr('data-id'),
+                    checkPointsItemName = tdArr.eq(1).text(),
+                    checkPointsItemContent = tdArr.eq(2).text();
+                $('#bb div').append(
+                    '<p>'+checkPointsItemName+':' +checkPointsItemContent+'</p>'
+                );
+
+            });
+
+
+        }
+    );
     /*******************************************以下是自定义函数******************************************************/
     /**
      * 修改活动验证

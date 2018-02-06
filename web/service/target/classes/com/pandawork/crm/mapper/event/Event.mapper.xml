@@ -39,6 +39,13 @@
         WHERE `id` = #{id}
     </update>
 
+    <!-- 注销活动 新-->
+    <update id="logoutEventById">
+        UPDATE `t_event`
+        SET `is_logout` = 1,logout_time = SYSDATE(),`state` = 4,logout_type = #{type}
+        WHERE `id` = #{id}
+    </update>
+
     <select id="notAdoptEvent" resultMap="pw.Event">
         SELECT *
         FROM `t_event`
@@ -76,7 +83,10 @@
           event.`created_time` AS createdTime,
           event.`last_modified_time` AS lastModifiedTime,
           memberGroup.`name` AS memberGroupName,
-          partyEmployee.`name` AS createdPartyName
+          partyEmployee.`name` AS createdPartyName,
+          event.`state`,
+          event.`current_periods` AS currentPeriods,
+          event.`total_periods` AS totalPeriods
         FROM `t_event` event
         LEFT JOIN `t_member_group` memberGroup ON event.`member_group_id` = memberGroup.`id`
         LEFT JOIN `t_party_employee` partyEmployee ON event.`created_party_id` = partyEmployee.`party_id`
@@ -103,9 +113,7 @@
                     AND event.`level` = #{eventSearchDto.level}
                 </if>
             </if>
-            AND event.`is_logout` != 1
             AND event.`is_marked` = 0
-            AND event.`state` = 1
         </where>
         ORDER BY event.`created_time` DESC
         <if test="eventSearchDto != null and eventSearchDto.offset >= 0 and eventSearchDto.pageSize >0 ">
@@ -141,9 +149,7 @@
                     AND event.`level` = #{eventSearchDto.level}
                 </if>
             </if>
-            AND event.`is_logout` != 1
             AND event.`is_marked` = 0
-            AND event.`state` = 1
         </where>
     </select>
 

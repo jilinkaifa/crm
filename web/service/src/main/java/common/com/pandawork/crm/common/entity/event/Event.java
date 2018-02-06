@@ -182,6 +182,14 @@ public class Event extends AbstractEntity{
     @Column(name = "state")
     private Integer state;
 
+    //当前期数
+    @Column(name = "current_periods")
+    private Integer currentPeriods;
+
+    //总期数
+    @Column(name = "total_periods")
+    private Integer totalPeriods;
+
     public Integer getId() {
         return id;
     }
@@ -525,5 +533,22 @@ public class Event extends AbstractEntity{
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+
+    public Integer getCurrentPeriods() {
+        return currentPeriods;
+    }
+
+    public void setCurrentPeriods(Integer currentPeriods) {
+        this.currentPeriods = currentPeriods;
+    }
+
+    public Integer getTotalPeriods() {
+        return totalPeriods;
+    }
+
+    public void setTotalPeriods(Integer totalPeriods) {
+        this.totalPeriods = totalPeriods;
     }
 }

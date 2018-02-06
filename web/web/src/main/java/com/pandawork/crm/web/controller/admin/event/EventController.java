@@ -19,6 +19,7 @@ import com.pandawork.crm.common.entity.party.security.SecurityGroup;
 import com.pandawork.crm.common.entity.party.security.SecurityUserGroup;
 import com.pandawork.crm.common.enums.event.EventApprovalStatusEnums;
 import com.pandawork.crm.common.enums.event.EventLevelEnums;
+import com.pandawork.crm.common.enums.event.EventStateEnums;
 import com.pandawork.crm.common.enums.event.EventTypeEnums;
 import com.pandawork.crm.common.enums.other.ModuleEnums;
 import com.pandawork.crm.common.enums.party.dictionary.DictionaryEnums;
@@ -62,10 +63,13 @@ public class EventController extends AbstractController {
         int partyId = DataUtils.objectToInt(httpSession.getAttribute("partyId"));
         int pageCount = 0;
         EventSearchDto eventSearchDto = new EventSearchDto();
+        SecurityGroup securityGroup = new SecurityGroup(); //存角色
         try{
+            securityGroup = employeeService.querySecurityGroupByPartyId(partyId);
             pageCount = DataUtils.getPageCount(DEFAULT_PAGE_SIZE, eventService.countByEventSearchDto(eventSearchDto));
             model.addAttribute("pageCount", pageCount);
             model.addAttribute("partyId", partyId);
+            model.addAttribute("realRoleId", securityGroup.getId());
         } catch(SSException e){
             LogClerk.errLog.error(e);
             sendErrMsg(e.getMessage());
@@ -132,8 +136,12 @@ public class EventController extends AbstractController {
                 jsonObject.put("level", EventLevelEnums.valueOf(event.getLevel()).getLevel());
                 jsonObject.put("approvalStatusValue", EventApprovalStatusEnums.valueOf(event.getApprovalStatus()).getStatus());
                 jsonObject.put("approvalStatus", event.getApprovalStatus());
+                jsonObject.put("state", event.getState());
+                jsonObject.put("stateValue", EventStateEnums.valueOf(event.getState()).getState());
                 jsonObject.put("startDate", DateUtils.formatDateSimple(event.getStartDate()));
                 jsonObject.put("endDate", DateUtils.formatDateSimple(event.getEndDate()));
+                jsonObject.put("currentPeriods",event.getCurrentPeriods());
+                jsonObject.put("totalPeriods", event.getTotalPeriods());
                 if (event.getType() == EventTypeEnums.Member.getId()){
                     jsonObject.put("memberGroupName", event.getMemberGroupName());
                 } else {
@@ -441,6 +449,9 @@ public class EventController extends AbstractController {
                 if (pointsItemList != null && !pointsItemList.isEmpty()){
                     event.setIsPointsRelated(1);
                 }
+                //总期数
+                int totalPeriods = eventService.getTotalPeriods(event);
+                event.setTotalPeriods(totalPeriods);
                 Event event1 = eventService.newEvent(event);
                 //判断event中是否有templateId
                 // 若不为空，则证明之前已经保存过模板了，需要将之前保存的模板的使用状态改为正在被使用
@@ -609,6 +620,8 @@ public class EventController extends AbstractController {
         List<Dictionary> pointsItemList = Collections.emptyList();
         List<Member> memberList = new ArrayList<Member>();
         String eventAttachmentName = "";
+        Integer realMemberGroupId = null;
+        Integer realType = null;
         try {
             Event event = eventService.queryById(id);
             if(Assert.isNotNull(event.getAttachment())){
@@ -617,12 +630,14 @@ public class EventController extends AbstractController {
 
             //获取当前登录人的角色名称
             int partyId = DataUtils.objectToInt(httpSession.getAttribute("partyId"));
-            String roleName = eventService.getRoleName(partyId);
-            if("会员管理员".equals(roleName)){
-                Employee employee = employeeService.queryByPartyId(partyId);
-                Member member1 =memberGroupService.queryById(employee.getGroupId());
-                memberList.add(member1);
-            }
+//            String roleName = eventService.getRoleName(partyId);
+//            if("会员管理员".equals(roleName)){
+//                Employee employee = employeeService.queryByPartyId(partyId);
+//                Member member1 =memberGroupService.queryById(employee.getGroupId());
+//                memberList.add(member1);
+//            }
+            realMemberGroupId = event.getMemberGroupId();
+            realType = event.getType();
 
             //获取所有会员组
            //List<Member> memberList = memberGroupService.isNotDeleted();
@@ -630,11 +645,21 @@ public class EventController extends AbstractController {
             checkItemList = dictionaryService.listByPId(DictionaryEnums.DIC_CHECK_ITEM.getId());
             //获取字典中的所有积分项
             pointsItemList = dictionaryService.listByPId(DictionaryEnums.DIC_POINTS_ITEM.getId());
+
+            //检查项
+            List<CheckItem> checkItemListForEvent = checkItemService.listByEventId(id);
+            //积分项
+            List<PointsItem> pointsItemListForEvent = pointsItemService.listByEventId(id);
             model.addAttribute("checkItemList", checkItemList);
             model.addAttribute("pointsItemList", pointsItemList);
             model.addAttribute("memberList", memberList);
             model.addAttribute("eventAttachmentName", eventAttachmentName);
-            model.addAttribute("roleName",roleName);
+//            model.addAttribute("roleName",roleName);
+            model.addAttribute("realMemberGroupId",realMemberGroupId);
+            model.addAttribute("realType",realType);
+            model.addAttribute("checkItemListForEvent",checkItemListForEvent);
+            model.addAttribute("pointsItemListForEvent",pointsItemListForEvent);
+            model.addAttribute("event",event);
         } catch (SSException e){
             LogClerk.errLog.error(e);
             sendErrMsg(e.getMessage());
@@ -756,8 +781,7 @@ public class EventController extends AbstractController {
     @ResponseBody
     public JSONObject ajaxUpdateEvent(@RequestBody EventDto eventDto,
                                       HttpSession httpSession) {
-        //int partyId = DataUtils.objectToInt(httpSession.getAttribute("partyId"));
-
+        int partyId = DataUtils.objectToInt(httpSession.getAttribute("partyId"));
         try {
             if (Assert.isNull(eventDto)){
                 return sendMsgAndCode(AJAX_SUCCESS_CODE, "修改活动信息失败，请检查信息");
@@ -773,18 +797,23 @@ public class EventController extends AbstractController {
                 if (Assert.isNull(event.getId())){
                     return sendMsgAndCode(AJAX_SUCCESS_CODE, "修改活动信息失败，请检查信息");
                 }
+                //活动类型
+                if(event.getType() == EventTypeEnums.Member.getId()){
+                    Employee employee = employeeService.queryByPartyId(partyId);
+                    event.setMemberGroupId(employee.getGroupId());
+                }
                 //获取当前活动的id
                 int eventId = event.getId();
                 //根据id获取之前的活动
                 Event eventBefore = eventService.queryById(eventId);
-                int typeBefore = eventBefore.getType();
-                //如果活动之前为会员关怀型，现改成了营销型，则将之前活动的循环粒度和活动人员清空
-                if (typeBefore == EventTypeEnums.Member.getId()){
-                    if (event.getType() == EventTypeEnums.Promotion.getId()){
-                        event.setPollingTime(null);
-                        event.setMemberGroupId(null);
-                    }
-                }
+//                int typeBefore = eventBefore.getType();
+//                //如果活动之前为会员关怀型，现改成了营销型，则将之前活动的循环粒度和活动人员清空
+//                if (typeBefore == EventTypeEnums.Member.getId()){
+//                    if (event.getType() == EventTypeEnums.Promotion.getId()){
+//                        event.setPollingTime(null);
+//                        event.setMemberGroupId(null);
+//                    }
+//                }
                 //如果之前的活动审批状态为审核驳回，则将状态更新为待审核
                 if (eventBefore.getApprovalStatus() == EventApprovalStatusEnums.Rejection.getId()){
                     event.setApprovalStatus(EventApprovalStatusEnums.Pending.getId());
@@ -814,6 +843,9 @@ public class EventController extends AbstractController {
                 } else {
                     pointsItemService.delByEventId(eventId);
                 }
+                //计算总期数
+                int totalPeriods = eventService.getTotalPeriods(event);
+                event.setTotalPeriods(totalPeriods);
                 //保存活动
                 eventService.updateEvent(event);
             }
@@ -853,8 +885,23 @@ public class EventController extends AbstractController {
             } else {
                 event.setMemberGroupName("");
             }
+            //检查项
+            List<CheckItem> checkItemList = checkItemService.listByEventId(id);
+
+            //积分项
+            List<PointsItem> pointsItemList = pointsItemService.listByEventId(id);
+
+            //审批状态
+            if(event.getApprovalStatus() == EventApprovalStatusEnums.Adopt.getId()){
+                event.setApprovalStatusValue(EventApprovalStatusEnums.Adopt.getStatus());
+            }
+            if(event.getApprovalStatus() == EventApprovalStatusEnums.Rejection.getId()){
+                event.setApprovalStatusValue(EventApprovalStatusEnums.Rejection.getStatus());
+            }
             model.addAttribute("event", event);
             model.addAttribute("eventAttachmentName", eventAttachmentName);
+            model.addAttribute("checkItemList", checkItemList);
+            model.addAttribute("pointsItemList", pointsItemList);
         } catch (SSException e){
             LogClerk.errLog.error(e);
             sendErrMsg(e.getMessage());

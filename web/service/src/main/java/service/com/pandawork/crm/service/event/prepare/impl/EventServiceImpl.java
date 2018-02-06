@@ -210,7 +210,8 @@ public class EventServiceImpl implements EventService {
                 cal.add(Calendar.DAY_OF_MONTH, events.getRemindTime() * (-1));
                 String pollingDate = DateUtils.formatDateSimple(cal.getTime());
                 if (date.compareTo(pollingDate) == 0){
-                    eventMapper.updateEventToLogout(events.getId());
+                    //eventMapper.updateEventToLogout(events.getId());
+                    eventMapper.logoutEventById(events.getId(),2);
                 }
             }
         } catch (Exception e) {
@@ -226,7 +227,8 @@ public class EventServiceImpl implements EventService {
             if (Assert.isNull(id)) {
                 throw SSException.get(CrmException.EventIdNotNull);
             }
-            eventMapper.updateEventToLogout(id);
+            //eventMapper.updateEventToLogout(id);
+            eventMapper.logoutEventById(id,1);
         } catch (Exception e) {
             LogClerk.errLog.error(e);
             throw SSException.get(CrmException.LogoutEventFail, e);
@@ -593,6 +595,14 @@ public class EventServiceImpl implements EventService {
                     field = Calendar.YEAR;
                 }else if(pollingTime == 2){ //粒度：月
                     field = Calendar.MONTH;
+                }else if(pollingTime == 3){ //粒度：无
+                    //提醒时间
+                    Calendar termPollingCalendar = Calendar.getInstance();
+                    termPollingCalendar.setTime(startDate);
+                    termPollingCalendar.add(Calendar.DAY_OF_YEAR,remindTime * (-1));
+                    Date termPollingDate = termPollingCalendar.getTime();
+                    this.insertEventTerm(event,termPollingDate,event.getStartDate(),event.getEndDate(),1);
+                    return resultStr;
                 }else{
                     return resultStr="未知的活动粒度！";
                 }
@@ -622,7 +632,7 @@ public class EventServiceImpl implements EventService {
                     if(termEndDate.getTime() >  endDate.getTime()){
                         termEndDate = endDate;
                     }
-                    this.insertEventTerm(event,termPollingDate,termStartDate,termEndDate);
+                    this.insertEventTerm(event,termPollingDate,termStartDate,termEndDate,j);
                     i++;
                     j++;
                 }while (termEndDate.getTime() < endDate.getTime());
@@ -632,7 +642,7 @@ public class EventServiceImpl implements EventService {
                 termPollingCalendar.setTime(startDate);
                 termPollingCalendar.add(Calendar.DAY_OF_YEAR,remindTime * (-1));
                 Date termPollingDate = termPollingCalendar.getTime();
-                this.insertEventTerm(event,termPollingDate,event.getStartDate(),event.getEndDate());
+                this.insertEventTerm(event,termPollingDate,event.getStartDate(),event.getEndDate(),1);
             }else{
                 resultStr="未知的活动类型！";
             }
@@ -649,8 +659,9 @@ public class EventServiceImpl implements EventService {
      * @param termPollingDate 提醒日期
      * @param termStartDate 开始日期
      * @param termEndDate 结束日期
+     * @param periodsNum 所在期数
      */
-    private void insertEventTerm(Event event,Date termPollingDate,Date termStartDate,Date termEndDate){
+    private void insertEventTerm(Event event,Date termPollingDate,Date termStartDate,Date termEndDate,Integer periodsNum){
         EventTerm eventTerm = new EventTerm();
         eventTerm.setEventId(event.getId());
         eventTerm.setPollingDate(termPollingDate);
@@ -659,10 +670,54 @@ public class EventServiceImpl implements EventService {
         eventTerm.setMemberGroupId(event.getMemberGroupId());
         eventTerm.setStatus(0);
         eventTerm.setNoticeContent(event.getNoticeContent());
+        eventTerm.setPeriodsNum(periodsNum);
         try {
             commonDao.insert(eventTerm);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 计算活动总期数
+     * @param event
+     * @return
+     * @throws SSException
+     */
+    public int getTotalPeriods(Event event) throws SSException{
+        int totalPeriods = 1;
+        if(event != null){
+            Date startDate = event.getStartDate();//活动开始时间
+            Date endDate = event.getEndDate();//活动结束时间
+            Integer type = event.getType();//活动类型
+            if(type == 1){ //会员关怀型
+                Integer pollingTime = event.getPollingTime();//粒度
+                int field = -1;
+                if (pollingTime == 1){ //粒度：年
+                    field = Calendar.YEAR;
+                }else if(pollingTime == 2){ //粒度：月
+                    field = Calendar.MONTH;
+                }else{
+                    return totalPeriods;
+                }
+                int i= 0,j=1;
+                Date termEndDate = null;
+                do {
+                    //期结束时间
+                    Calendar termEndCalendar = Calendar.getInstance();
+                    termEndCalendar.setTime(startDate);
+                    termEndCalendar.add(field,j);
+                    termEndCalendar.add(Calendar.DAY_OF_YEAR,-1);
+                    termEndDate = termEndCalendar.getTime();
+                    if(termEndDate.getTime() >  endDate.getTime()){
+                        termEndDate = endDate;
+                    }
+                    i++;
+                    j++;
+                }while (termEndDate.getTime() < endDate.getTime());
+                return i;
+            }
+        }
+        return totalPeriods;
     }
 }

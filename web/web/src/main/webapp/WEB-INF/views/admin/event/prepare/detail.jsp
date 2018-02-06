@@ -78,6 +78,7 @@
                                                 <input readonly="readonly" class="w200" type="text"
                                                        <c:if test='${event.pollingTime == 1}'>value="年"</c:if>
                                                        <c:if test='${event.pollingTime == 2}'>value="月"</c:if>
+                                                       <c:if test='${event.pollingTime == 3}'>value="无"</c:if>
                                                 />
                                             </div>
                                         </div>
@@ -125,6 +126,41 @@
                                         </div>
                                     </c:if>
                                 </div>
+
+                                <c:if test="${event.approvalStatus == 2 || event.approvalStatus == 3 }">
+                                    <div class="form-group col-sm-12" id="cc">
+                                        <h4>最新审批结果</h4>
+                                        <hr>
+                                        <div id="shenpixinxi">
+                                            <p>${event.approvalStatusValue}:${event.approvalComment}</p>
+                                        </div>
+                                    </div>
+                                </c:if>
+
+                                <c:if test="${checkItemList!=null && fn:length(checkItemList) > 0}">
+                                    <div class="form-group col-sm-12" id="aa">
+                                        <h4>检查项</h4>
+                                        <hr>
+                                        <div id="jianchaxiang">
+                                            <c:forEach var="checkItem" items="${checkItemList}">
+                                                <p>${checkItem.name}:${checkItem.content}</p>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
+                                </c:if>
+
+                                <c:if test="${pointsItemList!=null && fn:length(pointsItemList) > 0}">
+                                    <div class="form-group col-sm-12" id="bb">
+                                        <h4>积分项</h4>
+                                        <hr>
+                                        <div id="jifenxiang">
+                                            <c:forEach var="pointsItem" items="${pointsItemList}">
+                                                <p> ${pointsItem.name}:${pointsItem.pointsValue}</p>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
+                                </c:if>
+
                                 <div class="form-group col-sm-12">
                                     <h4>活动具体内容</h4>
                                     <hr>

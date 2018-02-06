@@ -60,6 +60,15 @@ public interface EventMapper {
     public void updateEventToLogout(@Param("id") Integer id) throws Exception;
 
     /**
+     * 注销活动 新
+     *
+     * @param id 活动ID
+     * @param type 注销的类型：手动注销1；自动注销2
+     * @throws Exception
+     */
+    public void logoutEventById(@Param("id") Integer id,@Param("type") Integer type) throws Exception;
+
+    /**
      * 查询所有驳回的和未审核的活动
      *
      * @return

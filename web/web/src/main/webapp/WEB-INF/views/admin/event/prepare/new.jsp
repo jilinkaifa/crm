@@ -8,6 +8,36 @@
     <title>新建活动</title>
     <link rel="stylesheet" type="text/css" href="/css/e-crb/activities-management/activities-management-will/activities-management-will.css">
     <jsp:include flush="true" page="/WEB-INF/views/admin/common/head.jsp"></jsp:include>
+
+<script type="text/javascript">
+        $(function(){
+            $("#aa").hide();
+            $("#bb").hide();
+            $("#huodongleibie").hide();
+            $("#huodongrenyuan").hide();
+
+
+                var url = location.search; //获取url中"?"符后的字串
+                if (url.indexOf("?") != -1) {    //判断是否有参数
+                    var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+                    strs = str.split("=");   //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
+                    if(strs[1]==1){
+                        $("#pollingTime").show();
+                        $("#huodongleibie input").attr("value",'1');
+                        //$("#huodongleibie").children().children().val("1");
+                        console.log($("#huodongleibie input").attr("value",'1'));
+
+                    }else{
+                        $("#pollingTime").hide();
+                       $("#huodongleibie input").val("2");
+                       $("#huodongrenyuan input").val("");
+                    }
+                }
+              //  alert($("#huodongrenyuan input").val());
+
+        });
+    </script>
+
 </head>
 <body>
 <jsp:include flush="true" page="/WEB-INF/views/admin/common/header.jsp"></jsp:include>
@@ -45,39 +75,39 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-5 control-label"><span class="requires">*</span>活动级别</label>
-                                        <div class="col-sm-6">
-                                            <select name="level" class="w200 form-control">
-                                                    <option <c:if test='${event.level == 1}'>selected="selected"</c:if> value="1">一级</option>
-                                                    <option <c:if test='${event.level == 2}'>selected="selected"</c:if> value="2">二级</option>
-                                                    <option <c:if test='${event.level == 3}'>selected="selected"</c:if> value="3">三级</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
                                         <label class="col-sm-5 control-label"><span class="requires">*</span>活动时间从</label>
                                         <div class="col-sm-6">
                                             <input id="startDate" name="startDate" readonly="readonly" class="Wdate w200" type="text" onclick="WdatePicker()" value=""/>
                                         </div>
                                     </div>
-                                    <div class="form-group J_polling">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label"><span class="requires">*</span>活动级别</label>
+                                        <div class="col-sm-6">
+                                            <select name="level" class="w200 form-control">
+                                                <option <c:if test='${event.level == 1}'>selected="selected"</c:if> value="1">一级</option>
+                                                <option <c:if test='${event.level == 2}'>selected="selected"</c:if> value="2">二级</option>
+                                                <option <c:if test='${event.level == 3}'>selected="selected"</c:if> value="3">三级</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group J_polling" id="pollingTime">
                                         <label class="col-sm-5 control-label"><span class="requires">*</span>循环粒度</label>
                                         <div class="col-sm-6">
                                             <select name="pollingTime" class="w200 form-control">
                                                 <option <c:if test='${event.pollingTime == 1}'>selected="selected"</c:if> value="1">年</option>
                                                 <option <c:if test='${event.pollingTime == 2}'>selected="selected"</c:if> value="2">月</option>
+                                                <option <c:if test='${event.pollingTime == 3}'>selected="selected"</c:if> value="3">无</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group" id="huodongleibie">
                                         <label class="col-sm-3 control-label"><span class="requires">*</span>活动类型</label>
                                         <div class="col-sm-6">
-                                            <select name="type" class="w200 form-control J_activitiesType">
-                                                <option <c:if test='${event.type == 1}'>selected="selected"</c:if> value="1">会员关怀型</option>
-                                                <option <c:if test='${event.type == 2}'>selected="selected"</c:if> value="2">营销型</option>
-                                            </select>
+                                            <input  name="type" id="type"></input>
+
+
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -95,15 +125,17 @@
                                             <input id="end" class="Wdate w200" type="text" name="endDate" readonly="readonly" onfocus="WdatePicker()" value=""/>
                                         </div>
                                     </div>
-                                    <div class="form-group J_group">
+                                    <div class="form-group J_group" id="huodongrenyuan">
                                         <label class="col-sm-3 control-label"><span class="requires">*</span>活动人员</label>
                                         <div class="col-sm-6">
-                                            <select name="memberGroupId" class="w200 form-control">
-                                                <%--<option value="-1">---请选择---</option>--%>
+
                                                 <c:forEach var="list" items="${memberList}">
-                                                    <option <c:if test='${event.memberGroupId == list.id}'>selected="selected"</c:if> value="${list.id}">${list.name}</option>
+                                                     <c:if test='${list.id !=null}'>
+
+                                                         <input    name="memberGroupId" value="${list.id}">${list.id} </input>
+                                                    </c:if>
                                                 </c:forEach>
-                                            </select>
+
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +143,7 @@
                                     <div class="col-sm-6 col-sm-offset-4">
                                         <div class="btn-toolbar">
                                             <a href="#" class="btn-default btn" data-toggle="modal" data-target="#checkDialog"><i class="fa fa-plus"></i>&nbsp;关联检查项</a>
-                                            <a href="#" class="btn-default btn" data-toggle="modal" data-target="#pointsDialog"><i class="fa fa-plus"></i>&nbsp;关联积分</a>
+                                            <a href="#" class="btn-default btn" data-toggle="modal" data-target="#pointsDialog"><i class="fa fa-plus"></i>&nbsp;关联积分项</a>
                                             <a href="/admin/event/template/select" class="btn-success btn" type="button"><i class="fa fa-plus"></i>&nbsp;选择模板</a>
                                         </div>
                                         <div class="col-sm-2 col-sm-offset-11">
@@ -121,16 +153,35 @@
 
                                 <br/>
 
+
+                                <div class="form-group col-sm-12" id="aa">
+                                    <h4>检查项</h4>
+                                    <hr>
+                                    <div id="jianchaxiang">
+
+                                    </div>
+
+                                 </div>
+
+                                <div class="form-group col-sm-12" id="bb">
+                                    <h4>积分项</h4>
+                                    <hr>
+                                    <div id="jifenxiang">
+
+                                    </div>
+                                </div>
+
                                 <div class="form-group col-sm-12">
                                     <h4>活动内容</h4>
                                     <hr>
-                                    <textarea class="col-sm-12 h100 J_content"></textarea>
+                                    <textarea class="col-sm-12 h100 J_content">${event.content}</textarea>
                                     <label>
                                         <%--<input class="btn margin-top-10 J_file" type="file" size="15" enctype="multipart/form-data" maxlength="100" value="${event.attachment}">--%>
                                         <input class="btn margin-top-10 J_file" type="file" size="15"  maxlength="100"  enctype="multipart/form-data">
                                         <input type="text" hidden="hidden" class="attachment" value="" name="attachment">
                                     </label>
                                 </div>
+
                                 <div class="form-group col-sm-12">
                                     <h4>通知内容</h4>
                                     <hr>
@@ -228,7 +279,9 @@
                 <div class="right">
                     <a href="#" class="btn btn-success J_add" data-toggle="modal" data-target="#addDialog"><i class="fa fa-plus"></i>&nbsp;添加</a>
                     <a href="#" class="btn btn-danger J_del"><i class="fa fa-times" ></i>&nbsp;删除</a>
-                    <a href="#" class="btn btn-success J_yes"  data-dismiss="modal"><i class="fa fa-check"></i>&nbsp;确认</a>
+                    <button type="button" class="btn btn-success " data-dismiss="modal" id="forjianchaxianshi">确定</button>
+                    <!--<a href="#" class="btn btn-success J_yes"  data-dismiss="modal"><i class="fa fa-check"></i>&nbsp;确认</a>-->
+
                     <a href="#" class="btn btn-default J_reset" data-dismiss="modal"><i class="fa fa-undo"></i>&nbsp;取消</a>
                 </div>
             </div>
@@ -305,7 +358,7 @@
                 <div class="right">
                     <a href="#" class="btn btn-success J_addPoints" data-toggle="modal" data-target="#addPointsDialog"><i class="fa fa-plus"></i>&nbsp;添加</a>
                     <a href="#" class="btn btn-danger J_delPoints"><i class="fa fa-times" ></i>&nbsp;删除</a>
-                    <a href="#" class="btn btn-success J_yesPoints" data-dismiss="modal"><i class="fa fa-check"></i>&nbsp;确认</a>
+                    <button type="button" class="btn btn-success " data-dismiss="modal" id="forjifenxianshi">确定</button>
                     <a href="#" class="btn btn-default J_resetPoints" data-dismiss="modal"><i class="fa fa-undo"></i>&nbsp;取消</a>
                 </div>
             </div>
@@ -317,7 +370,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-labe  l="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">添加关联积分项</h4>
             </div>
             <div class="modal-body">

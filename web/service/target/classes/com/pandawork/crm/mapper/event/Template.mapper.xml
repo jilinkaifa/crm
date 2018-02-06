@@ -36,7 +36,8 @@
         event.`created_time` AS createdTime,
         event.`last_modified_time` AS lastModifiedTime,
         memberGroup.`name` AS memberGroupName,
-        partyEmployee.`name` AS createdPartyName
+        partyEmployee.`name` AS createdPartyName,
+        event.`member_group_id` AS memberG
         FROM `t_event` event
         LEFT JOIN `t_member_group` memberGroup ON event.`member_group_id` = memberGroup.`id`
         LEFT JOIN `t_party_employee` partyEmployee ON event.`created_party_id` = partyEmployee.`party_id`

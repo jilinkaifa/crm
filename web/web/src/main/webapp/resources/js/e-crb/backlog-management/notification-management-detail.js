@@ -42,13 +42,17 @@ $(function(){
      * 分页刷数据
      */
     function Pagination(page){
+        //取消全选选中
+         $('.J_selectAll').prop('checked', false);
 
         var
             currentPage = page,            
             str = '',
             data = {
                 eventTermId : $('.eventTermId').val(),
-                pageNo: currentPage
+                pageNo: currentPage,
+                participantName : $('#J_selectName').val(),
+                participantIdcard : $('#J_selectId').val()
             };
         $.ajax({
             type: "POST",
@@ -64,6 +68,7 @@ $(function(){
                     $('.J_record').html(rs.numCount);
                     $.each(rs.list, function(index, item){
                         str += '<tr data-id="'+ item.id +'">\
+                                    <td><input type="checkbox" class="J_select" value="'+ item.id +'"></td>\
                                     <td>'+ item.participantName +'</td>\
                                     <td>'+ item.participantIdcard +'</td>\
                                     <td>'+ item.participantTel +'</td>\
@@ -72,7 +77,7 @@ $(function(){
                                     <td>'+ new Date(item.noticeTime).format("yyyy-MM-dd") +'</td>\
                                     <td>'+ item.sysName +'</td>\
                                     <td>\
-                                        <a href="/admin/event/processing/notice?clientId='+ item.clientId +'" class="label-info"><i class="fa fa-edit"></i>&nbsp;处理</a>\
+                                        <a href="/admin/event/processing/notice?clientId='+ item.clientId +'" class="label-info"><i class="fa fa-edit"></i>&nbsp;通知</a>\
                                     </td>\
                                 </tr>'
                     }); 
@@ -93,5 +98,40 @@ $(function(){
         });
     }
 
+    $(".J_search").click(function(){
+        // var
+        //     form = $(".J_searchForm").serializeObject();
+        Pagination(1);
 
+        // Pagination(1, form);
+        $('#pageLimit').bootstrapPaginator({currentPage: 1});
+    });
+
+    /**
+     * selectAll全选
+     */
+    $('.J_selectAll').click(function(){
+        var
+            selectMap = $('.J_select');
+        if( selectMap.length != $('.J_select:checked').length){
+            $('.J_selectAll').prop('checked', true);
+            selectMap.prop('checked', true);
+        }else{
+            selectMap.prop('checked', false);
+        }
+    });
+
+    /**
+     * select按钮
+     */
+    $(document).on('click', '.J_select', function(){
+        var
+            selectMap = $('.J_select'),
+            selectAll = $('.J_selectAll');
+        if( selectMap.length == $('.J_select:checked').length){
+            selectAll.prop('checked', true);
+        }else{
+            selectAll.prop('checked', false);
+        }
+    });
 });

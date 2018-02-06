@@ -69,9 +69,15 @@
                         </div>
                         <div class="col-sm-12 margin-bottom-10 margin-top--10 padding-left">
                             <button type="submit"  class="btn J_search btn-success btn-radius-no"><i class="fa fa-search"></i>&nbsp;查询</button>
-                            <shiro:checkPermission name="Admin:E-CRB:Event:Prepare:New">
-                                <a href="/admin/event/prepare/new" class="btn btn-success btn-radius-no" id="edit_model"><i class="fa fa-plus"></i>&nbsp;新增</a>
-                            </shiro:checkPermission>
+                            <%--<shiro:checkPermission name="Admin:E-CRB:Event:Prepare:New">--%>
+                                <c:if test="${realRoleId == 3}">
+                                    <a href="/admin/event/prepare/new?newguanhuai=1" class="btn btn-success btn-radius-no" id="edit_model"><i class="fa fa-plus"></i>&nbsp;新建关怀型活动</a>
+                                </c:if>
+                                <c:if test="${realRoleId == 3 || realRoleId == 5}">
+                                    <a href="/admin/event/prepare/new?newyingxiao=2" class="btn btn-success btn-radius-no" id="edit_model"><i class="fa fa-plus"></i>&nbsp;新建营销型活动</a>
+                                </c:if>
+                                <%--<input type="text" value="${realRoleId}"></input>--%>
+                            <%--</shiro:checkPermission>--%>
                         </div>
                     </form>
                 </div>
@@ -87,9 +93,11 @@
                                             <th class="control-width width150">活动名称</th>
                                             <th>活动类型</th>
                                             <th>活动级别</th>
+                                            <th>审批状态</th>
                                             <th>活动状态</th>
                                             <th>活动开始日期</th>
                                             <th>活动结束日期</th>
+                                            <th>当前期数</th>
                                             <th class="control-width width2">活动人员</th>
                                             <th>活动创建人</th>
                                             <th>活动创建时间</th>

@@ -189,8 +189,9 @@ $(document).ready(function() {
                                     </td>\
                                     <td>'+ new Date(item.createdTime).format("yyyy-MM-dd") +'</td>\
                                     <td>\
+                                        <a href="/admin/event/processing/toNotice?eventTermId='+ item.id +'" class="label-info"><i class="fa fa-book"></i>&nbsp;通知</a>\
                                         <shiro:checkPermission name="Admin:E-CRB::Event:Processing:Detail">\
-                                 		<a href="/admin/event/processing/detail?eventTermId='+ item.id +'" class="label-info"><i class="fa fa-book"></i>&nbsp;详情</a>\
+                                           <a href="/admin/event/processing/detail?eventTermId='+ item.id +'" class="label-info"><i class="fa fa-book"></i>&nbsp;详情</a>\
                                         </shiro:checkPermission>\
                                         <shiro:checkPermission name="Admin:E-CRB::Event:Processing:Pause">\
                                         <a href="#" class="label-info  J_stop" data-toggle="modal" data-target="#stopDialog"><i class="fa fa-stop"></i>&nbsp;暂停下一期</a>\

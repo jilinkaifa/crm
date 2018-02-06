@@ -131,6 +131,10 @@ public class EventTerm  extends AbstractEntity {
     @Column(name = "polling_date")
     private Date pollingDate;
 
+    //所在期数
+    @Column(name = "periods_num")
+    private Integer periodsNum;
+
     public Integer getId() {
         return id;
     }
@@ -370,5 +374,13 @@ public class EventTerm  extends AbstractEntity {
 
     public void setPollingDate(Date pollingDate) {
         this.pollingDate = pollingDate;
+    }
+
+    public Integer getPeriodsNum() {
+        return periodsNum;
+    }
+
+    public void setPeriodsNum(Integer periodsNum) {
+        this.periodsNum = periodsNum;
     }
 }

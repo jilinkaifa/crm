@@ -171,4 +171,12 @@ public interface EventService {
      * @throws SSException
      */
     public String createEventTerm(Event event) throws SSException;
+
+    /**
+     * 计算活动总期数
+     * @param event
+     * @return
+     * @throws SSException
+     */
+    public int getTotalPeriods(Event event) throws SSException;
 }

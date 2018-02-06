@@ -2,6 +2,10 @@
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/web" />
+    <file type="web" url="file://E:/map" />
+  </component>
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="JSX" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">

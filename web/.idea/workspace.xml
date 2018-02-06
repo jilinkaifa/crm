@@ -7,14 +7,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08b2aa69-1af1-40e6-94e1-04075f430a33" name="Default" comment="删除两个无用的引入包，导致我打包失败">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/map_war.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/map_war_exploded.xml" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/../.gitignore" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/dto/profile/action/ActionSearchDto.java" afterPath="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/dto/profile/action/ActionSearchDto.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/Event.java" afterPath="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/Event.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/EventTerm.java" afterPath="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/EventTerm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/enums/event/EventStateEnums.java" afterPath="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/enums/event/EventStateEnums.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/enums/other/ModuleEnums.java" afterPath="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/enums/other/ModuleEnums.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/shiro/ShiroAuthorizingRealm.java" afterPath="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/shiro/ShiroAuthorizingRealm.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/client/points/PointsMapper.java" afterPath="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/client/points/PointsMapper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/client/quest/QuestMapper.java" afterPath="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/client/quest/QuestMapper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/client/visit/VisitMapper.java" afterPath="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/client/visit/VisitMapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/event/EventMapper.java" afterPath="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/event/EventMapper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/event/EventTermMapper.java" afterPath="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/event/EventTermMapper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/event/ProcessingEventMapper.java" afterPath="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/event/ProcessingEventMapper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/profile/action/ActionAnalyseMapper.java" afterPath="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/profile/action/ActionAnalyseMapper.java" />
@@ -45,6 +50,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/EventRecordNotice.mapper.xml" afterPath="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/EventRecordNotice.mapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/EventTerm.mapper.xml" afterPath="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/EventTerm.mapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/ProcessingEvent.mapper.xml" afterPath="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/ProcessingEvent.mapper.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/Template.mapper.xml" afterPath="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/Template.mapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/profile/action/ActionAnalyse.mapper.xml" afterPath="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/profile/action/ActionAnalyse.mapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/profile/label/LabelItem.mapper.xml" afterPath="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/profile/label/LabelItem.mapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/profile/label/LabelType.mapper.xml" afterPath="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/profile/label/LabelType.mapper.xml" />
@@ -61,8 +67,11 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/resources/database-config.xml" afterPath="$PROJECT_DIR$/web/src/main/resources/database-config.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/resources/mybatis-config.xml" afterPath="$PROJECT_DIR$/web/src/main/resources/mybatis-config.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/detail.jsp" afterPath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/detail.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/list.jsp" afterPath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/list.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/new.jsp" afterPath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/new.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/update.jsp" afterPath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/update.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/notice.jsp" afterPath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/notice.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/toNotice.jsp" afterPath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/toNotice.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/resources/js/client-management/basic-info-management/basic-info-management-add.js" afterPath="$PROJECT_DIR$/web/src/main/webapp/resources/js/client-management/basic-info-management/basic-info-management-add.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/resources/js/client-management/basic-info-management/basic-info-management-update.js" afterPath="$PROJECT_DIR$/web/src/main/webapp/resources/js/client-management/basic-info-management/basic-info-management-update.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/resources/js/common.js" afterPath="$PROJECT_DIR$/web/src/main/webapp/resources/js/common.js" />
@@ -71,11 +80,14 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-will/activities-management-will.js" afterPath="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-will/activities-management-will.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/carried-out-activity/carried-out-activity-list.js" afterPath="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/carried-out-activity/carried-out-activity-list.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/backlog-management/backlog-management-list.js" afterPath="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/backlog-management/backlog-management-list.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/backlog-management/notification-management-detail.js" afterPath="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/backlog-management/notification-management-detail.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/resources/js/portrayal-management/behavior-analysis/behavior-analysis-management-list.js" afterPath="$PROJECT_DIR$/web/src/main/webapp/resources/js/portrayal-management/behavior-analysis/behavior-analysis-management-list.js" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/web/target/" />
     <ignored path="$PROJECT_DIR$/service/target/" />
+    <ignored path="E:/map/target/" />
+    <ignored path="E:/map/map/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,41 +108,81 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ProcessingEventController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/event/ProcessingEventController.java">
+      <file leaf-file-name="spring-quartz.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/src/main/resources/spring-quartz.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="76" column="35" lean-forward="false" selection-start-line="76" selection-start-column="21" selection-end-line="76" selection-end-column="35" />
+            <state relative-caret-position="741">
+              <caret line="39" column="60" lean-forward="false" selection-start-line="39" selection-start-column="45" selection-end-line="39" selection-end-column="60" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="list.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/list.jsp">
+      <file leaf-file-name="EventServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/prepare/impl/EventServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+            <state relative-caret-position="3382">
+              <caret line="213" column="66" lean-forward="false" selection-start-line="213" selection-start-column="66" selection-end-line="213" selection-end-column="66" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="head.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/common/head.jsp">
+      <file leaf-file-name="database-config.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/src/main/resources/database-config.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="13" column="67" lean-forward="false" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="67" />
+            <state relative-caret-position="323">
+              <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bootstrap.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/src/main/webapp/resources/js/tool/bootstrap/bootstrap.js">
+      <file leaf-file-name="EventController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/event/EventController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="30" column="65" lean-forward="true" selection-start-line="30" selection-start-column="65" selection-end-line="30" selection-end-column="65" />
+            <state relative-caret-position="3705">
+              <caret line="233" column="22" lean-forward="false" selection-start-line="233" selection-start-column="22" selection-end-line="233" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/spring/AbstractController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5244">
+              <caret line="314" column="25" lean-forward="false" selection-start-line="314" selection-start-column="25" selection-end-line="314" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EventService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/prepare/EventService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="209">
+              <caret line="15" column="17" lean-forward="false" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EventMapper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/event/EventMapper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1007">
+              <caret line="59" column="35" lean-forward="false" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Event.mapper.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/Event.mapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="798">
+              <caret line="42" column="31" lean-forward="false" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -140,36 +192,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ajax/pauseEvent</find>
-      <find>J_stopAllDlg</find>
-      <find>newEventRecordNotice</find>
-      <find>detail</find>
-      <find>record</find>
-      <find>ajax/record/save</find>
-      <find>notification-management-detail.js</find>
-      <find>notice</find>
-      <find>J_addIntegral</find>
-      <find>btn-success</find>
-      <find>ajax/batchPoints</find>
-      <find>batchAddPointsItems</find>
-      <find>addTipDialog</find>
-      <find>ajax/batchNotice</find>
-      <find>batchNotice</find>
-      <find>autoCreateEventRecordNoticeAndEventTerm</find>
-      <find>listByMemberGroupId</find>
-      <find>new</find>
-      <find>ajax/new/event</find>
-      <find>J_submit</find>
-      <find>J_file</find>
-      <find>ajax/upload</find>
-      <find>admin/event/processing</find>
-      <find>待通知人数</find>
+      <find>queryEmployeeListByName</find>
+      <find>ajax/search</find>
+      <find>querySecurityGroupByPartyId</find>
+      <find>J_searchForm</find>
       <find>toNotice</find>
-      <find>ajax/notice/detail</find>
+      <find>Pagination</find>
+      <find>eventId</find>
+      <find>ajax/eventNoticeList</find>
+      <find>J_search</find>
+      <find>J_selectId</find>
+      <find>J_selectName</find>
+      <find>pageLimit</find>
       <find>queryByEventTermIdWithoutNotice</find>
-      <find>carried-out-activity-list.js</find>
-      <find>bootstrap.js</find>
-      <find>col-sm-2</find>
+      <find>queryByEventTermId</find>
+      <find>listByEventTermId</find>
+      <find>countByEventTermId</find>
+      <find>ajax/notice/detail</find>
+      <find>detail</find>
+      <find>J_selectAll</find>
+      <find>record</find>
+      <find>J_select</find>
+      <find>本期状态</find>
+      <find>notice</find>
+      <find>addDialog</find>
+      <find>结果记录</find>
+      <find>com.pandawork.crm.service.event.prepare.impl.EventServiceImpl</find>
+      <find>listNotLogoutAndNotAdoptEvent</find>
+      <find>updateEventToLogout</find>
+      <find>logoutEventById</find>
+      <find>autoLogoutEvent</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -180,6 +232,7 @@
     </dirStrings>
   </component>
   <component name="Git.Settings">
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GradleLocalSettings">
@@ -190,28 +243,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/profile/portrayal/PortrayalController.java" />
-        <option value="$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/client/basic/ClientController.java" />
-        <option value="$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/profile/label/LabelTypeService.java" />
-        <option value="$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/profile/label/impl/LabelTypeServiceImpl.java" />
-        <option value="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/profile/label/LabelTypeMapper.java" />
-        <option value="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/profile/label/LabelType.mapper.xml" />
-        <option value="$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/profile/action/ActionAnalyseController.java" />
-        <option value="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/profile/action/ActionAnalyseMapper.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/dto/profile/action/ActionSearchDto.java" />
         <option value="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/profile/action/ActionAnalyse.mapper.xml" />
         <option value="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/utils/URLConstants.java" />
         <option value="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/backlog-management/backlog-management-list.js" />
         <option value="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/AffairPrepared.mapper.xml" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/detail.jsp" />
         <option value="$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/event/AffairPreparedController.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/enums/other/ModuleEnums.java" />
         <option value="$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/party/group/EmployeeController.java" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-will/activities-management-will.js" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/new.jsp" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/update.jsp" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-will/activities-management-will-edit.js" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/list.jsp" />
         <option value="$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/client/visit/VisitService.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/client/visit/impl/VisitServiceImpl.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/client/visit/VisitMapper.java" />
@@ -219,28 +258,42 @@
         <option value="$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/profile/statistics/StatisticsController.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/profile/action/impl/ActionAnalyseServiceImpl.java" />
         <option value="$PROJECT_DIR$/web/src/main/webapp/resources/js/portrayal-management/behavior-analysis/behavior-analysis-management-list.js" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/carried-out-activity/carried-out-activity-list.js" />
-        <option value="$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/prepare/EventService.java" />
-        <option value="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/EventTerm.java" />
-        <option value="$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/event/EventController.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/EventTermService.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/event/EventTermMapper.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/impl/EventTermServiceImpl.java" />
         <option value="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/EventTerm.mapper.xml" />
-        <option value="$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/prepare/impl/EventServiceImpl.java" />
-        <option value="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/Event.mapper.xml" />
         <option value="$PROJECT_DIR$/web/src/main/resources/spring-quartz.xml" />
         <option value="$PROJECT_DIR$/web/src/main/resources/mybatis-config.xml" />
         <option value="$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/processing/ProcessingEventService.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/processing/impl/ProcessingEventServiceImpl.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/event/ProcessingEventMapper.java" />
-        <option value="$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/event/ProcessingEventController.java" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-ing/activities-management-ing-list.js" />
         <option value="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/ProcessingEvent.mapper.xml" />
         <option value="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-ing/activities-management-ing-inform.js" />
         <option value="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/EventRecordNotice.mapper.xml" />
-        <option value="$PROJECT_DIR$/web/src/main/resources/database-config.xml" />
         <option value="$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/spring/AbstractController.java" />
+        <option value="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/Template.mapper.xml" />
+        <option value="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-will/activities-management-will.js" />
+        <option value="$PROJECT_DIR$/web/src/main/resources/database-config.xml" />
+        <option value="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/enums/event/EventStateEnums.java" />
+        <option value="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/Event.java" />
+        <option value="$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/prepare/EventService.java" />
+        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/new.jsp" />
+        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/detail.jsp" />
+        <option value="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-will/activities-management-will-edit.js" />
+        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/update.jsp" />
+        <option value="$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/event/EventMapper.java" />
+        <option value="$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/EventTerm.java" />
+        <option value="$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/Event.mapper.xml" />
+        <option value="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/carried-out-activity/carried-out-activity-list.js" />
+        <option value="$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/event/EventController.java" />
+        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/list.jsp" />
+        <option value="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-ing/activities-management-ing-list.js" />
+        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/detail.jsp" />
+        <option value="$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/event/ProcessingEventController.java" />
+        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/toNotice.jsp" />
+        <option value="$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/backlog-management/notification-management-detail.js" />
+        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/notice.jsp" />
+        <option value="$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/prepare/impl/EventServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -265,41 +318,21 @@
         <option name="userSettingsFile" value="F:\apache-maven-3.5.0\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
+    <option name="enabledProfiles">
+      <list>
+        <option value="nexus" />
+      </list>
+    </option>
   </component>
   <component name="MavenProjectNavigator">
     <treeState>
-      <expand>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="crm-service" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="crm-service" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="crm-service" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-          <item name="com.pandawork.core:pweio:3.0.0-SNAPSHOT" type="c0821a7e:MavenProjectsStructure$DependencyNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="crm-web" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="crm-web" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-        </path>
-      </expand>
+      <expand />
       <select />
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-103" />
+    <option name="y" value="42" />
     <option name="width" value="1382" />
     <option name="height" value="744" />
   </component>
@@ -319,9 +352,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -329,22 +360,222 @@
               <item name="crm" type="b2602c69:ProjectViewProjectNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="event" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="party" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="party" type="462c0819:PsiDirectoryNode" />
+              <item name="group" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="e-crb" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="e-crb" type="462c0819:PsiDirectoryNode" />
+              <item name="backlog-management" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="event" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="event" type="462c0819:PsiDirectoryNode" />
+              <item name="processing" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="last_opened_file_path" value="E:/map/map/pom.xml" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.15444444" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/crm/crm/web/service/src/main/java/service/com/pandawork/crm/service/profile/action/ActionAnalyseService.java&#10;actionan&#9;FILE&#9;file://D:/crm/crm/web/service/src/main/resources/com/pandawork/crm/mapper/profile/action/ActionAnalyse.mapper.xml&#10;poin&#9;FILE&#9;file://D:/crm/crm/web/service/src/main/resources/com/pandawork/crm/mapper/client/points/Points.mapper.xml&#10;quest&#9;FILE&#9;file://D:/crm/crm/web/service/src/main/resources/com/pandawork/crm/mapper/client/quest/Quest.mapper.xml" />
+    <property name="project.structure.side.proportion" value="0.26222223" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/crm/crm/web/web/src/main/webapp/WEB-INF/views/admin/event/prepare/update.jsp&#10;actionan&#9;FILE&#9;file://D:/crm/crm/web/service/src/main/resources/com/pandawork/crm/mapper/profile/action/ActionAnalyse.mapper.xml&#10;poin&#9;FILE&#9;file://D:/crm/crm/web/service/src/main/resources/com/pandawork/crm/mapper/client/points/Points.mapper.xml&#10;quest&#9;FILE&#9;file://D:/crm/crm/web/service/src/main/resources/com/pandawork/crm/mapper/client/quest/Quest.mapper.xml" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -572,9 +803,9 @@
       </MavenSettings>
     </configuration>
     <configuration name="tomcat8" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.16" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="C:/Java/jdk1.8.0_121">
-      <option name="OPEN_IN_BROWSER" value="false" />
       <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
-      <option name="UPDATING_POLICY" value="restart-server" />
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
       <deployment>
         <artifact name="crm-web:war exploded">
           <settings>
@@ -745,7 +976,32 @@
       <workItem from="1515550323422" duration="8180000" />
       <workItem from="1515633613500" duration="8311000" />
       <workItem from="1515720506240" duration="965000" />
-      <workItem from="1515995622508" duration="1458000" />
+      <workItem from="1515995622508" duration="10323000" />
+      <workItem from="1516064373258" duration="1115000" />
+      <workItem from="1516069026768" duration="54000" />
+      <workItem from="1516071012091" duration="15743000" />
+      <workItem from="1516152229604" duration="18155000" />
+      <workItem from="1516237614293" duration="7956000" />
+      <workItem from="1516323829274" duration="18723000" />
+      <workItem from="1516583820132" duration="966000" />
+      <workItem from="1516584905386" duration="1964000" />
+      <workItem from="1516587632145" duration="50000" />
+      <workItem from="1516588140857" duration="89000" />
+      <workItem from="1516588408406" duration="330000" />
+      <workItem from="1516589989449" duration="61000" />
+      <workItem from="1516849908392" duration="1350000" />
+      <workItem from="1516865280730" duration="2288000" />
+      <workItem from="1516931734913" duration="8321000" />
+      <workItem from="1517190361182" duration="4249000" />
+      <workItem from="1517207729435" duration="6345000" />
+      <workItem from="1517276805348" duration="16687000" />
+      <workItem from="1517363332722" duration="18186000" />
+      <workItem from="1517450835036" duration="15200000" />
+      <workItem from="1517534945528" duration="8492000" />
+      <workItem from="1517795140519" duration="1320000" />
+      <workItem from="1517797511710" duration="6453000" />
+      <workItem from="1517821055085" duration="2388000" />
+      <workItem from="1517879317417" duration="729000" />
     </task>
     <task id="LOCAL-00001" summary="删除两个无用的引入包，导致我打包失败">
       <created>1502930718875</created>
@@ -758,9 +1014,9 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="436757000" />
+    <option name="totallyTimeSpent" value="602836000" />
   </component>
-  <component name="TodoView">
+  <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -775,15 +1031,16 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.81178397" sideWeight="0.1172466" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22390318" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12178517" sideWeight="0.65466446" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.88275343" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.61538464" sideWeight="0.88275343" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46317512" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.49394855" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
@@ -792,8 +1049,8 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32242227" sideWeight="0.6966717" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.591528" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.6210287" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3494705" sideWeight="0.4942717" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3797277" sideWeight="0.4942717" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.34477124" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30786687" sideWeight="0.5057283" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
@@ -801,44 +1058,9 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.49394855" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.81178397" sideWeight="0.1172466" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22390318" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.88275343" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.49394855" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47790506" sideWeight="0.6739788" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32242227" sideWeight="0.6966717" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.591528" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.6210287" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1762481" sideWeight="0.4942717" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30786687" sideWeight="0.5057283" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -891,7 +1113,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="119" />
+      <option name="time" value="128" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -900,370 +1122,361 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/src/main/resources/mvc-config.xml">
+    <entry file="jar://F:/apache-maven-3.5.0/mvn_repo/com/pandawork/core/framework/3.0.1-SNAPSHOT/framework-3.0.1-20151218.150347-1.jar!/com/pandawork/core/framework/dao/CommonDao.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="20" column="56" lean-forward="false" selection-start-line="20" selection-start-column="56" selection-end-line="20" selection-end-column="56" />
+        <state relative-caret-position="190">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/exception/CrmException.java">
+    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/update.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="253" column="17" lean-forward="false" selection-start-line="253" selection-start-column="4" selection-end-line="253" selection-end-column="17" />
+        <state relative-caret-position="259">
+          <caret line="189" column="87" lean-forward="false" selection-start-line="189" selection-start-column="79" selection-end-line="189" selection-end-column="87" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://F:/apache-maven-3.5.0/mvn_repo/org/springframework/spring-web/4.1.7.RELEASE/spring-web-4.1.7.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+    <entry file="file://$USER_HOME$/AppData/Roaming/Tencent/QQ/Temp/LC{V3E)QU[(86T}O3QGLJ{V.png" />
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/enums/event/EventTypeEnums.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="33" column="94" lean-forward="false" selection-start-line="33" selection-start-column="94" selection-end-line="33" selection-end-column="94" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/resources/js/tool/dialog/bootstrap.dialog.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="35" column="4" lean-forward="true" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
+        <state relative-caret-position="194">
+          <caret line="14" column="4" lean-forward="false" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/EventTerm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2565">
-          <caret line="142" column="19" lean-forward="false" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="19" />
+        <state relative-caret-position="399">
+          <caret line="135" column="30" lean-forward="false" selection-start-line="135" selection-start-column="20" selection-end-line="135" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/EventRecordNotice.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/record.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="171" column="83" lean-forward="false" selection-start-line="171" selection-start-column="75" selection-end-line="171" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-ing/activities-management-ing-record.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="154" column="58" lean-forward="false" selection-start-line="154" selection-start-column="18" selection-end-line="154" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/CheckItemResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-ing/activities-management-ing-details.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="270" column="58" lean-forward="false" selection-start-line="270" selection-start-column="42" selection-end-line="270" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/EventRecordPointsItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="18" column="41" lean-forward="false" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/detail.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="265" column="25" lean-forward="true" selection-start-line="265" selection-start-column="25" selection-end-line="265" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/notice.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="141" column="106" lean-forward="false" selection-start-line="141" selection-start-column="71" selection-end-line="141" selection-end-column="106" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-ing/activities-management-ing-inform.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="162" column="58" lean-forward="true" selection-start-line="162" selection-start-column="42" selection-end-line="162" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/processing/ProcessingEventService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1767">
-          <caret line="102" column="27" lean-forward="false" selection-start-line="102" selection-start-column="16" selection-end-line="102" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/processing/impl/ProcessingEventServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2964">
-          <caret line="186" column="38" lean-forward="false" selection-start-line="186" selection-start-column="38" selection-end-line="186" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/event/ProcessingEventMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1995">
-          <caret line="113" column="21" lean-forward="false" selection-start-line="113" selection-start-column="21" selection-end-line="113" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/ProcessingEvent.mapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3705">
-          <caret line="195" column="0" lean-forward="false" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/profile/analysis/AnalysisResultService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="24" column="51" lean-forward="false" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/profile/analysis/impl/AnalysisResultServiceImpl/AnalysisResultServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="40" column="46" lean-forward="false" selection-start-line="40" selection-start-column="46" selection-end-line="40" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/profile/analysis/AnalysisResultMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="22" column="51" lean-forward="false" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/profile/analysis/AnalysisResult.mapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/prepare/impl/EventServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="343" column="94" lean-forward="true" selection-start-line="343" selection-start-column="94" selection-end-line="343" selection-end-column="94" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/utils/URLConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="80" column="31" lean-forward="false" selection-start-line="80" selection-start-column="31" selection-end-line="80" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/enums/other/ModuleEnums.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3059">
-          <caret line="161" column="4" lean-forward="false" selection-start-line="161" selection-start-column="4" selection-end-line="161" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/party/dictionary/DictionaryService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="40" column="22" lean-forward="false" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/party/dictionary/Dictionary.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="28" column="16" lean-forward="false" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/CheckItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="18" column="27" lean-forward="false" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/client/points/PointsItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="33" column="34" lean-forward="false" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/new.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2451">
-          <caret line="129" column="78" lean-forward="false" selection-start-line="129" selection-start-column="72" selection-end-line="129" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-will/activities-management-will.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16853">
-          <caret line="895" column="9" lean-forward="false" selection-start-line="895" selection-start-column="9" selection-end-line="895" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/event/FileController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="55" column="31" lean-forward="false" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/EventAttachment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/list.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3287">
-          <caret line="173" column="104" lean-forward="false" selection-start-line="173" selection-start-column="71" selection-end-line="173" selection-end-column="104" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-ing/activities-management-ing-list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3382">
-          <caret line="178" column="79" lean-forward="false" selection-start-line="178" selection-start-column="71" selection-end-line="178" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/toNotice.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3040">
-          <caret line="160" column="75" lean-forward="false" selection-start-line="160" selection-start-column="42" selection-end-line="160" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/backlog-management/notification-management-detail.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1045">
-          <caret line="55" column="60" lean-forward="false" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/impl/EventRecordNoticeServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1691">
-          <caret line="111" column="76" lean-forward="false" selection-start-line="111" selection-start-column="76" selection-end-line="111" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/EventRecordNotice.mapper.xml">
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/enums/event/EventStateEnums.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
-          <caret line="10" column="56" lean-forward="true" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="56" />
+          <caret line="11" column="12" lean-forward="false" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/event/EventRecordNoticeMapper.java">
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/enums/event/EventApprovalStatusEnums.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1083">
-          <caret line="63" column="7" lean-forward="false" selection-start-line="63" selection-start-column="7" selection-end-line="63" selection-end-column="7" />
+        <state relative-caret-position="186">
+          <caret line="11" column="12" lean-forward="false" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/resources/spring-quartz.xml">
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/Event.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1007">
-          <caret line="53" column="84" lean-forward="false" selection-start-line="53" selection-start-column="45" selection-end-line="53" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/resources/database-config.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="19" column="132" lean-forward="true" selection-start-line="19" selection-start-column="132" selection-end-line="19" selection-end-column="132" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/EventRecordNoticeService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="14" column="41" lean-forward="false" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/event/EventController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7137">
-          <caret line="436" column="43" lean-forward="true" selection-start-line="436" selection-start-column="43" selection-end-line="436" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/event/PrepareNoticeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="357">
+          <caret line="182" column="25" lean-forward="false" selection-start-line="182" selection-start-column="20" selection-end-line="182" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/carried-out-activity/carried-out-activity-list.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="14" column="23" lean-forward="true" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
+        <state relative-caret-position="482">
+          <caret line="178" column="58" lean-forward="true" selection-start-line="178" selection-start-column="58" selection-end-line="178" selection-end-column="58" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/event/ProcessingEventController.java">
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/enums/party/dictionary/DictionaryEnums.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="76" column="35" lean-forward="false" selection-start-line="76" selection-start-column="21" selection-end-line="76" selection-end-column="35" />
-          <folding />
+        <state relative-caret-position="186">
+          <caret line="34" column="4" lean-forward="false" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/common/head.jsp">
+    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/party/employee/list.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="67" lean-forward="false" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="67" />
-          <folding />
+        <state relative-caret-position="406">
+          <caret line="277" column="56" lean-forward="true" selection-start-line="277" selection-start-column="38" selection-end-line="277" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/utils/URLConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="48" column="31" lean-forward="false" selection-start-line="48" selection-start-column="31" selection-end-line="48" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/party/group/employee/Employee.mapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="195" column="63" lean-forward="false" selection-start-line="195" selection-start-column="55" selection-end-line="195" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/party/group/employee/Employee.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="111" column="27" lean-forward="false" selection-start-line="111" selection-start-column="19" selection-end-line="111" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/resources/js/authority-management/user-management.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="360" column="49" lean-forward="true" selection-start-line="360" selection-start-column="49" selection-end-line="360" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/party/security/SecurityUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="17" column="36" lean-forward="false" selection-start-line="17" selection-start-column="15" selection-end-line="17" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/party/security/SecurityUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="90" column="16" lean-forward="false" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/party/security/SecurityUserGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="14" column="42" lean-forward="false" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/party/security/SecurityUserGroupService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="40" column="47" lean-forward="false" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/party/security/SecurityUserGroup.mapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="41" lean-forward="false" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/party/group/employee/impl/EmployeeServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="1003" column="0" lean-forward="false" selection-start-line="1003" selection-start-column="0" selection-end-line="1019" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/party/group/EmployeeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="415" column="54" lean-forward="true" selection-start-line="415" selection-start-column="54" selection-end-line="415" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/party/security/SecurityGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="38" column="19" lean-forward="false" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/party/security/SecurityGroup.mapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-28">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/party/group/employee/EmployeeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="305" column="52" lean-forward="false" selection-start-line="305" selection-start-column="25" selection-end-line="305" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/new.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1957">
+          <caret line="103" column="54" lean-forward="false" selection-start-line="103" selection-start-column="54" selection-end-line="103" selection-end-column="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/prepare/list.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+        <state relative-caret-position="269">
+          <caret line="71" column="96" lean-forward="true" selection-start-line="71" selection-start-column="96" selection-end-line="71" selection-end-column="96" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/entity/event/EventRecordNotice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="28" column="12" lean-forward="true" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/event/EventRecordNoticeMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="53" column="66" lean-forward="false" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-ing/activities-management-ing-list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="157" column="37" lean-forward="false" selection-start-line="157" selection-start-column="28" selection-end-line="157" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/list.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1463">
+          <caret line="77" column="81" lean-forward="false" selection-start-line="77" selection-start-column="73" selection-end-line="77" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/utils/DataUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="874">
+          <caret line="57" column="22" lean-forward="false" selection-start-line="57" selection-start-column="22" selection-end-line="57" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/common/com/pandawork/crm/common/enums/event/NoticeStatusEnums.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="11" column="12" lean-forward="false" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/impl/EventRecordNoticeServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="80" column="52" lean-forward="false" selection-start-line="80" selection-start-column="35" selection-end-line="80" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/EventRecordNotice.mapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="49" column="34" lean-forward="false" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/EventRecordNoticeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="55" column="15" lean-forward="false" selection-start-line="55" selection-start-column="15" selection-end-line="55" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/activities-management/activities-management-ing/activities-management-ing-details.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4009">
+          <caret line="218" column="7" lean-forward="false" selection-start-line="206" selection-start-column="3" selection-end-line="218" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/resources/js/e-crb/backlog-management/notification-management-detail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="44" column="16" lean-forward="false" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/detail.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3382">
+          <caret line="178" column="85" lean-forward="false" selection-start-line="178" selection-start-column="74" selection-end-line="178" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/record.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="28" column="16" lean-forward="false" selection-start-line="28" selection-start-column="16" selection-end-line="179" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/toNotice.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3268">
+          <caret line="172" column="92" lean-forward="false" selection-start-line="172" selection-start-column="92" selection-end-line="172" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/event/ProcessingEventController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="467" column="35" lean-forward="false" selection-start-line="467" selection-start-column="29" selection-end-line="467" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/admin/event/processing/notice.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="81" column="13" lean-forward="false" selection-start-line="81" selection-start-column="13" selection-end-line="81" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/mapper/com/pandawork/crm/mapper/event/EventMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1007">
+          <caret line="59" column="35" lean-forward="false" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/resources/com/pandawork/crm/mapper/event/Event.mapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="798">
+          <caret line="42" column="31" lean-forward="false" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/resources/spring-quartz.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="741">
+          <caret line="39" column="60" lean-forward="false" selection-start-line="39" selection-start-column="45" selection-end-line="39" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/controller/admin/event/EventController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3705">
+          <caret line="233" column="22" lean-forward="false" selection-start-line="233" selection-start-column="22" selection-end-line="233" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/src/main/java/com/pandawork/crm/web/spring/AbstractController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3287">
-          <caret line="211" column="57" lean-forward="true" selection-start-line="211" selection-start-column="57" selection-end-line="211" selection-end-column="57" />
-          <folding>
-            <element signature="e#4376#4385#0" expanded="true" />
-            <element signature="e#4447#4456#0" expanded="true" />
-            <element signature="e#4536#4544#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="5244">
+          <caret line="314" column="25" lean-forward="false" selection-start-line="314" selection-start-column="25" selection-end-line="314" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/resources/js/tool/bootstrap/bootstrap.js">
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/prepare/EventService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="30" column="65" lean-forward="true" selection-start-line="30" selection-start-column="65" selection-end-line="30" selection-end-column="65" />
+        <state relative-caret-position="209">
+          <caret line="15" column="17" lean-forward="false" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/service/com/pandawork/crm/service/event/prepare/impl/EventServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3382">
+          <caret line="213" column="66" lean-forward="false" selection-start-line="213" selection-start-column="66" selection-end-line="213" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/resources/database-config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -1274,11 +1487,11 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>crm-web:war</last-edited>
+          <last-edited>map:war exploded</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.15444444" />
+                <option value="0.26222223" />
                 <option value="0.5" />
               </list>
             </option>
@@ -1291,7 +1504,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.15444444" />
               </list>
             </option>
           </splitter-proportions>
@@ -1339,7 +1552,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.15444444" />
+                <option value="0.26222223" />
               </list>
             </option>
           </splitter-proportions>

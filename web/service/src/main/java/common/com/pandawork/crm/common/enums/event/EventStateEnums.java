@@ -12,7 +12,9 @@ import java.util.Map;
 public enum EventStateEnums {
 
     Prepare (1, "待开展"),
-    Doing (2, "进行中")
+    Doing (2, "进行中"),
+    Complete(3,"已完成"),
+    Logoff(4,"已注销")
     ;
 
     private Integer id;

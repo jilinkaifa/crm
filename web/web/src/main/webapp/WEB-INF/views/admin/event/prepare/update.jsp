@@ -7,6 +7,14 @@
     <title>修改活动</title>
     <link rel="stylesheet" type="text/css" href="/css/e-crb/activities-management/activities-management-will/activities-management-will.css">
     <jsp:include flush="true" page="/WEB-INF/views/admin/common/head.jsp"></jsp:include>
+    <script type="text/javascript">
+        $(function(){
+            $("#huodongleibie").hide();
+            $("#huodongrenyuan").hide();
+        });
+    </script>
+
+
 </head>
 <body>
 <jsp:include flush="true" page="/WEB-INF/views/admin/common/header.jsp"></jsp:include>
@@ -48,6 +56,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-sm-5 control-label"><span class="requires">*</span>活动时间从</label>
+                                        <div class="col-sm-6">
+                                            <input id="startDate" name="startDate" readonly="readonly" class="Wdate w200 J_startDate" type="text" onclick="WdatePicker()"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-5 control-label"><span class="requires">*</span>活动级别</label>
                                         <div class="col-sm-6">
                                             <select name="level" class="w200 form-control J_level">
@@ -57,24 +71,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-5 control-label"><span class="requires">*</span>活动时间从</label>
-                                        <div class="col-sm-6">
-                                            <input id="startDate" name="startDate" readonly="readonly" class="Wdate w200 J_startDate" type="text" onclick="WdatePicker()"/>
-                                        </div>
-                                    </div>
                                     <div class="form-group J_polling">
                                         <label class="col-sm-5 control-label"><span class="requires">*</span>循环粒度</label>
                                         <div class="col-sm-6">
                                             <select name="pollingTime" class="w200 form-control J_pollingTime">
                                                 <option value="1">年</option>
                                                 <option value="2">月</option>
+                                                <option value="3">无</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group" id="huodongleibie">
                                         <label class="col-sm-3 control-label"><span class="requires">*</span>活动类型</label>
                                         <div class="col-sm-6">
                                             <select name="type" class="w200 form-control J_activitiesType">
@@ -98,7 +107,7 @@
                                             <input id="end" class="Wdate w200 J_endDate" type="text" name="endDate" readonly="readonly" onfocus="WdatePicker()"/>
                                         </div>
                                     </div>
-                                    <div class="form-group J_group">
+                                    <div class="form-group J_group" id="huodongrenyuan">
                                         <label class="col-sm-3 control-label"><span class="requires">*</span>活动人员</label>
                                         <div class="col-sm-6">
                                             <select name="memberGroupId" class="w200 form-control J_memberGroupId">
@@ -119,6 +128,35 @@
                                 </div>
 
                                 <br/>
+
+                                <c:if test="${event.approvalStatus == 3 }">
+                                    <div class="form-group col-sm-12" id="cc">
+                                        <h4>审批驳回</h4>
+                                        <hr>
+                                        <div id="shenpixinxi">
+                                            <p>${event.approvalComment}</p>
+                                        </div>
+                                    </div>
+                                </c:if>
+                                    <div class="form-group col-sm-12" id="aa" <c:if test='${checkItemListForEvent==null || fn:length(checkItemListForEvent) <= 0}'>style="display:none;"</c:if>>
+                                        <h4>检查项</h4>
+                                        <hr>
+                                        <div id="jianchaxiang">
+                                            <c:forEach var="checkItem" items="${checkItemListForEvent}">
+                                                <p>${checkItem.name}:${checkItem.content}</p>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-sm-12" id="bb" <c:if test='${pointsItemListForEvent==null || fn:length(pointsItemListForEvent) <= 0}'>style="display:none;"</c:if>>
+                                        <h4>积分项</h4>
+                                        <hr>
+                                        <div id="jifenxiang">
+                                            <c:forEach var="pointsItem" items="${pointsItemListForEvent}">
+                                                <p> ${pointsItem.name}:${pointsItem.pointsValue}</p>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
 
                                 <div class="form-group col-sm-12">
                                     <h4>活动内容</h4>
@@ -227,7 +265,8 @@
                 <div class="right">
                     <a href="#" class="btn btn-success J_add" data-toggle="modal" data-target="#addDialog"><i class="fa fa-plus"></i>&nbsp;添加</a>
                     <a href="#" class="btn btn-danger J_del"><i class="fa fa-times" ></i>&nbsp;删除</a>
-                    <a href="#" class="btn btn-success J_yes"  data-dismiss="modal"><i class="fa fa-check"></i>&nbsp;确认</a>
+                    <button type="button" class="btn btn-success " data-dismiss="modal" id="forjianchaxianshi">确定</button>
+                    <%--<a href="#" class="btn btn-success J_yes"  data-dismiss="modal"><i class="fa fa-check"></i>&nbsp;确认</a>--%>
                     <a href="#" class="btn btn-default J_reset" data-dismiss="modal"><i class="fa fa-undo"></i>&nbsp;取消</a>
                 </div>
             </div>
@@ -297,7 +336,8 @@
                 <div class="right">
                     <a href="#" class="btn btn-success J_addPoints" data-toggle="modal" data-target="#addPointsDialog"><i class="fa fa-plus"></i>&nbsp;添加</a>
                     <a href="#" class="btn btn-danger J_delPoints"><i class="fa fa-times" ></i>&nbsp;删除</a>
-                    <a href="#" class="btn btn-success J_yesPoints" data-dismiss="modal"><i class="fa fa-check"></i>&nbsp;确认</a>
+                    <button type="button" class="btn btn-success " data-dismiss="modal" id="forjifenxianshi">确定</button>
+                    <%--<a href="#" class="btn btn-success J_yesPoints" data-dismiss="modal"><i class="fa fa-check"></i>&nbsp;确认</a>--%>
                     <a href="#" class="btn btn-default J_resetPoints" data-dismiss="modal"><i class="fa fa-undo"></i>&nbsp;取消</a>
                 </div>
             </div>
@@ -375,7 +415,9 @@
         </div>
     </div>
 </div>
-<input type="hidden" id="roleName" name="roleName" value="${roleName}" />
+<%--<input type="hidden" id="roleName" name="roleName" value="${roleName}" />--%>
+<input type="text" id="realMemberGroupId" name="realMemberGroupId" value="${realMemberGroupId}" />
+<input type="text" id="realType" name="realType" value="${realType}" />
 
 <script src="/js/tool/calendar/WdatePicker.js"></script>
 <script src="/js/e-crb/activities-management/activities-management-will/activities-management-will-edit.js"></script>

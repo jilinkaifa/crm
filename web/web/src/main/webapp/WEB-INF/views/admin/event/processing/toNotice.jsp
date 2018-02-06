@@ -60,6 +60,7 @@
                                             <input readonly="readonly" name="pollingTime" class="w200" type="text"
                                                    <c:if test="${event.pollingTime == 1}">value="年"</c:if>
                                                    <c:if test="${event.pollingTime == 2}">value="月"</c:if>
+                                                   <c:if test="${event.pollingTime == 3}">value="无"</c:if>
                                             />
                                         </div>
                                     </div>
@@ -126,13 +127,50 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-12 margin-top--30">
+
+                <div class="col-sm-12 margin-top--10">
+                    <form class="form-horizontal J_searchForm">
+                        <div class="panel panel-info margin-top--10">
+                            <div class="panel-heading">
+                                <h4>搜索</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="col-sm-1 control-label">姓名</label>
+                                    <div class="col-sm-2">
+                                        <input id="J_selectName" type="text" class="form-control w180"
+                                               autocomplete="off" name="participantName"/>
+                                    </div>
+                                    <label class="col-sm-2 control-label">身份证号</label>
+                                    <div class="col-sm-2">
+                                        <input id="J_selectId" type="text" class="form-control w180" autocomplete="off"
+                                               name="participantIdcard"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 margin-bottom-10 margin-top--10 padding-left">
+                            <shiro:checkPermission name="Admin:E-CRB:Event:Processing:List">
+                                <button type="submit" class="btn J_search btn-success"><i class="fa fa-search"></i>&nbsp;查询
+                                </button>
+                            </shiro:checkPermission>
+                            <shiro:checkPermission name="Admin:E-CRB:Event:Processing:BatchPoints">
+                                <c:if test="${event.status == 2}">
+                                    <a href="#" class="btn btn-success J_addIntegral"><i class="fa fa-pencil"></i>&nbsp;批量通知</a>
+                                </c:if>
+                            </shiro:checkPermission>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-sm-12">
                     <div class="panel panel-info">
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                     <tr>
+                                        <th><input type="checkbox" class="J_selectAll"></th>
                                         <th>姓名</th>
                                         <th>身份证号</th>
                                         <th>电话</th>

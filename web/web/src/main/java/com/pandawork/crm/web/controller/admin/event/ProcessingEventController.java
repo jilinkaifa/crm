@@ -267,7 +267,9 @@ public class ProcessingEventController extends AbstractController {
     @RequestMapping(value = "ajax/notice/detail", method = RequestMethod.POST)
     @ResponseBody
     public JSON ajaxToBeNoticePerson(@RequestParam("eventTermId") Integer eventTermId,
-                                     @RequestParam("pageNo") Integer pageNo) {
+                                     @RequestParam("pageNo") Integer pageNo,
+                                     @RequestParam(value = "participantName", required = false) String participantName,
+                                     @RequestParam(value = "participantIdcard", required = false) String participantIdcard) {
         JSONObject json = new JSONObject();
         int offset = 0, dataCount = 0, numCount = 0;
         List<EventRecordNotice> eventRecordNotices = Collections.emptyList();
@@ -275,8 +277,10 @@ public class ProcessingEventController extends AbstractController {
             if (Assert.isNotNull(eventTermId) && Assert.isNotNull(pageNo) && pageNo > 0) {
                 offset = (pageNo - 1) * pageSize;
             }
-            eventRecordNotices = eventRecordNoticeService.queryByEventTermIdWithoutNotice(eventTermId, offset, pageSize);
-            numCount = processingEventService.countToBeNoticedPerson(eventTermId);
+//            eventRecordNotices = eventRecordNoticeService.queryByEventTermIdWithoutNotice(eventTermId, offset, pageSize);
+//            numCount = processingEventService.countToBeNoticedPerson(eventTermId);
+            eventRecordNotices = eventRecordNoticeService.listByEventTermId(eventTermId,participantName,participantIdcard,offset,pageSize);
+            numCount = eventRecordNoticeService.countByEventTermId(eventTermId,participantName,participantIdcard);
             dataCount = DataUtils.getPageCount(pageSize, numCount);
 
         } catch (SSException e) {

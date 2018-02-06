@@ -147,41 +147,38 @@ $(document).ready(function() {
                                     <td>'+ item.type +'</td>\
                                     <td>'+ item.level+'</td>\
                                     <td>'+ item.approvalStatusValue +'</td>\
+                                    <td>'+ item.stateValue +'</td>\
                                     <td>'+ item.startDate +'</td>\
                                     <td>'+ item.endDate +'</td>\
+                                    <td>'+ item.currentPeriods +'/'+ item.totalPeriods +'</td>\
                                     <td class="control-width width2">\
                                         <div title=" ' + item.memberGroupName + ' " class="control-width width2">' + item.memberGroupName + '</div>\
                                     </td>\
                                     <td>'+ item.createdPartyName +'</td>\
                                     <td>'+ item.createdTime +'</td>\
                                     <td>';
-                        if(userid == item.createdPartyId){
-                            if(item.approvalStatus == 2){
-                                str += '<shiro:checkPermission name="Admin:E-CRB:Event:Prepare:Detail">\
+                        str += '<shiro:checkPermission name="Admin:E-CRB:Event:Prepare:Detail">\
                                         <a href="/admin/event/prepare/detail?id='+ item.id +'" class="label-info J_see"><i class="fa fa-book"></i>&nbsp;查看</a>\
                                         </shiro:checkPermission>';
-                            } else {
-                                str += '<shiro:checkPermission name="Admin:E-CRB:Event:Prepare:Detail">\
-                                        <a href="/admin/event/prepare/detail?id='+ item.id +'" class="label-info J_see"><i class="fa fa-book"></i>&nbsp;查看</a>\
-                                        </shiro:checkPermission>\
-                                        <shiro:checkPermission name="Admin:E-CRB:Event:Prepare:Update">\
+                        if(item.state == 1){
+                            if(userid == item.createdPartyId){
+                                if(item.approvalStatus == 3){
+                                    str += '<shiro:checkPermission name="Admin:E-CRB:Event:Prepare:Update">\
                                         <a href="/admin/event/prepare/update?id='+ item.id +'" class="label-info J_revise"><i class="fa fa-pencil"></i>&nbsp;修改</a>\
-                                        </shiro:checkPermission>\
-                                        <shiro:checkPermission name="Admin:E-CRB:Event:Prepare:Logout">\
-                                        <a href="#" class="label-info J_cancle" data-toggle="modal" data-target="#cancleDialog"><i class="fa fa-exclamation"></i>&nbsp;注销</a>\
                                         </shiro:checkPermission>';
+                                }
+                                if(item.approvalStatus == 1 || item.approvalStatus == 3){
+                                    str += '<shiro:checkPermission name="Admin:E-CRB:Event:Prepare:Logout">\
+                                        <a href="#" class="label-info J_cancle" data-toggle="modal" data-target="#cancleDialog"><i class="fa fa-exclamation"></i>&nbsp;注销</a>\
+                                    </shiro:checkPermission>';
+                                }
+                            } else if(item.approval == 1){
+                                if(item.approvalStatus == 1){
+                                    str += '<shiro:checkPermission name="Admin:E-CRB:Event:Prepare:Approval">\
+                                <a href="#" class="label-info J_approve" data-toggle="modal" data-target="#approveDialog"><i class="fa fa-check-square-o"></i>&nbsp;审批</a>\
+                                </shiro:checkPermission>';
+                                }
                             }
-                        } else if(item.approval == 1){
-                            str += '<shiro:checkPermission name="Admin:E-CRB:Event:Prepare:Detail">\
-                                    <a href="/admin/event/prepare/detail?id='+ item.id +'" class="label-info J_see"><i class="fa fa-book"></i>&nbsp;查看</a>\
-                                    </shiro:checkPermission>\
-                                    <shiro:checkPermission name="Admin:E-CRB:Event:Prepare:Approval">\
-                                    <a href="#" class="label-info J_approve" data-toggle="modal" data-target="#approveDialog"><i class="fa fa-check-square-o"></i>&nbsp;审批</a>\
-                                    </shiro:checkPermission>';
-                        } else{
-                            str += '<shiro:checkPermission name="Admin:E-CRB:Event:Prepare:Detail">\
-                                        <a href="/admin/event/prepare/detail?id='+ item.id +'" class="label-info J_see"><i class="fa fa-book"></i>&nbsp;查看</a>\
-                                    </shiro:checkPermission>';
                         }
                         str += '</td></tr>';
                     });
